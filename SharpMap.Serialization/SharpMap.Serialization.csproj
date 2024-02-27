@@ -15,5 +15,8 @@
         <ProjectReference Include="..\SharpMap.Layers.BruTile\SharpMap.Layers.BruTile.csproj" />
         <ProjectReference Include="..\SharpMap\SharpMap.csproj" />
     </ItemGroup>
-
+    
+    <ItemGroup>
+        <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="6.0.0" />
+    </ItemGroup>
 </Project>

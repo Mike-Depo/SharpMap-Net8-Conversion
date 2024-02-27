@@ -22,6 +22,7 @@
       <PackageReference Include="Npgsql" Version="4.0.10" />
       <PackageReference Include="Oracle.ManagedDataAccess.Core" Version="2.19.90" />
       <PackageReference Include="System.Data.SQLite.Core" Version="1.0.112" />
+      <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="6.0.0" />
     </ItemGroup>
     
     

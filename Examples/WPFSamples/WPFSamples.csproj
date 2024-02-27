@@ -21,6 +21,7 @@
 
     <ItemGroup>
         <PackageReference Include="ProjNet4GeoAPI" Version="1.4.1" />
+        <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="6.0.0" />
     </ItemGroup>
 
     <ItemGroup>

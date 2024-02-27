@@ -645,6 +645,8 @@ namespace SharpMap
                 }
             }
 
+            // Server map rendering happens here 
+
             if (_layers != null && _layers.Count > 0)
             {
                 layerList = new ILayer[_layers.Count];
@@ -665,6 +667,8 @@ namespace SharpMap
                     OnLayerRendered(layer, LayerCollectionType.Static);
                 }
             }
+
+            // To here
 
             if (_variableLayers != null && _variableLayers.Count > 0)
             {

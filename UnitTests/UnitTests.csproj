@@ -40,6 +40,7 @@
         <PackageReference Include="ProjNet4GeoAPI" Version="1.4.1" />
         <PackageReference Include="System.Reactive.Core" Version="4.2" />
         <PackageReference Include="System.Data.SQLite.Core" Version="1.0.112" />
+        <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="6.0.0" />
     </ItemGroup>
 
     <ItemGroup>
