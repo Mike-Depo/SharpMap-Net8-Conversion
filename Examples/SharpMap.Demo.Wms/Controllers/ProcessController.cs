@@ -6,7 +6,7 @@
     using System.Collections.ObjectModel;
     using System.IO;
     using System.Linq;
-    using System.Web.Mvc;
+    using Microsoft.AspNetCore.Mvc;
 
     using GeoAPI.Geometries;
 

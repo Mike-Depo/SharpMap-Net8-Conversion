@@ -1,41 +1,34 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
-    <Import Project="$(SolutionDir)SharpMap.Common.props" />
-
-    <PropertyGroup>
-        <TargetFramework>net472</TargetFramework>
-        <Product>DemoWinForm</Product>
-        <Copyright>
+  <Import Project="..\..\SharpMap.Common.props" />
+  <PropertyGroup>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Product>DemoWinForm</Product>
+    <Copyright>
             Copyright © 2006 iter.dk
             Copyright 2008-2019 SharpMap - Team
         </Copyright>
-        <PackageTags>sharpmap demowinform</PackageTags>
-        <ApplicationIcon />
-        <OutputType>WinExe</OutputType>
-        <StartupObject>DemoWinForm.Program</StartupObject>
-        <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-        <NoWarn>618;1701;1702;1591</NoWarn>
-
-    </PropertyGroup>
-
-    <ItemGroup>
-        <Reference Include="System.Windows.Forms" />
-    </ItemGroup>
-
-    <ItemGroup>
-        <PackageReference Include="ProjNet4GeoAPI" Version="1.4.1" />
-        <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="6.0.0" />
-    </ItemGroup>
-
-    <ItemGroup>
-        <ProjectReference Include="..\..\SharpMap\SharpMap.csproj" />
-        <ProjectReference Include="..\..\SharpMap.UI\SharpMap.UI.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
-        <None Update="Data\**">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </None>
-    </ItemGroup>
-
+    <PackageTags>sharpmap demowinform</PackageTags>
+    <ApplicationIcon />
+    <OutputType>WinExe</OutputType>
+    <StartupObject>DemoWinForm.Program</StartupObject>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <NoWarn>618;1701;1702;1591</NoWarn>
+    <UseWindowsForms>true</UseWindowsForms>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System.Windows.Forms" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="ProjNet4GeoAPI" Version="1.4.1" />
+    <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="6.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\SharpMap\SharpMap.csproj" />
+    <ProjectReference Include="..\..\SharpMap.UI\SharpMap.UI.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="Data\**">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
 </Project>

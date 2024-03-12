@@ -15,7 +15,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Text;
 using System.Linq;
-using System.Runtime.Remoting.Channels;
 using System.Windows.Forms;
 using WinFormSamples.Properties;
 using Point = NetTopologySuite.Geometries.Point;
@@ -131,40 +130,41 @@ namespace WinFormSamples
         {
             if (e.Button != MouseButtons.Right) return;
 
-            var cm = new ContextMenu();
+            var cm = new ContextMenuStrip();
             var vlyr = e.Node.Tag as VectorLayer;
             _contextLayer = e.Node.Tag as Layer;
 
             if (vlyr != null && (e.Node.FullPath.StartsWith("Variable Layers", StringComparison.OrdinalIgnoreCase)))
             {
-                if (cm.MenuItems.Count > 0) cm.MenuItems.Add(new MenuItem("-"));
+                if (cm.Items.Count > 0)
+                    cm.Items.Add(new ToolStripMenuItem("-"));
 
                 if (_contextLayer.LayerName.StartsWith("Fast"))
-                    cm.MenuItems.Add(_fastBoats.IsRunning ?
+                    cm.Items.Add(_fastBoats.IsRunning ?
                         CreateMenuItem(enumMenuItem.StopMoving, "Stop") :
                         CreateMenuItem(enumMenuItem.StartMoving, "Start"));
                 else if (_contextLayer.LayerName.StartsWith("Slow"))
-                    cm.MenuItems.Add(_slowBoats.IsRunning ?
+                    cm.Items.Add(_slowBoats.IsRunning ?
                         CreateMenuItem(enumMenuItem.StopMoving, "Stop") :
                         CreateMenuItem(enumMenuItem.StartMoving, "Start"));
                 else
-                    cm.MenuItems.Add(_mediumBoats.IsRunning ?
+                    cm.Items.Add(_mediumBoats.IsRunning ?
                         CreateMenuItem(enumMenuItem.StopMoving, "Stop") :
                         CreateMenuItem(enumMenuItem.StartMoving, "Start"));
 
-                //cm.MenuItems.Add(CreateMenuItem(enumMenuItem.StartMoving, "Start"));
-                //cm.MenuItems.Add(CreateMenuItem(enumMenuItem.StopMoving, "Stop"));
-                cm.MenuItems.Add(new MenuItem("-"));
+                //cm.Items.Add(CreateMenuItem(enumMenuItem.StartMoving, "Start"));
+                //cm.Items.Add(CreateMenuItem(enumMenuItem.StopMoving, "Stop"));
+                cm.Items.Add(new ToolStripMenuItem("-"));
 
                 if (vlyr.Theme == null)
                 {
-                    cm.MenuItems.Add(CreateMenuItem(enumMenuItem.ThematicSymbolizer, "Thematic Symbolizer"));
-                    cm.MenuItems.Add(new MenuItem("-"));
-                    cm.MenuItems.Add(CreateMenuItem(enumMenuItem.IncreaseSymbolSize, "Increment symbol size"));
-                    cm.MenuItems.Add(CreateMenuItem(enumMenuItem.DecreaseSymbolSize, "Decrement symbol size"));
+                    cm.Items.Add(CreateMenuItem(enumMenuItem.ThematicSymbolizer, "Thematic Symbolizer"));
+                    cm.Items.Add(new ToolStripMenuItem("-"));
+                    cm.Items.Add(CreateMenuItem(enumMenuItem.IncreaseSymbolSize, "Increment symbol size"));
+                    cm.Items.Add(CreateMenuItem(enumMenuItem.DecreaseSymbolSize, "Decrement symbol size"));
                 }
                 else
-                    cm.MenuItems.Add(CreateMenuItem(enumMenuItem.RegularSymbolizer, "Basic Symbolizer"));
+                    cm.Items.Add(CreateMenuItem(enumMenuItem.RegularSymbolizer, "Basic Symbolizer"));
             }
             else if (vlyr != null && (e.Node.FullPath.StartsWith("Map Layers", StringComparison.OrdinalIgnoreCase)))
             {
@@ -173,46 +173,51 @@ namespace WinFormSamples
                     if (vlyr.Theme == null)
                     {
                         // default point style
-                        if (cm.MenuItems.Count > 0) cm.MenuItems.Add(new MenuItem("-"));
-                        cm.MenuItems.Add(CreateMenuItem(enumMenuItem.IncreaseSymbolSize, "Increment symbol size"));
-                        cm.MenuItems.Add(CreateMenuItem(enumMenuItem.DecreaseSymbolSize, "Decrement symbol size"));
-                        cm.MenuItems.Add(new MenuItem("-"));
-                        cm.MenuItems.Add(CreateMenuItem(enumMenuItem.SymbolOffsetNone, "Remove symbol offset"));
-                        cm.MenuItems.Add(CreateMenuItem(enumMenuItem.SymbolOffsetTL, "Offset step upper left"));
-                        cm.MenuItems.Add(CreateMenuItem(enumMenuItem.SymbolOffsetTR, "Offset step upper right"));
-                        cm.MenuItems.Add(CreateMenuItem(enumMenuItem.SymbolOffsetBL, "Offset Step lower left"));
-                        cm.MenuItems.Add(CreateMenuItem(enumMenuItem.SymbolOffsetBR, "Offset step lower right"));
+                        if (cm.Items.Count > 0) 
+                            cm.Items.Add(new ToolStripMenuItem("-"));
+                        cm.Items.Add(CreateMenuItem(enumMenuItem.IncreaseSymbolSize, "Increment symbol size"));
+                        cm.Items.Add(CreateMenuItem(enumMenuItem.DecreaseSymbolSize, "Decrement symbol size"));
+                        cm.Items.Add(new ToolStripMenuItem("-"));
+                        cm.Items.Add(CreateMenuItem(enumMenuItem.SymbolOffsetNone, "Remove symbol offset"));
+                        cm.Items.Add(CreateMenuItem(enumMenuItem.SymbolOffsetTL, "Offset step upper left"));
+                        cm.Items.Add(CreateMenuItem(enumMenuItem.SymbolOffsetTR, "Offset step upper right"));
+                        cm.Items.Add(CreateMenuItem(enumMenuItem.SymbolOffsetBL, "Offset Step lower left"));
+                        cm.Items.Add(CreateMenuItem(enumMenuItem.SymbolOffsetBR, "Offset step lower right"));
                     }
-                    if (cm.MenuItems.Count > 0) cm.MenuItems.Add(new MenuItem("-"));
-                    cm.MenuItems.Add(CreateMenuItem(enumMenuItem.AlignHz, "Align Pts Horizontal"));
-                    cm.MenuItems.Add(CreateMenuItem(enumMenuItem.AlignVt, "Align Pts Vertical"));
-                    cm.MenuItems.Add(CreateMenuItem(enumMenuItem.AlignDiagonal, "Align Pts Diagonal"));
+                    if (cm.Items.Count > 0) 
+                        cm.Items.Add(new ToolStripMenuItem("-"));
+                    cm.Items.Add(CreateMenuItem(enumMenuItem.AlignHz, "Align Pts Horizontal"));
+                    cm.Items.Add(CreateMenuItem(enumMenuItem.AlignVt, "Align Pts Vertical"));
+                    cm.Items.Add(CreateMenuItem(enumMenuItem.AlignDiagonal, "Align Pts Diagonal"));
                 }
 
                 if (vlyr.LayerName.Contains("Rect"))
                 {
-                    if (cm.MenuItems.Count > 0) cm.MenuItems.Add(new MenuItem("-"));
-                    cm.MenuItems.Add(CreateMenuItem(enumMenuItem.IncrementLineWidth, "Increment line width"));
-                    cm.MenuItems.Add(CreateMenuItem(enumMenuItem.DecrementLineWidth, "Decrement line width"));
+                    if (cm.Items.Count > 0) 
+                        cm.Items.Add(new ToolStripMenuItem("-"));
+                    cm.Items.Add(CreateMenuItem(enumMenuItem.IncrementLineWidth, "Increment line width"));
+                    cm.Items.Add(CreateMenuItem(enumMenuItem.DecrementLineWidth, "Decrement line width"));
                 }
             }
 
             if (e.Node.Tag is LabelLayer)
             {
-                if (cm.MenuItems.Count > 0) cm.MenuItems.Add(new MenuItem("-"));
-                cm.MenuItems.Add(CreateMenuItem(enumMenuItem.IncrementLabelSize, "Increment Label Size"));
-                cm.MenuItems.Add(CreateMenuItem(enumMenuItem.DecrementLabelSize, "Decrement Label Size"));
+                if (cm.Items.Count > 0) 
+                    cm.Items.Add(new ToolStripMenuItem("-"));
+                cm.Items.Add(CreateMenuItem(enumMenuItem.IncrementLabelSize, "Increment Label Size"));
+                cm.Items.Add(CreateMenuItem(enumMenuItem.DecrementLabelSize, "Decrement Label Size"));
             }
 
-            if (cm.MenuItems.Count > 0) cm.MenuItems.Add(new MenuItem("-"));
-            cm.MenuItems.Add(CreateMenuItem(enumMenuItem.Refresh, "Refresh [clear cache]"));
+            if (cm.Items.Count > 0) 
+                cm.Items.Add(new ToolStripMenuItem("-"));
+            cm.Items.Add(CreateMenuItem(enumMenuItem.Refresh, "Refresh [clear cache]"));
 
             cm.Show(tv, new System.Drawing.Point(e.X, e.Y));
         }
 
-        private MenuItem CreateMenuItem(enumMenuItem eMenuItem, string text)
+        private ToolStripMenuItem CreateMenuItem(enumMenuItem eMenuItem, string text)
         {
-            var mi = new MenuItem(text)
+            var mi = new ToolStripMenuItem(text)
             {
                 Tag = eMenuItem,
             };
@@ -222,7 +227,7 @@ namespace WinFormSamples
 
         private void MenuItemClick (Object sender, EventArgs e)
         {
-            var mi = sender as MenuItem;
+            var mi = sender as ToolStripMenuItem;
             if (mi == null) return;
 
             var vectorLyr = _contextLayer as VectorLayer;

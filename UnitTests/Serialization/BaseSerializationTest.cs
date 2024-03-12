@@ -7,7 +7,9 @@ namespace UnitTests.Serialization
 {
     public abstract class BaseSerializationTest
     {
+#pragma warning disable SYSLIB0011 // Type or member is obsolete
         protected static T SandD<T>(T input, IFormatter formatter)
+#pragma warning restore SYSLIB0011 // Type or member is obsolete
         {
             using (var ms = new MemoryStream())
             {
@@ -17,9 +19,11 @@ namespace UnitTests.Serialization
             }
         }
 
+#pragma warning disable SYSLIB0011 // Type or member is obsolete
         protected static IFormatter GetFormatter()
         {
             var formatter = new BinaryFormatter();
+#pragma warning restore SYSLIB0011 // Type or member is obsolete
             if (formatter.SurrogateSelector == null)
                 formatter.SurrogateSelector = new SurrogateSelector();
             formatter.SurrogateSelector.ChainSelector(SharpMap.Utilities.Surrogates.GetSurrogateSelectors());

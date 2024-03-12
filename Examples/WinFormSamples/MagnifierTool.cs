@@ -73,7 +73,9 @@ namespace WinFormSamples
                 var mb = _magnified;
                 if (!_parentMapBox.IsDisposed)
                 {
-                    _parentMapBox.Invoke(new MethodInvoker(() => _parentMapBox.Controls.Remove(mb)));
+                    // If there's an issue here this may have supposed to have been System.Reflection.MethodInvoker
+                    // It was an ambiguous reference post-Net 8 upgrade between forms and reflection, forms was my guess as to the original intention
+                    _parentMapBox.Invoke(new System.Windows.Forms.MethodInvoker(() => _parentMapBox.Controls.Remove(mb)));
                 }
                 mb.Dispose();
             }

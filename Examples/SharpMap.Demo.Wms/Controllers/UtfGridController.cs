@@ -5,7 +5,7 @@ namespace SharpMap.Demo.Wms.Controllers
     using System.Collections.Generic;
     using System.Drawing;
     using System.Linq;
-    using System.Web.Mvc;
+    using Microsoft.AspNetCore.Mvc;
 
     using GeoAPI.Geometries;
 
@@ -81,7 +81,7 @@ namespace SharpMap.Demo.Wms.Controllers
                 }
 
                 Utf8GridResults results = grid.CreateUtfGridJson();
-                return this.Json(new { keys = results.Keys, data = results.Data, grid = results.Grid, }, JsonRequestBehavior.AllowGet);
+                return this.Json(new { keys = results.Keys, data = results.Data, grid = results.Grid, });
             }
         }
     }

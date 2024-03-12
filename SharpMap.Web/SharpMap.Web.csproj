@@ -1,31 +1,32 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
-    <Import Project="$(SolutionDir)SharpMap.Common.props" />
-
-    <PropertyGroup>
-        <TargetFramework>net472</TargetFramework>
-        <RootNamespace>SharpMap</RootNamespace>
-        <Product>SharpMap UI Compontents for Ajax Web</Product>
-        <Copyright>Copyright © 2006 iter.dk
+  <Import Project="$(SolutionDir)SharpMap.Common.props" />
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <RootNamespace>SharpMap</RootNamespace>
+    <Product>SharpMap UI Compontents for Ajax Web</Product>
+    <Copyright>Copyright © 2006 iter.dk
             Copyright © 2008-2019 SharpMap - Team</Copyright>
-        <PackageTags>sharpmap ajax</PackageTags>
-        <Description>This package contains UI Compontents for Ajax Web.</Description>
-    </PropertyGroup>
+    <PackageTags>sharpmap ajax</PackageTags>
+    <Description>This package contains UI Compontents for Ajax Web.</Description>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SharpMap.Converters.GeoJSON\SharpMap.Converters.GeoJSON.csproj" />
+    <ProjectReference Include="..\SharpMap\SharpMap.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.SystemWebAdapters" Version="1.3.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+    <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="6.0.0" />
+  </ItemGroup>
 
-    <ItemGroup>
-      <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
-      <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="6.0.0" />
-    </ItemGroup>
-
-    <ItemGroup>
-        <ProjectReference Include="..\SharpMap.Converters.GeoJSON\SharpMap.Converters.GeoJSON.csproj" />
-        <ProjectReference Include="..\SharpMap\SharpMap.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
-        <Reference Include="System.Design" />
-        <Reference Include="System.Web" />
-    </ItemGroup>
-
-
+  <ItemGroup>
+    <Compile Remove="Web\UI\Ajax\**" />
+    <EmbeddedResource Remove="Web\UI\Ajax\**" />
+    <None Remove="Web\UI\Ajax\**" />
+    <Page Remove="Web\UI\Ajax\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Properties\AssemblyInfoSupplement.cs" />
+    <Compile Remove="Web\HttpHandler.cs" />
+  </ItemGroup>
 </Project>

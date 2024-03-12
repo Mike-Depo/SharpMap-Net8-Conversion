@@ -379,15 +379,17 @@ namespace SharpMap.Layers
         /// <param name="affectedArea">The affected area.</param>
         protected virtual void Render(Graphics g, MapViewport mvp, out Rectangle affectedArea)
         {
+            var mapRect = new Rectangle(new Point(0, 0), mvp.Size);
+            affectedArea = mapRect;
+
             if (_renderCalled)
                 return;
-            
+
             _renderCalled = true;
             Render(g, mvp);
             _renderCalled = false;
 
-            var mapRect = new Rectangle(new Point(0, 0), mvp.Size);
-            if (CanvasArea.IsEmpty)
+            if (!CanvasArea.IsEmpty)
             {
                 affectedArea = mapRect;
             }

@@ -25,6 +25,7 @@ using System.Xml.Schema;
 using GeoAPI.Geometries;
 using SharpMap.Layers;
 using System.Collections.Generic;
+using System.Net;
 
 namespace SharpMap.Web.Wms
 {
@@ -144,7 +145,7 @@ namespace SharpMap.Web.Wms
                                   ? ""
                                   : ":" + HttpContext.Current.Request.Url.Port;
                 OnlineResource =
-                    HttpContext.Current.Server.HtmlEncode("http://" + HttpContext.Current.Request.Url.Host + port +
+                    WebUtility.HtmlEncode("http://" + HttpContext.Current.Request.Url.Host + port +
                                                           HttpContext.Current.Request.Url.AbsolutePath);
             }
             else

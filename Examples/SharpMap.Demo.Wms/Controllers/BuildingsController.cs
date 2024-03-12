@@ -4,7 +4,7 @@ namespace SharpMap.Demo.Wms.Controllers
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
-    using System.Web.Mvc;
+    using Microsoft.AspNetCore.Mvc;
 
     using GeoAPI;
     using GeoAPI.Geometries;
@@ -14,6 +14,7 @@ namespace SharpMap.Demo.Wms.Controllers
 
     using SharpMap.Data;
     using SharpMap.Data.Providers;
+    using Microsoft.AspNetCore.Http;
 
     public class BuildingsController : Controller
     {
@@ -41,7 +42,9 @@ namespace SharpMap.Demo.Wms.Controllers
         public JsonResult GetData(float w, float n, float e, float s, int z)
         {
             string format = String.Format("~/App_Data/berlin/{0}", "osmbuildings.shp");
-            string path = this.HttpContext.Server.MapPath(format);
+            // Kind of guessed how to make the old code this,below is original, hopefully it works though
+            // string path = this.HttpContext.Server.MapPath(format);
+            string path = this.HttpContext.GetServerVariable(format);
             if (!System.IO.File.Exists(path))
                 throw new FileNotFoundException("file not found", path);
 
@@ -87,7 +90,7 @@ namespace SharpMap.Demo.Wms.Controllers
                 data.Add(new object[] { h, values });
             }
 
-            return this.Json(new { meta, data }, JsonRequestBehavior.AllowGet);
+            return this.Json(new { meta, data });
         }
     }
 }

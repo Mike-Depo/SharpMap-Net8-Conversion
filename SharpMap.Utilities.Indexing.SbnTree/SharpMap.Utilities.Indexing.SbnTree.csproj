@@ -1,22 +1,17 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
-    <Import Project="$(SolutionDir)SharpMap.Common.props" />
-
-    <PropertyGroup>
-        <TargetFrameworks>netstandard2.0</TargetFrameworks>
-        <Copyright>Copyright (c) 2014 - 2019 SharpMap - Team</Copyright>
-        <PackageTags>index sbn shapefile</PackageTags>
-        <Description>The package contains a shapefile spatial indexing solution base on SharpSbn</Description>
-        <RootNamespace>SharpMap.Utilities.Indexing</RootNamespace>
-    </PropertyGroup>
-
-    <ItemGroup>
-      <PackageReference Include="SharpSbn.GeoAPI" Version="1.2.0" />
-      <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="6.0.0" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <ProjectReference Include="..\SharpMap\SharpMap.csproj" />
-    </ItemGroup>
-
+  <Import Project="$(SolutionDir)SharpMap.Common.props" />
+  <PropertyGroup>
+    <TargetFrameworks>net8.0</TargetFrameworks>
+    <Copyright>Copyright (c) 2014 - 2019 SharpMap - Team</Copyright>
+    <PackageTags>index sbn shapefile</PackageTags>
+    <Description>The package contains a shapefile spatial indexing solution base on SharpSbn</Description>
+    <RootNamespace>SharpMap.Utilities.Indexing</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="SharpSbn.GeoAPI" Version="1.2.0" />
+    <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="6.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SharpMap\SharpMap.csproj" />
+  </ItemGroup>
 </Project>

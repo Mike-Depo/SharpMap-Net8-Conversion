@@ -547,6 +547,7 @@ namespace UnitTests.Serialization
             return true;
         }
 
+#pragma warning disable SYSLIB0011 // Type or member is obsolete
         private static T SandD<T>(T obj, IFormatter formatter = null)
         {
             if (formatter == null)
@@ -562,6 +563,7 @@ namespace UnitTests.Serialization
                 return (T)formatter.Deserialize(ms);
             }
         }
+#pragma warning restore SYSLIB0011 // Type or member is obsolete
 
         #endregion
     }

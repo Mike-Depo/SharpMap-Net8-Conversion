@@ -1,33 +1,25 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
-    <Import Project="$(SolutionDir)SharpMap.Common.props" />
-
-    <PropertyGroup>
-        <TargetFramework>net472</TargetFramework>
-        <Product>Example Code Snipplets</Product>
-        <Copyright>Copyright 2008-2019 SharpMap - Team</Copyright>
-        <PackageTags>sharpmap</PackageTags>
-        <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-        <NoWarn>1701;1702;1591;1573</NoWarn>
-    </PropertyGroup>
-
-    <ItemGroup>
-        <Reference Include="System.Windows.Forms" />
-    </ItemGroup>
-
-    <ItemGroup>
-        <PackageReference Include="NetTopologySuite.Core" Version="1.15.3" />
-        <PackageReference Include="NetTopologySuite.IO.GeoJSON" Version="1.15.5" />
-        <PackageReference Include="ProjNet4GeoAPI" Version="1.4.1" />
-        <PackageReference Include="NUnit" Version="3.12.0" />
-        <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="6.0.0" />
-    </ItemGroup>
-
-    <ItemGroup>
-        <ProjectReference Include="..\..\SharpMap.Extensions\SharpMap.Extensions.csproj" />
-        <ProjectReference Include="..\..\SharpMap.Layers.BruTile\SharpMap.Layers.BruTile.csproj" />
-        <ProjectReference Include="..\..\SharpMap.Layers.HeatLayer\SharpMap.Layers.HeatLayer.csproj" />
-        <ProjectReference Include="..\..\SharpMap\SharpMap.csproj" />
-    </ItemGroup>
-
+  <Import Project="..\..\SharpMap.Common.props" />
+  <PropertyGroup>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Product>Example Code Snipplets</Product>
+    <Copyright>Copyright 2008-2019 SharpMap - Team</Copyright>
+    <PackageTags>sharpmap</PackageTags>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <NoWarn>1701;1702;1591;1573</NoWarn>
+    <UseWindowsForms>true</UseWindowsForms>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="NetTopologySuite.Core" Version="1.15.3" />
+    <PackageReference Include="NetTopologySuite.IO.GeoJSON" Version="1.15.5" />
+    <PackageReference Include="ProjNet4GeoAPI" Version="1.4.1" />
+    <PackageReference Include="NUnit" Version="3.12.0" />
+    <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="6.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\SharpMap.Extensions\SharpMap.Extensions.csproj" />
+    <ProjectReference Include="..\..\SharpMap.Layers.BruTile\SharpMap.Layers.BruTile.csproj" />
+    <ProjectReference Include="..\..\SharpMap.Layers.HeatLayer\SharpMap.Layers.HeatLayer.csproj" />
+    <ProjectReference Include="..\..\SharpMap\SharpMap.csproj" />
+  </ItemGroup>
 </Project>

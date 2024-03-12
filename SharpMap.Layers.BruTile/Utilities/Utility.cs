@@ -124,6 +124,9 @@ namespace SharpMap.Utilities
             return newValue;
         }
 
+
+#pragma warning disable SYSLIB0011
+
         /// <summary>
         /// Adds required surrogates to <paramref name="formatter"/> to (de-) serialize BruTile objects.
         /// </summary>
@@ -196,6 +199,8 @@ namespace SharpMap.Utilities
             else
                 formatter.SurrogateSelector = ss;
         }
+
+#pragma warning restore SYSLIB0011
 
         /// <summary>
         /// Serializes a <see cref="IList{T}"/> to <paramref name="info"/>

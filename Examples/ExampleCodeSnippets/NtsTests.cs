@@ -1,4 +1,4 @@
-﻿using System.Data.OleDb;
+﻿using System.Data.Common;
 using SharpMap.Data.Providers;
 
 namespace ExampleCodeSnippets
@@ -54,8 +54,9 @@ namespace ExampleCodeSnippets
 429004.52340613387 360451.71714446822, 428999.76819468878 360451.93329044303))");
 
             var table = WriteCsv();
+            var factory = DbProviderFactories.GetFactory("System.Data.OleDb");
 
-            var p = new DbPoint(OleDbFactory.Instance, 
+            var p = new DbPoint(factory,
                 "Provider=" + Properties.Settings.Default.OleDbProvider + ";Data Source=\"" + System.IO.Path.GetTempPath() + "\";" +
                 "Extended Properties=\"text;HDR=Yes;FMT=Delimited\"", table, "ID", "X", "Y");
 

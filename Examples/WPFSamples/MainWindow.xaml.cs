@@ -3,10 +3,11 @@ using System.Globalization;
 using System.Linq;
 using System.Windows;
 using System.Windows.Forms;
+using GeoAPI;
 using GeoAPI.Geometries;
 using Application = System.Windows.Application;
+// TODO Menu is no longer supported. Use ToolStripDropDown instead. For more details see https://docs.microsoft.com/en-us/dotnet/core/compatibility/winforms#removed-controls
 using MenuItem = System.Windows.Controls.MenuItem;
-
 namespace WPFSamples
 {
     /// <summary>
@@ -16,6 +17,7 @@ namespace WPFSamples
     {
         public MainWindow()
         {
+            NetTopologySuiteBootstrapper.Bootstrap();
             InitializeComponent();
 
             var gss = GeoAPI.GeometryServiceProvider.Instance;
@@ -41,6 +43,7 @@ namespace WPFSamples
         {
             WpfMap.BackgroundLayer = new SharpMap.Layers.TileAsyncLayer(BruTile.Predefined.KnownTileSources.Create(), "OSM");
 
+            // TODO Menu is no longer supported. Use ToolStripDropDown instead. For more details see https://docs.microsoft.com/en-us/dotnet/core/compatibility/winforms#removed-controls
             foreach (var menuItem in Menu.Items.OfType<MenuItem>())
             {
                 menuItem.IsChecked = false;
@@ -57,6 +60,7 @@ namespace WPFSamples
               BruTile.Predefined.KnownTileSources.Create(
                 BruTile.Predefined.KnownTileSource.StamenWatercolor), "Stamen Watercolor");
 
+            // TODO Menu is no longer supported. Use ToolStripDropDown instead. For more details see https://docs.microsoft.com/en-us/dotnet/core/compatibility/winforms#removed-controls
             foreach (var menuItem in Menu.Items.OfType<MenuItem>())
             {
                 menuItem.IsChecked = false;
@@ -97,10 +101,12 @@ namespace WPFSamples
 
         private void Rotation_OnClick(object sender, RoutedEventArgs e)
         {
+            // TODO MenuItem is no longer supported. Use ToolStripMenuItem instead. For more details see https://docs.microsoft.com/en-us/dotnet/core/compatibility/winforms#removed-controls
             if (!(sender is MenuItem mi))
                 return;
 
             WpfMap.MapRotation = float.Parse(mi.Name.Substring(3), NumberStyles.Integer);
+            // TODO MenuItem is no longer supported. Use ToolStripMenuItem instead. For more details see https://docs.microsoft.com/en-us/dotnet/core/compatibility/winforms#removed-controls
             foreach (MenuItem tmp in ((MenuItem)mi.Parent).Items)
                 tmp.IsChecked = tmp == mi;
 

@@ -1,70 +1,59 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
-    <Import Project="$(SolutionDir)SharpMap.Common.props" />
-
-    <PropertyGroup>
-        <TargetFramework>net472</TargetFramework>
-        <Product>WinFormSamples</Product>
-        <Copyright>
+  <Import Project="..\..\SharpMap.Common.props" />
+  <PropertyGroup>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Product>WinFormSamples</Product>
+    <Copyright>
             Copyright © 2006 iter.dk
             Copyright 2008-2019 SharpMap - Team
         </Copyright>
-        <PackageTags>sharpmap winforms</PackageTags>
-        <ApplicationIcon />
-        <OutputType>WinExe</OutputType>
-        <StartupObject>WinFormSamples.Program</StartupObject>
-        <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-        <GenerateResourceUsePreserializedResources>true</GenerateResourceUsePreserializedResources>
-        <NoWarn>618;1701;1702;1591;1573</NoWarn>
-    </PropertyGroup>
-
-    <ItemGroup>
-      <PackageReference Include="GDAL.Native" Version="2.4.2" />
-      <PackageReference Include="Npgsql" Version="4.0.10" />
-      <PackageReference Include="ProjNET4GeoAPI" Version="1.4.1" />
-      <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="6.0.0" />
-    </ItemGroup>
-
-
-    <ItemGroup>
-        <ProjectReference Include="..\..\SharpMap.CoordinateSystems.DotSpatial\SharpMap.CoordinateSystems.DotSpatial.csproj" />
-        <ProjectReference Include="..\..\SharpMap\SharpMap.csproj" />
-        <ProjectReference Include="..\..\SharpMap.UI\SharpMap.UI.csproj" />
-        <ProjectReference Include="..\..\SharpMap.Extensions\SharpMap.Extensions.csproj" />
-        <ProjectReference Include="..\..\SharpMap.Layers.BruTile\SharpMap.Layers.BruTile.csproj" />
-        <ProjectReference Include="..\..\SharpMap.Layers.HeatLayer\SharpMap.Layers.HeatLayer.csproj" />
-        <ProjectReference Include="..\..\SharpMap.SqlServerSpatialObjects\SharpMap.SqlServerSpatialObjects.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
-        <Reference Include="System.Windows.Forms" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <None Update="GeoData\**">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </None>
-        <None Update="Images\**">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </None>
-        <None Update="Resources\**">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </None>
-    </ItemGroup>
-
-    <ItemGroup>
-      <Compile Update="Properties\Settings.Designer.cs">
-        <DesignTimeSharedInput>True</DesignTimeSharedInput>
-        <AutoGen>True</AutoGen>
-        <DependentUpon>Settings.settings</DependentUpon>
-      </Compile>
-    </ItemGroup>
-
-    <ItemGroup>
-      <None Update="Properties\Settings.settings">
-        <Generator>SettingsSingleFileGenerator</Generator>
-        <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-      </None>
-    </ItemGroup>
-
+    <PackageTags>sharpmap winforms</PackageTags>
+    <ApplicationIcon />
+    <OutputType>WinExe</OutputType>
+    <StartupObject>WinFormSamples.Program</StartupObject>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <GenerateResourceUsePreserializedResources>true</GenerateResourceUsePreserializedResources>
+    <NoWarn>618;1701;1702;1591;1573</NoWarn>
+    <UseWindowsForms>true</UseWindowsForms>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="GDAL.Native" Version="2.4.2" />
+    <PackageReference Include="Npgsql" Version="4.0.10" />
+    <PackageReference Include="ProjNET4GeoAPI" Version="1.4.1" />
+    <PackageReference Include="System.Data.OleDb" Version="8.0.0" />
+    <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="6.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\SharpMap.CoordinateSystems.DotSpatial\SharpMap.CoordinateSystems.DotSpatial.csproj" />
+    <ProjectReference Include="..\..\SharpMap\SharpMap.csproj" />
+    <ProjectReference Include="..\..\SharpMap.UI\SharpMap.UI.csproj" />
+    <ProjectReference Include="..\..\SharpMap.Extensions\SharpMap.Extensions.csproj" />
+    <ProjectReference Include="..\..\SharpMap.Layers.BruTile\SharpMap.Layers.BruTile.csproj" />
+    <ProjectReference Include="..\..\SharpMap.Layers.HeatLayer\SharpMap.Layers.HeatLayer.csproj" />
+    <ProjectReference Include="..\..\SharpMap.SqlServerSpatialObjects\SharpMap.SqlServerSpatialObjects.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="GeoData\**">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Images\**">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\**">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Properties\Settings.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
 </Project>
