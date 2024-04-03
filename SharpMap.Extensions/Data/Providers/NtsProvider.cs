@@ -19,13 +19,8 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
-using GeoAPI.Geometries;
 using NetTopologySuite.Features;
 using NetTopologySuite.Geometries;
-using NtsGeometry = NetTopologySuite.Geometries.Geometry;
-
-using Geometry = GeoAPI.Geometries.IGeometry;
-using BoundingBox = GeoAPI.Geometries.Envelope;
 
 
 namespace SharpMap.Data.Providers
@@ -97,7 +92,7 @@ namespace SharpMap.Data.Providers
         /// </param>
         /// <seealso cref="NetTopologySuite.Geometries.PrecisionModel"/>
         /// <seealso cref="NetTopologySuite.Geometries.GeometryFactory"/>
-        protected internal NtsProvider(IPrecisionModel precisionModel)
+        protected internal NtsProvider(PrecisionModel precisionModel)
         {
             Factory = new GeometryFactory(precisionModel);
         }
@@ -148,7 +143,7 @@ namespace SharpMap.Data.Providers
         /// <seealso cref="NetTopologySuite.Geometries.PrecisionModel"/>     
         /// <seealso cref="NetTopologySuite.Geometries.GeometryFactory"/>
         public NtsProvider(IProvider provider,
-            IPrecisionModel precisionModel) : this(precisionModel)
+            PrecisionModel precisionModel) : this(precisionModel)
         {
             BuildFromProvider(provider);
         }
@@ -246,7 +241,7 @@ namespace SharpMap.Data.Providers
         /// Returns the BoundingBox of the dataset.
         /// </summary>
         /// <returns>BoundingBox</returns>
-        public override BoundingBox GetExtents()
+        public override Envelope GetExtents()
         {
             var envelope = new Envelope();
             foreach (var feature in _features)
@@ -288,7 +283,7 @@ namespace SharpMap.Data.Providers
         /// </summary>
         /// <param name="envelope"></param>
         /// <returns></returns>
-        public override Collection<Geometry> GetGeometriesInView(BoundingBox envelope)
+        public override Collection<Geometry> GetGeometriesInView(Envelope envelope)
         {
             // Identifies all the features within the given BoundingBox
             var geoms = new Collection<Geometry>();
@@ -303,7 +298,7 @@ namespace SharpMap.Data.Providers
         /// </summary>
         /// <param name="envelope"></param>
         /// <param name="ds"></param>
-        public override void ExecuteIntersectionQuery(BoundingBox envelope, FeatureDataSet ds)
+        public override void ExecuteIntersectionQuery(Envelope envelope, FeatureDataSet ds)
         {
             // Identifies all the features within the given BoundingBox
             var dataTable = CreateFeatureDataTable();
@@ -351,7 +346,7 @@ namespace SharpMap.Data.Providers
         /// </summary>
         /// <param name="bbox">The bbox.</param>
         /// <returns></returns>
-        public override Collection<uint> GetObjectIDsInView(BoundingBox bbox)
+        public override Collection<uint> GetObjectIDsInView(Envelope bbox)
         {
             // Identifies all the features within the given BoundingBox
             Envelope envelope = bbox;
@@ -422,7 +417,7 @@ namespace SharpMap.Data.Providers
         /// </summary>
         /// <param name="bbox">The bbox.</param>
         /// <param name="ds">The ds.</param>
-        public void GetFeaturesInView(BoundingBox bbox, FeatureDataSet ds)
+        public void GetFeaturesInView(Envelope bbox, FeatureDataSet ds)
         {
             ExecuteIntersectionQuery(bbox, ds);
         }

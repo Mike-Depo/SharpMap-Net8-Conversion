@@ -6,7 +6,6 @@ using System.Drawing.Imaging;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
-using GeoAPI.Geometries;
 using Moq;
 using NUnit.Framework;
 using NetTopologySuite.Geometries;
@@ -14,22 +13,19 @@ using NetTopologySuite.Geometries.Utilities;
 using NetTopologySuite.IO;
 using SharpMap;
 using SharpMap.Data.Providers;
-using Geometry = GeoAPI.Geometries.IGeometry;
 using SharpMap.Layers;
 using SharpMap.Rendering.Decoration;
 using SharpMap.Rendering.Decoration.ScaleBar;
-using Point = GeoAPI.Geometries.Coordinate;
-using BoundingBox = GeoAPI.Geometries.Envelope;
 
 namespace UnitTests
 {
     [TestFixture]
     public class MapTest
     {
-        private static readonly IGeometryFactory Factory = new GeometryFactory();
+        private static readonly GeometryFactory Factory = new GeometryFactory();
         private static readonly WKTReader WktReader = new WKTReader(Factory);
 
-        public static IGeometry GeomFromText(string wkt)
+        public static Geometry GeomFromText(string wkt)
         {
             return WktReader.Read(wkt);
         }
@@ -162,8 +158,8 @@ namespace UnitTests
             Map map = new Map(new Size(400, 200));
             VectorLayer vLayer = new VectorLayer("Geom layer", CreateDatasource());
             map.Layers.Add(vLayer);
-            BoundingBox box = map.GetExtents();
-            Assert.AreEqual(new BoundingBox(0, 50, 0, 346.3493254), box);
+            Envelope box = map.GetExtents();
+            Assert.AreEqual(new Envelope(0, 50, 0, 346.3493254), box);
         }
 
         [Test]
@@ -265,22 +261,22 @@ namespace UnitTests
         {
             Map map = new Map(new Size(1000, 500));
             map.Zoom = 360;
-            map.Center = new Point(0, 0);
-            Assert.AreEqual(new Point(0, 0), map.ImageToWorld(new PointF(500, 250)));
-            Assert.AreEqual(new Point(-180, 90), map.ImageToWorld(new PointF(0, 0)));
-            Assert.AreEqual(new Point(-180, -90), map.ImageToWorld(new PointF(0, 500)));
-            Assert.AreEqual(new Point(180, 90), map.ImageToWorld(new PointF(1000, 0)));
-            Assert.AreEqual(new Point(180, -90), map.ImageToWorld(new PointF(1000, 500)));
+            map.Center = new Coordinate(0, 0);
+            Assert.AreEqual(new Coordinate(0, 0), map.ImageToWorld(new PointF(500, 250)));
+            Assert.AreEqual(new Coordinate(-180, 90), map.ImageToWorld(new PointF(0, 0)));
+            Assert.AreEqual(new Coordinate(-180, -90), map.ImageToWorld(new PointF(0, 500)));
+            Assert.AreEqual(new Coordinate(180, 90), map.ImageToWorld(new PointF(1000, 0)));
+            Assert.AreEqual(new Coordinate(180, -90), map.ImageToWorld(new PointF(1000, 500)));
         }
 
         [Test]
         public void ImageToWorld_DefaultMap_ReturnValue()
         {
             Map map = new Map(new Size(500, 200));
-            map.Center = new Point(23, 34);
+            map.Center = new Coordinate(23, 34);
             map.Zoom = 1000;
-            Point p = map.ImageToWorld(new PointF(242.5f, 92));
-            Assert.AreEqual(new Point(8, 50), p);
+            Coordinate p = map.ImageToWorld(new PointF(242.5f, 92));
+            Assert.AreEqual(new Coordinate(8, 50), p);
         }
 
         [Ignore("Benchmarking MapTransform in Map and MapViewport with(new) and without(old) Coordinate arrays")]
@@ -530,7 +526,7 @@ namespace UnitTests
         {
             var map = new Map(new Size(600, 300)) {BackColor = System.Drawing.Color.LightSkyBlue};
             map.Zoom = 1000;
-            map.Center = new Point(25000, 75000);
+            map.Center = new Coordinate(25000, 75000);
             var mapScale = map.MapScale;
 
             System.Drawing.Drawing2D.Matrix mapTransform = new System.Drawing.Drawing2D.Matrix();
@@ -580,7 +576,7 @@ namespace UnitTests
             
             //CLOCKWISE ProjNet affine transform (negate degrees)
             //double rad = -1 * deg * Math.PI / 180.0;
-            //GeoAPI.CoordinateSystems.Transformations.IMathTransform trans =
+            //ProjNet.CoordinateSystems.Transformations.MathTransform trans =
             //    new ProjNet.CoordinateSystems.Transformations.AffineTransform(
             //        scaleX * Math.Cos(rad),
             //        -scaleX * Math.Sin(rad),
@@ -734,7 +730,7 @@ namespace UnitTests
             Assert.AreEqual(Color.Transparent, map.BackColor);
             Assert.AreEqual(double.MaxValue, map.MaximumZoom);
             Assert.IsTrue(map.MinimumZoom > 0);
-            Assert.AreEqual(new Point(0, 0), map.Center, "map.Center should be initialized to (0,0)");
+            Assert.AreEqual(new Coordinate(0, 0), map.Center, "map.Center should be initialized to (0,0)");
             Assert.AreEqual(1, map.Zoom, "Map zoom should be initialized to 1.0");
         }
 
@@ -799,7 +795,7 @@ namespace UnitTests
             map.EnforceMaximumExtents = true;
             map.ZoomToBox(new Envelope(-200, 200, -100, 100));
             Assert.IsTrue(map.MaximumExtents.Contains(map.Envelope));
-            Assert.AreEqual(new BoundingBox(-120, 120, -90, 90), map.Envelope);
+            Assert.AreEqual(new Envelope(-120, 120, -90, 90), map.Envelope);
         }
 
         [Test]
@@ -826,21 +822,21 @@ namespace UnitTests
         {
             Map map = new Map(new Size(1000, 500));
             map.Zoom = 360;
-            map.Center = new Point(0, 0);
-            Assert.AreEqual(new PointF(500, 250), map.WorldToImage(new Point(0, 0)));
-            Assert.AreEqual(new PointF(0, 0), map.WorldToImage(new Point(-180, 90)));
-            Assert.AreEqual(new PointF(0, 500), map.WorldToImage(new Point(-180, -90)));
-            Assert.AreEqual(new PointF(1000, 0), map.WorldToImage(new Point(180, 90)));
-            Assert.AreEqual(new PointF(1000, 500), map.WorldToImage(new Point(180, -90)));
+            map.Center = new Coordinate(0, 0);
+            Assert.AreEqual(new PointF(500, 250), map.WorldToImage(new Coordinate(0, 0)));
+            Assert.AreEqual(new PointF(0, 0), map.WorldToImage(new Coordinate(-180, 90)));
+            Assert.AreEqual(new PointF(0, 500), map.WorldToImage(new Coordinate(-180, -90)));
+            Assert.AreEqual(new PointF(1000, 0), map.WorldToImage(new Coordinate(180, 90)));
+            Assert.AreEqual(new PointF(1000, 500), map.WorldToImage(new Coordinate(180, -90)));
         }
 
         [Test]
         public void WorldToMap_DefaultMap_ReturnValue()
         {
             Map map = new Map(new Size(500, 200));
-            map.Center = new Point(23, 34);
+            map.Center = new Coordinate(23, 34);
             map.Zoom = 1000;
-            PointF p = map.WorldToImage(new Point(8, 50));
+            PointF p = map.WorldToImage(new Coordinate(8, 50));
             Assert.AreEqual(new PointF(242.5f, 92), p);
         }
 
@@ -848,8 +844,8 @@ namespace UnitTests
         public void ZoomToBox_NoAspectCorrection()
         {
             Map map = new Map(new Size(400, 200));
-            map.ZoomToBox(new BoundingBox(20, 100, 50, 80));
-            Assert.AreEqual(new Point(60, 65), map.Center);
+            map.ZoomToBox(new Envelope(20, 100, 50, 80));
+            Assert.AreEqual(new Coordinate(60, 65), map.Center);
             Assert.AreEqual(80, map.Zoom);
         }
 
@@ -857,8 +853,8 @@ namespace UnitTests
         public void ZoomToBox_WithAspectCorrection()
         {
             Map map = new Map(new Size(400, 200));
-            map.ZoomToBox(new BoundingBox(20, 100, 10, 180));
-            Assert.AreEqual(new Point(60, 95), map.Center);
+            map.ZoomToBox(new Envelope(20, 100, 10, 180));
+            Assert.AreEqual(new Coordinate(60, 95), map.Center);
             Assert.AreEqual(340, map.Zoom);
         }
 
@@ -945,10 +941,10 @@ namespace UnitTests
             map.MapViewOnChange += () => raised = true;
 
             // ZoomToBox
-            map.ZoomToBox(new BoundingBox(20, 100, 10, 180));
+            map.ZoomToBox(new Envelope(20, 100, 10, 180));
             Assert.IsTrue(raised, "MapViewOnChange not fired when calling Map.ZoomToBox(...).");
             raised = false;
-            map.ZoomToBox(new BoundingBox(20, 100, 10, 180));
+            map.ZoomToBox(new Envelope(20, 100, 10, 180));
             Assert.IsFalse(raised, "MapViewOnChange fired when calling Map.ZoomToBox(map.Envelope).");
 
             // ZoomToExtents

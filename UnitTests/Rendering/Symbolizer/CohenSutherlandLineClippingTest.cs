@@ -1,7 +1,6 @@
 ﻿using System.Collections.Concurrent;
 using System.Data;
 using NUnit.Framework;
-using GeoAPI.Geometries;
 using NetTopologySuite.Geometries;
 using SharpMap.Data.Providers;
 
@@ -10,7 +9,7 @@ namespace UnitTests.Rendering.Symbolizer
     [TestFixture]
     public class CohenSutherlandLineClippingTest
     {
-        private static readonly IGeometryFactory Factory = new GeometryFactory();
+        private static readonly GeometryFactory Factory = new GeometryFactory();
 
         [Test]
         public void SimpleTest()

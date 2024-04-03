@@ -2,12 +2,12 @@
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Text;
+using NetTopologySuite.Geometries;
 using SharpMap;
 using SharpMap.Data.Providers;
 using SharpMap.Layers;
 using SharpMap.Rendering;
 using SharpMap.Styles;
-using Point=GeoAPI.Geometries.Coordinate;
 
 namespace WinFormSamples.Samples
 {
@@ -233,7 +233,7 @@ namespace WinFormSamples.Samples
             map.BackColor = Color.LightBlue;
 
             map.ZoomToExtents(); // = 360;
-            map.Center = new Point(0, 0);
+            map.Center = new Coordinate(0, 0);
 
             _ogrSampleDataset = "MapInfo";
 

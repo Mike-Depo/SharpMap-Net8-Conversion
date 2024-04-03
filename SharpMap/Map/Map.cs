@@ -28,14 +28,15 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
-using GeoAPI.Geometries;
+using NetTopologySuite.Geometries;
 using NetTopologySuite;
 using SharpMap.Layers;
 using SharpMap.Rendering;
 using SharpMap.Rendering.Decoration;
 using SharpMap.Styles;
 using SharpMap.Utilities;
-using Point = GeoAPI.Geometries.Coordinate;
+using Point = NetTopologySuite.Geometries.Point;
+using Coordinate = NetTopologySuite.Geometries.Coordinate;
 using System.Drawing.Imaging;
 using Common.Logging;
 using System.Reflection;
@@ -60,14 +61,14 @@ namespace SharpMap
         }
 
         /// <summary>
-        /// Static constructor. Needed to get <see cref="GeoAPI.GeometryServiceProvider.Instance"/> set.
+        /// Static constructor. Needed to get <see cref="NtsGeometryServices.Instance"/> set.
         /// </summary>
         static Map()
         {
             try
             {
-                _logger.Debug("Trying to get GeoAPI.GeometryServiceProvider.Instance");
-                var instance = GeoAPI.GeometryServiceProvider.Instance;
+                _logger.Debug("Trying to get NtsGeometryServices.Instance");
+                var instance = NtsGeometryServices.Instance;
                 if (instance == null)
                 {
                     _logger.Debug("Returned null");
@@ -79,8 +80,8 @@ namespace SharpMap
                 _logger.Debug("Loading NetTopologySuite");
                 Assembly.Load("NetTopologySuite");
                 _logger.Debug("Loaded NetTopologySuite");
-                _logger.Debug("Trying to get GeoAPI.GeometryServiceProvider.Instance");
-                var instance = GeoAPI.GeometryServiceProvider.Instance;
+                _logger.Debug("Trying to get NtsGeometryServices.Instance");
+                var instance = NtsGeometryServices.Instance;
                 if (instance == null)
                 {
                     _logger.Debug("Returned null");
@@ -101,16 +102,16 @@ namespace SharpMap
                 Trace.WriteLine("Loaded NetTopologySuite");
                 try
                 {
-                    _logger.Debug("Trying to access GeoAPI.GeometryServiceProvider.Instance");
-                    Trace.WriteLine("Trying to access GeoAPI.GeometryServiceProvider.Instance");
-                    if (GeoAPI.GeometryServiceProvider.Instance == null)
+                    _logger.Debug("Trying to access NtsGeometryServices.Instance");
+                    Trace.WriteLine("Trying to access NtsGeometryServices.Instance");
+                    if (NtsGeometryServices.Instance == null)
                     {
                         _logger.Debug("Returned null, setting it to default");
                         Trace.WriteLine("Returned null, setting it to default");
                         var ntsApiGeometryServices = ntsAssembly.GetType("NetTopologySuite.NtsGeometryServices");
-                        GeoAPI.GeometryServiceProvider.Instance =
+                        NtsGeometryServices.Instance =
                             ntsApiGeometryServices.GetProperty("Instance").GetValue(null, null) as
-                                GeoAPI.IGeometryServices;
+                                GeometryServices;
                     }
                 }
 
@@ -119,9 +120,9 @@ namespace SharpMap
                     _logger.Debug("InvalidOperationException thrown, setting it to default");
                     Trace.WriteLine("InvalidOperationException thrown, setting it to default");
                     var ntsApiGeometryServices = ntsAssembly.GetType("NetTopologySuite.NtsGeometryServices");
-                    GeoAPI.GeometryServiceProvider.Instance =
+                    NtsGeometryServices.Instance =
                         ntsApiGeometryServices.GetProperty("Instance").GetValue(null, null) as
-                            GeoAPI.IGeometryServices;
+                            GeometryServices;
                 }
                 _logger.Debug("Exiting design mode handling");
                 Trace.WriteLine("Exiting design mode handling");
@@ -142,7 +143,7 @@ namespace SharpMap
         private Color _backgroundColor;
         private int _srid = -1;
         private double _zoom;
-        private Point _center;
+        private Coordinate _center;
         private readonly LayerCollection _layers;
         private readonly LayerCollection _backgroundLayers;
         private readonly VariableLayerCollection _variableLayers;
@@ -190,7 +191,7 @@ namespace SharpMap
 
             if (LicenseManager.UsageMode != LicenseUsageMode.Designtime)
             {
-                Factory = GeoAPI.GeometryServiceProvider.Instance.CreateGeometryFactory(_srid);
+                Factory = NtsGeometryServices.Instance.CreateGeometryFactory(_srid);
             }
             _layers = new LayerCollection();
             _layersPerGroup.Add(_layers, new List<ILayer>());
@@ -202,7 +203,7 @@ namespace SharpMap
             var matrix = new Matrix();
             _mapTransformElements = matrix.Elements;
             _mapTransformInvertedElements = matrix.Elements;
-            _center = new Point(0, 0);
+            _center = new Coordinate(0, 0);
             _zoom = 1;
 
             WireEvents();
@@ -1109,7 +1110,7 @@ namespace SharpMap
         /// you must clone the point array as it will be modified if a MapTransform is applied</param>
         /// <param name="careAboutMapTransform">Indicates whether <see cref="MapTransform"/> should be applied. </param>
         /// <returns>Point array in world coordinates</returns>
-        public Point[] ImageToWorld(PointF[] points, bool careAboutMapTransform = false)
+        public Coordinate[] ImageToWorld(PointF[] points, bool careAboutMapTransform = false)
         {
             if (careAboutMapTransform && !MapTransformRotation.Equals(0f))
                 using (var transformInv = MapTransformInverted)
@@ -1126,7 +1127,7 @@ namespace SharpMap
         /// you must clone the point as it will be modified if a MapTransform is applied</param>
         /// <param name="careAboutMapTransform">Indicates whether <see cref="MapTransform"/> should be applied. </param>
         /// <returns>Point in world coordinates</returns>
-        public Point ImageToWorld(PointF p, bool careAboutMapTransform = false)
+        public Coordinate ImageToWorld(PointF p, bool careAboutMapTransform = false)
         {
             var pts = ImageToWorld(new PointF[] { p }, careAboutMapTransform);
             return pts[0];
@@ -1156,14 +1157,14 @@ namespace SharpMap
                 if (_srid == value)
                     return;
                 _srid = value;
-                Factory = GeoAPI.GeometryServiceProvider.Instance.CreateGeometryFactory(_srid);
+                Factory = NtsGeometryServices.Instance.CreateGeometryFactory(_srid);
             }
         }
 
         /// <summary>
         /// Factory used to create geometries
         /// </summary>
-        public IGeometryFactory Factory { get; private set; }
+        public GeometryFactory Factory { get; private set; }
 
         /// <summary>
         /// List of all map decorations
@@ -1358,7 +1359,7 @@ namespace SharpMap
         /// <summary>
         /// Center of map in WCS
         /// </summary>
-        public Point Center
+        public Coordinate Center
         {
             get { return _center.Copy(); }
             set
@@ -1464,7 +1465,9 @@ namespace SharpMap
 
                 _zoom = value;
                 if (!newCenter.Equals2D(_center))
+                {
                     _center = newCenter;
+                }
 
                 if (MapViewOnChange != null)
                     MapViewOnChange();

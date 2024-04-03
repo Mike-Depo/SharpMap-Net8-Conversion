@@ -1,4 +1,6 @@
-﻿namespace UnitTests.Data.Providers
+﻿using NetTopologySuite.Geometries;
+
+namespace UnitTests.Data.Providers
 {
     [NUnit.Framework.TestFixture]
     public abstract class DbTests<TProvider> where TProvider : SharpMap.Data.Providers.SpatialDbProvider
@@ -107,7 +109,7 @@
         {
             using (var provider = GetProvider())
             {
-                GeoAPI.Geometries.IGeometry result = null;
+                Geometry result = null;
                 NUnit.Framework.Assert.DoesNotThrow( () => result = provider.GetGeometryByID(1));
                 NUnit.Framework.Assert.IsNotNull(result);
             }

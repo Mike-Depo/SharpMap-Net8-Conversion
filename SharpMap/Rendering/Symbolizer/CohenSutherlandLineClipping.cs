@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using GeoAPI.Geometries;
+using NetTopologySuite.Geometries;
 
 namespace SharpMap.Rendering.Symbolizer
 {
@@ -59,13 +59,13 @@ namespace SharpMap.Rendering.Symbolizer
         /// </summary>
         /// <param name="lineString">The line string to clip</param>
         /// <returns>A (possibly multi) line string</returns>
-        public IMultiLineString ClipLineString(ILineString lineString)
+        public MultiLineString ClipLineString(LineString lineString)
         {
             //Factory
             var factory = lineString.Factory;
 
             //List of line strings that make up the multi line string result
-            var lineStrings = new List<ILineString>();
+            var lineStrings = new List<LineString>();
 
             //list of clipped vertices for current pass
             var clippedVertices = new List<Coordinate>();
@@ -193,18 +193,18 @@ namespace SharpMap.Rendering.Symbolizer
         /// </summary>
         /// <param name="lineStrings">The multi-line string to clip</param>
         /// <returns>A (possibly multi) line string</returns>
-        public IMultiLineString ClipLineString(IMultiLineString lineStrings)
+        public MultiLineString ClipLineString(MultiLineString lineStrings)
         {
-            var clippedLineStringList = new List<ILineString>();
+            var clippedLineStringList = new List<LineString>();
 
 
             for (var i = 0; i < lineStrings.NumGeometries; i++)
             {
-                var s = (ILineString) lineStrings.GetGeometryN(i);
+                var s = (LineString) lineStrings.GetGeometryN(i);
                 var clippedLineStrings = ClipLineString(s);
                 for (var j = 0; j < clippedLineStrings.NumGeometries; j++)
                 {
-                    var clippedLineString = (ILineString)clippedLineStrings.GetGeometryN(j);
+                    var clippedLineString = (LineString)clippedLineStrings.GetGeometryN(j);
                     clippedLineStringList.Add(clippedLineString);
                 }
             }

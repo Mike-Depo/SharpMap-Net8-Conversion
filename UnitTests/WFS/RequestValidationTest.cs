@@ -8,6 +8,7 @@ using System.Xml;
 using System.Collections.Specialized;
 using NUnit.Framework;
 using SharpMap.Utilities.Wfs;
+using NetTopologySuite.Geometries;
 
 namespace UnitTests.WFS
 {
@@ -18,7 +19,7 @@ namespace UnitTests.WFS
         [OneTimeSetUp]
         public void OneTimeSetUp()
         {
-            GeoAPI.GeometryServiceProvider.Instance = new NetTopologySuite.NtsGeometryServices();
+            NetTopologySuite.NtsGeometryServices.Instance = new NetTopologySuite.NtsGeometryServices();
         }
 
         [Test]
@@ -27,7 +28,7 @@ namespace UnitTests.WFS
             var featureTypeInfo = new WfsFeatureTypeInfo("http://localhost/", "nsPrefix", "featureTypeNamespace", "featureType", "geometryName", GeometryTypeEnum.PointPropertyType);
 
             WFS_1_1_0_TextResources wfs = new WFS_1_1_0_TextResources();
-            string querystring = wfs.GetFeatureGETRequest(featureTypeInfo, new GeoAPI.Geometries.Envelope(1, 2, 3, 4), null, true);
+            string querystring = wfs.GetFeatureGETRequest(featureTypeInfo, new Envelope(1, 2, 3, 4), null, true);
 
             NameValueCollection qscoll = ParseQueryString(querystring);
 
@@ -50,7 +51,7 @@ namespace UnitTests.WFS
             var featureTypeInfo = new WfsFeatureTypeInfo("http://localhost/", "nsPrefix", "featureTypeNamespace", "featureType", "geometryName", GeometryTypeEnum.PointPropertyType);
 
             WFS_1_1_0_TextResources wfs = new WFS_1_1_0_TextResources();
-            byte[] request = wfs.GetFeaturePOSTRequest(featureTypeInfo, "", new GeoAPI.Geometries.Envelope(1, 2, 3, 4), null, true);
+            byte[] request = wfs.GetFeaturePOSTRequest(featureTypeInfo, "", new Envelope(1, 2, 3, 4), null, true);
 
             XmlReaderSettings readerSettings = new XmlReaderSettings();
             readerSettings.ValidationType = ValidationType.Schema;

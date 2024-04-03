@@ -3,7 +3,7 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.Globalization;
 using System.IO;
-using GeoAPI.Geometries;
+using NetTopologySuite.Geometries;
 using NUnit.Framework;
 using SharpMap;
 using SharpMap.Layers;
@@ -91,7 +91,7 @@ namespace UnitTests.Layers
         [Test]
         public void TestGdiImageLayer2()
         {
-            var imageFile = CreateImage(new Size(512, 256), new Point(10, 10));
+            var imageFile = CreateImage(new Size(512, 256), new System.Drawing.Point(10, 10));
             GdiImageLayer l = null;
 
             Assert.DoesNotThrow(() => l = new GdiImageLayer(imageFile));

@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Data.SqlClient;
 using SharpMap.Data.Providers;
+using NetTopologySuite.Geometries;
 
 namespace UnitTests.Data.Providers
 {
@@ -11,7 +12,7 @@ namespace UnitTests.Data.Providers
         [NUnit.Framework.OneTimeSetUp]
         public void OneTimeSetUp()
         {
-            GeoAPI.GeometryServiceProvider.Instance = new NetTopologySuite.NtsGeometryServices();
+            NetTopologySuite.NtsGeometryServices.Instance = new NetTopologySuite.NtsGeometryServices();
         }
 
         [NUnit.Framework.TestCase("[sde].[gisadmin.di]", "sde", "gisadmin.di")]
@@ -71,7 +72,7 @@ namespace UnitTests.Data.Providers
                 NUnit.Framework.Assert.Ignore("Requires SQL Server connectionstring");
             }
 
-            GeoAPI.GeometryServiceProvider.Instance = new NetTopologySuite.NtsGeometryServices();
+            NetTopologySuite.NtsGeometryServices.Instance = new NetTopologySuite.NtsGeometryServices();
             //SqlServerTypes.Utilities.LoadNativeAssemblies(AppDomain.CurrentDomain.BaseDirectory);
 
             // Set up sample tables (Geometry + Geography)
@@ -284,7 +285,7 @@ namespace UnitTests.Data.Providers
         /// <summary>
         /// Get the envelope of the entire roads_ugl file
         /// </summary>
-        private GeoAPI.Geometries.Envelope GetTestEnvelope(SharpMap.Data.Providers.SqlServerSpatialObjectType spatialType)
+        private Envelope GetTestEnvelope(SharpMap.Data.Providers.SqlServerSpatialObjectType spatialType)
         {
             var env = SharpMap.Converters.WellKnownText.GeometryFromWKT.Parse("POLYGON ((-97.23724071609665 41.698023105763589, -82.424263624596563 41.698023105763589, -82.424263624596563 49.000629000758515, -97.23724071609665 49.000629000758515, -97.23724071609665 41.698023105763589))").EnvelopeInternal;
             if (spatialType == SharpMap.Data.Providers.SqlServerSpatialObjectType.Geography)
@@ -300,7 +301,7 @@ namespace UnitTests.Data.Providers
             SharpMap.Data.Providers.SqlServer2008 sq = GetTestProvider(spatialType);
 
             sq.ExtentsMode = SharpMap.Data.Providers.SqlServer2008ExtentsMode.QueryIndividualFeatures;
-            GeoAPI.Geometries.Envelope extents = sq.GetExtents();
+            Envelope extents = sq.GetExtents();
 
             NUnit.Framework.Assert.IsNotNull(extents);
         }
@@ -321,7 +322,7 @@ namespace UnitTests.Data.Providers
             else
             {
                 sq.ExtentsMode = SharpMap.Data.Providers.SqlServer2008ExtentsMode.SpatialIndex;
-                GeoAPI.Geometries.Envelope extents = sq.GetExtents();
+                Envelope extents = sq.GetExtents();
 
                 NUnit.Framework.Assert.IsNotNull(extents);
             }
@@ -359,7 +360,7 @@ namespace UnitTests.Data.Providers
             SharpMap.Data.Providers.SqlServer2008 sq = GetTestProvider(spatialType);
 
             sq.ExtentsMode = SharpMap.Data.Providers.SqlServer2008ExtentsMode.EnvelopeAggregate;
-            GeoAPI.Geometries.Envelope extents = sq.GetExtents();
+            Envelope extents = sq.GetExtents();
 
             NUnit.Framework.Assert.IsNotNull(extents);
         }
@@ -509,7 +510,7 @@ namespace UnitTests.Data.Providers
             // as the SQL where clause is simpler (does not require explicitly excluding invalid geometries)
             sq.ValidateGeometries = true;
             
-            GeoAPI.Geometries.Envelope envelope = GetTestEnvelope(spatialType);
+            Envelope envelope = GetTestEnvelope(spatialType);
             List<System.TimeSpan> measurements = new List<System.TimeSpan>(200);
             List<System.TimeSpan> measurementsex = new List<System.TimeSpan>(200);
             System.Diagnostics.Stopwatch timer;
@@ -596,7 +597,7 @@ namespace UnitTests.Data.Providers
 
             SharpMap.Data.FeatureDataSet ds = new SharpMap.Data.FeatureDataSet();
 
-            sq.ExecuteIntersectionQuery(new GeoAPI.Geometries.Envelope(x1, x2, y1, y2), ds);
+            sq.ExecuteIntersectionQuery(new Envelope(x1, x2, y1, y2), ds);
 
             NUnit.Framework.Assert.AreEqual(sq.ValidateGeometries ? _numValidatedGeoms : _numValidGeoms, ds.Tables[0].Rows.Count);
         }

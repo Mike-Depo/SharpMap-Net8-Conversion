@@ -11,14 +11,13 @@
     <StartupObject />
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <UseWPF>true</UseWPF>
-    <UseWindowsForms>true</UseWindowsForms>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\SharpMap.Layers.BruTile\SharpMap.Layers.BruTile.csproj" />
     <ProjectReference Include="..\..\SharpMap.UI.WPF\SharpMap.UI.WPF.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="ProjNet4GeoAPI" Version="1.4.1" />
+    <PackageReference Include="ProjNET" Version="2.0.0" />
     <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="6.0.0" />
   </ItemGroup>
 

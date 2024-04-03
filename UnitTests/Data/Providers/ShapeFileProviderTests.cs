@@ -1,4 +1,5 @@
-﻿
+﻿using NetTopologySuite.Geometries;
+
 namespace UnitTests.Data.Providers
 {
 
@@ -28,7 +29,7 @@ namespace UnitTests.Data.Providers
             int fc = sh.GetFeatureCount();
             NUnit.Framework.Assert.AreEqual(1149, fc);
             NUnit.Framework.Assert.AreEqual(0, sh.GetObjectIDsInView(sh.GetExtents())[0]);
-            var featsInView = sh.GetGeometriesInView(new GeoAPI.Geometries.Envelope(sh.GetExtents()));
+            var featsInView = sh.GetGeometriesInView(new Envelope(sh.GetExtents()));
             NUnit.Framework.Assert.AreEqual(1149, featsInView.Count);
             foreach (var item in featsInView)
             {
@@ -53,7 +54,7 @@ namespace UnitTests.Data.Providers
             int fc = sh.GetFeatureCount();
             NUnit.Framework.Assert.AreEqual(1221, fc);
             NUnit.Framework.Assert.AreEqual(0, sh.GetObjectIDsInView(sh.GetExtents())[0]);
-            var featsInView = sh.GetGeometriesInView(new GeoAPI.Geometries.Envelope(sh.GetExtents()));
+            var featsInView = sh.GetGeometriesInView(new Envelope(sh.GetExtents()));
             NUnit.Framework.Assert.AreEqual(1221, featsInView.Count);
             foreach (var item in featsInView)
             {
@@ -133,7 +134,7 @@ namespace UnitTests.Data.Providers
             int fc = sh.GetFeatureCount();
             NUnit.Framework.Assert.AreEqual(4342, fc);
             NUnit.Framework.Assert.AreEqual(0, sh.GetObjectIDsInView(sh.GetExtents())[0]);
-            var featsInView = sh.GetGeometriesInView(new GeoAPI.Geometries.Envelope(sh.GetExtents()));
+            var featsInView = sh.GetGeometriesInView(new Envelope(sh.GetExtents()));
             NUnit.Framework.Assert.AreEqual(4342, featsInView.Count);
             sh.Close();
         }

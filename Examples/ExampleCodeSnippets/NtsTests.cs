@@ -1,5 +1,7 @@
 ﻿using System.Data.Common;
+using NetTopologySuite;
 using SharpMap.Data.Providers;
+using NetTopologySuite.Geometries;
 
 namespace ExampleCodeSnippets
 {
@@ -9,8 +11,8 @@ namespace ExampleCodeSnippets
         [NUnit.Framework.OneTimeSetUp]
         public void OneTimeSetUp()
         {
-            GeoAPI.GeometryServiceProvider.Instance =
-                NetTopologySuite.NtsGeometryServices.Instance;
+            NtsGeometryServices.Instance =
+                NtsGeometryServices.Instance;
         }
 
         [NUnit.Framework.Test]
@@ -22,12 +24,12 @@ namespace ExampleCodeSnippets
 429023.1119599645 360406.75878171506, 429004.52340613387 360451.71714446822, 
 429004.52340613387 360451.71714446822, 428999.76819468878 360451.93329044303))");
 
-            var points = new System.Collections.Generic.List<GeoAPI.Geometries.IGeometry>(new []
+            var points = new System.Collections.Generic.List<Geometry>(new []
                 {
-                    reader.Factory.CreatePoint(new GeoAPI.Geometries.Coordinate(429012.5, 360443.18)),
-                    reader.Factory.CreatePoint(new GeoAPI.Geometries.Coordinate(429001.59, 360446.98)),
-                    reader.Factory.CreatePoint(new GeoAPI.Geometries.Coordinate(429003.31, 360425.45)),
-                    reader.Factory.CreatePoint(new GeoAPI.Geometries.Coordinate(429016.9, 360413.04))
+                    reader.Factory.CreatePoint(new Coordinate(429012.5, 360443.18)),
+                    reader.Factory.CreatePoint(new Coordinate(429001.59, 360446.98)),
+                    reader.Factory.CreatePoint(new Coordinate(429003.31, 360425.45)),
+                    reader.Factory.CreatePoint(new Coordinate(429016.9, 360413.04))
                 });
 
             var inside = new System.Collections.Generic.List<bool>(new[] {false, true, true, true});

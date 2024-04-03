@@ -1,3 +1,5 @@
+using NetTopologySuite.Geometries;
+
 namespace ExampleCodeSnippets
 {
     [NUnit.Framework.TestFixture]
@@ -12,7 +14,7 @@ namespace ExampleCodeSnippets
                 base.Begin(g, map, aproximateNumberOfGeometries);
                 _oldRenderOrigin = g.RenderingOrigin;
             }
-            protected override void OnRenderInternal(SharpMap.MapViewport map, GeoAPI.Geometries.IPolygon polygon, System.Drawing.Graphics g)
+            protected override void OnRenderInternal(SharpMap.MapViewport map, Polygon polygon, System.Drawing.Graphics g)
             {
                 var pt = polygon.Centroid;
                 g.RenderingOrigin = 

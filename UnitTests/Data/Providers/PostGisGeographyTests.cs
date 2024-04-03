@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using GeoAPI.Geometries;
+using NetTopologySuite;
+using NetTopologySuite.Geometries;
 using NUnit.Framework;
 using NetTopologySuite.IO;
 using Npgsql;
@@ -20,7 +21,7 @@ namespace UnitTests.Data.Providers
         {
             try
             {
-                GeoAPI.GeometryServiceProvider.Instance = new NetTopologySuite.NtsGeometryServices();
+                NtsGeometryServices.Instance = new NtsGeometryServices();
 
                 var connStrBuilder = new NpgsqlConnectionStringBuilder(Properties.Settings.Default.PostGis);
                 if (string.IsNullOrEmpty(connStrBuilder.Host) || string.IsNullOrEmpty(connStrBuilder.Database))
@@ -144,7 +145,7 @@ namespace UnitTests.Data.Providers
         {
             foreach (var sq in GetTestProvider())
             {
-                GeoAPI.Geometries.Envelope extents = sq.GetExtents();
+                Envelope extents = sq.GetExtents();
                 Assert.IsNotNull(extents);
             }
         }

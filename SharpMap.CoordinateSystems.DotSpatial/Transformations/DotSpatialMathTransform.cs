@@ -1,15 +1,15 @@
 using System;
 using System.Collections.Generic;
 using DotSpatial.Projections;
-using GeoAPI.CoordinateSystems.Transformations;
-using GeoAPI.Geometries;
+using ProjNet.CoordinateSystems.Transformations;
+using NetTopologySuite.Geometries;
 
 namespace SharpMap.CoordinateSystems.Transformations
 {
     /// <summary>
     /// A math transform based on two <see cref="ProjectionInfo"/>s.
     /// </summary>
-    internal class DotSpatialMathTransform : IMathTransform
+    internal class DotSpatialMathTransform : MathTransform
     {
         private readonly ProjectionInfo _source;
         private readonly ProjectionInfo _target;
@@ -104,7 +104,7 @@ namespace SharpMap.CoordinateSystems.Transformations
         /// <summary>Creates the inverse transform of this object.</summary>
         /// <remarks>This method may fail if the transform is not one to one. However, all cartographic projections should succeed.</remarks>
         /// <returns></returns>
-        public IMathTransform Inverse()
+        public override MathTransform Inverse()
         {
             return _inverse ?? (_inverse = new DotSpatialMathTransform(_target, _source));
         }
@@ -135,31 +135,6 @@ namespace SharpMap.CoordinateSystems.Transformations
             if (numOrdinates < 4)
                 return new[] { xy[2], xy[1], z[0] };
             return new[] { xy[0], xy[1], z[0], m[0] };
-        }
-
-        /// <summary>
-        /// Transforms a a coordinate. The input coordinate remains unchanged.
-        /// </summary>
-        /// <param name="coordinate">The coordinate to transform</param>
-        /// <returns>The transformed coordinate</returns>
-        [Obsolete]
-        public ICoordinate Transform(ICoordinate coordinate)
-        {
-            // Set up fields
-            var xy = new[] {coordinate.X, coordinate.Y};
-            var z = double.IsNaN(coordinate.Z) ? null : new[] {coordinate.Z};
-            var m = double.IsNaN(coordinate.M) ? null : new[] {coordinate.M};
-            
-            //Do the reprojection
-            Reproject.ReprojectPoints(xy, z, _order[0], _order[1], 0, 1);
-
-            // Put result in new object
-            var res = (ICoordinate) Activator.CreateInstance(coordinate.GetType());
-            res.X = xy[0];
-            res.Y = xy[1];
-            if (z != null) res.Z = z[0];
-            if (m != null) res.M = m[0];
-            return res;
         }
 
         /// <summary>
@@ -269,7 +244,7 @@ namespace SharpMap.CoordinateSystems.Transformations
         /// </summary>
         /// <param name="coordinateSequence">The coordinate sequence to transform.</param>
         /// <returns>The transformed coordinate sequence.</returns>
-        public ICoordinateSequence Transform(ICoordinateSequence coordinateSequence)
+        public CoordinateSequence Transform(CoordinateSequence coordinateSequence)
         {
             //if (coordinateSequence)
             
@@ -294,7 +269,7 @@ namespace SharpMap.CoordinateSystems.Transformations
 
             // Set up result
             j = 0;
-            var res = (ICoordinateSequence)coordinateSequence.Clone();
+            var res = (CoordinateSequence)coordinateSequence.Clone();
             for (var i = 0; i < coordinateSequence.Count; i++)
             {
                 res.SetOrdinate(i, Ordinate.X, xy[j++]);

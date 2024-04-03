@@ -9,8 +9,8 @@
     <Description>This package contains SharpMap components to work with GeoJSON.</Description>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="GeoAPI.Core" Version="1.7.5" />
-    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+    <PackageReference Include="NetTopologySuite" Version="2.5.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="6.0.0" />
   </ItemGroup>
   <ItemGroup>

@@ -3,8 +3,8 @@ using System.Globalization;
 using System.Linq;
 using System.Windows;
 using System.Windows.Forms;
-using GeoAPI;
-using GeoAPI.Geometries;
+using NetTopologySuite;
+using NetTopologySuite.Geometries;
 using Application = System.Windows.Application;
 // TODO Menu is no longer supported. Use ToolStripDropDown instead. For more details see https://docs.microsoft.com/en-us/dotnet/core/compatibility/winforms#removed-controls
 using MenuItem = System.Windows.Controls.MenuItem;
@@ -17,21 +17,20 @@ namespace WPFSamples
     {
         public MainWindow()
         {
-            NetTopologySuiteBootstrapper.Bootstrap();
+            //NetTopologySuiteBootstrapper.Bootstrap();
             InitializeComponent();
 
-            var gss = GeoAPI.GeometryServiceProvider.Instance;
+            var gss = NtsGeometryServices.Instance;
             var css = new SharpMap.CoordinateSystems.CoordinateSystemServices(
                 new ProjNet.CoordinateSystems.CoordinateSystemFactory(),
                 new ProjNet.CoordinateSystems.Transformations.CoordinateTransformationFactory(),
                 SharpMap.Converters.WellKnownText.SpatialReference.GetAllReferenceSystems());
 
-            GeoAPI.GeometryServiceProvider.Instance = gss;
+            NtsGeometryServices.Instance = gss;
             SharpMap.Session.Instance
                 .SetGeometryServices(gss)
                 .SetCoordinateSystemServices(css)
                 .SetCoordinateSystemRepository(css);
-
         }
 
         private void MenuItem_OnClick(object sender, RoutedEventArgs e)
@@ -81,7 +80,7 @@ namespace WPFSamples
                 var lay = new SharpMap.Layers.VectorLayer(System.IO.Path.GetFileNameWithoutExtension(ofd.FileName), ds);
                 if (ds.CoordinateSystem != null)
                 {
-                    GeoAPI.CoordinateSystems.Transformations.ICoordinateTransformationFactory fact =
+                    ProjNet.CoordinateSystems.Transformations.CoordinateTransformationFactory fact =
                         new ProjNet.CoordinateSystems.Transformations.CoordinateTransformationFactory();
 
                     lay.CoordinateTransformation = fact.CreateFromCoordinateSystems(ds.CoordinateSystem,
@@ -113,6 +112,16 @@ namespace WPFSamples
         }
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void AddSurvalentfgdb_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void AddSurvalentpostgis_Click(object sender, RoutedEventArgs e)
         {
 
         }

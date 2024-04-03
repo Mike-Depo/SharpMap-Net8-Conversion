@@ -2,8 +2,8 @@ using System;
 using System.Data;
 using System.Data.SQLite;
 using System.Diagnostics;
-using ICoordinateSystem = GeoAPI.CoordinateSystems.ICoordinateSystem;
-using GeoAPI.Geometries;
+using CoordinateSystem = ProjNet.CoordinateSystems.CoordinateSystem;
+using NetTopologySuite.Geometries;
 
 namespace SharpMap.Data.Providers
 {
@@ -129,14 +129,14 @@ namespace SharpMap.Data.Providers
 
         internal int GeometryType { get; private set; }
 
-        private ICoordinateSystem _spatialReference;
+        private CoordinateSystem _spatialReference;
 
-        internal ICoordinateSystem SpatialReference
+        internal CoordinateSystem SpatialReference
         {
             get { return _spatialReference ?? (_spatialReference = GetSpatialRefernce()); }
         }
 
-        private ICoordinateSystem GetSpatialRefernce()
+        private CoordinateSystem GetSpatialRefernce()
         {
             return null;
         }

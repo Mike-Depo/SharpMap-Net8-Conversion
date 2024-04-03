@@ -2,20 +2,21 @@
 using System.Linq;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
-using GeoAPI.Geometries;
+using NetTopologySuite.Geometries;
 using Microsoft.SqlServer.Types;
 using SharpMap.Data.Providers;
-using SMGeometry = GeoAPI.Geometries.IGeometry;
-using SMGeometryType = GeoAPI.Geometries.OgcGeometryType;
-using SMPoint = GeoAPI.Geometries.IPoint;
-using SMLineString = GeoAPI.Geometries.ILineString;
-using SMLinearRing = GeoAPI.Geometries.ILinearRing;
-using SMPolygon = GeoAPI.Geometries.IPolygon;
-using SMMultiPoint = GeoAPI.Geometries.IMultiPoint;
-using SMMultiLineString = GeoAPI.Geometries.IMultiLineString;
-using SMMultiPolygon = GeoAPI.Geometries.IMultiPolygon;
-using SMGeometryCollection = GeoAPI.Geometries.IGeometryCollection;
-using Factory = GeoAPI.Geometries.IGeometryFactory;
+using SMGeometry = NetTopologySuite.Geometries.Geometry;
+using SMGeometryType = NetTopologySuite.Geometries.OgcGeometryType;
+using SMPoint = NetTopologySuite.Geometries.Point;
+using SMLineString = NetTopologySuite.Geometries.LineString;
+using SMLinearRing = NetTopologySuite.Geometries.LinearRing;
+using SMPolygon = NetTopologySuite.Geometries.Polygon;
+using SMMultiPoint = NetTopologySuite.Geometries.MultiPoint;
+using SMMultiLineString = NetTopologySuite.Geometries.MultiLineString;
+using SMMultiPolygon = NetTopologySuite.Geometries.MultiPolygon;
+using SMGeometryCollection = NetTopologySuite.Geometries.GeometryCollection;
+using Factory = NetTopologySuite.Geometries.GeometryFactory;
+using NetTopologySuite;
 
 namespace SharpMap.Converters.SqlServer2008SpatialObjects
 {
@@ -99,7 +100,7 @@ namespace SharpMap.Converters.SqlServer2008SpatialObjects
     /// </summary>
     public static class SqlGeographyConverter
     {
-        private static readonly GeoAPI.IGeometryServices Services = GeoAPI.GeometryServiceProvider.Instance;
+        private static readonly NtsGeometryServices Services = NtsGeometryServices.Instance;
 
         /// <summary>
         /// A reduction tolerance<br/>
@@ -434,7 +435,7 @@ namespace SharpMap.Converters.SqlServer2008SpatialObjects
             var fact = factory ?? Services.CreateGeometryFactory((int)geography.STSrid);
 
             // courtesy of NetTopologySuite.Io.SqlServerBytes
-            var rings = new List<ILinearRing>();
+            var rings = new List<LinearRing>();
             for (var i = 1; i <= geography.NumRings(); i++)
                 rings.Add(fact.CreateLinearRing(GetPoints(geography.RingN(i))));
 

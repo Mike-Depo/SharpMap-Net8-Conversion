@@ -16,14 +16,12 @@
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA    
 
 using Common.Logging;
-using GeoAPI.Geometries;
+using NetTopologySuite.Geometries;
 using SharpMap.Converters.SqlServer2008SpatialObjects;
 using System;
 using System.Collections.ObjectModel;
 using System.Data.SqlClient;
 using System.Text;
-using BoundingBox = GeoAPI.Geometries.Envelope;
-using Geometry = GeoAPI.Geometries.IGeometry;
 
 namespace SharpMap.Data.Providers
 {
@@ -139,7 +137,7 @@ namespace SharpMap.Data.Providers
         /// </summary>   
         /// <param name="bbox"></param>   
         /// <returns></returns>   
-        public override Collection<Geometry> GetGeometriesInView(BoundingBox bbox)
+        public override Collection<Geometry> GetGeometriesInView(Envelope bbox)
         {
             var features = new Collection<Geometry>();
             using (var conn = new SqlConnection(ConnectionString))
@@ -299,7 +297,7 @@ namespace SharpMap.Data.Providers
         /// </summary>   
         /// <param name="bbox">view box</param>   
         /// <param name="fds">FeatureDataSet to fill data into</param>   
-        public override void ExecuteIntersectionQuery(BoundingBox bbox, FeatureDataSet fds)
+        public override void ExecuteIntersectionQuery(Envelope bbox, FeatureDataSet fds)
         {
             var sb = new StringBuilder($"SELECT {GetAttributeColumnNames()}, {GeometryColumn}{GetMakeValidString()} AS {GeometryColumn} " +
                                        $"FROM {QualifiedTable} {BuildTableHints()} WHERE ");

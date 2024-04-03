@@ -1,4 +1,4 @@
-﻿using GeoAPI.Geometries;
+﻿using NetTopologySuite.Geometries;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
@@ -13,11 +13,20 @@ namespace UnitTests
         [Test]
         public void TestCloseRing()
         {
+            var threeDeeCoord1 = new Coordinate(0, 0);
+            threeDeeCoord1.Z = 5;
+            var threeDeeCoord2 = new Coordinate(0, 100);
+            threeDeeCoord2.Z = 10;
+            var threeDeeCoord3 = new Coordinate(100, 100);
+            threeDeeCoord3.Z = 20;
+            var threeDeeCoord4 = new Coordinate(100, 0);
+            threeDeeCoord4.Z = 30;
+
             var coords = new List<Coordinate>(new Coordinate[] {
-                new Coordinate(0,0,5),
-                new Coordinate(0,100,10),
-                new Coordinate(100,100,20),
-                new Coordinate(100,0,30)
+                threeDeeCoord1,
+                threeDeeCoord2,
+                threeDeeCoord3,
+                threeDeeCoord4
             });
 
             coords.EnsureValidRing();

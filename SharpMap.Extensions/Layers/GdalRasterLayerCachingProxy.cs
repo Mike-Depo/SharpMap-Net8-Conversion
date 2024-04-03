@@ -21,11 +21,9 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Runtime.CompilerServices;
-using GeoAPI.Geometries;
+using NetTopologySuite.Geometries;
 using SharpMap.Data;
-using GeoAPI.CoordinateSystems.Transformations;
-using BoundingBox = GeoAPI.Geometries.Envelope;
-using Geometry = GeoAPI.Geometries.IGeometry;
+using ProjNet.CoordinateSystems.Transformations;
 using Point = System.Drawing.Point;
 
 namespace SharpMap.Layers
@@ -479,7 +477,7 @@ namespace SharpMap.Layers
         }
 
         /// <inheritdoc cref="Layer.Envelope"/>
-        public override BoundingBox Envelope
+        public override Envelope Envelope
         {
             get { return _innerLayer.Envelope; }
         }
@@ -537,7 +535,7 @@ namespace SharpMap.Layers
         /// Gets a value indicating the extent of the last rendered viewport
         /// </summary>
         /// <returns>The extent of the last rendered viewport.</returns>
-        protected BoundingBox LastRenderedExtents
+        protected Envelope LastRenderedExtents
         {
             get { return _viewPort.BoundingBox; }
             set

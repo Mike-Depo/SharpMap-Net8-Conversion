@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Net;
+using NetTopologySuite;
 using NUnit.Framework;
 using SharpKml.Dom;
 using SharpMap;
@@ -17,7 +18,7 @@ namespace UnitTests.Data.Providers
         [OneTimeSetUp]
         public void OneTimeSetUp()
         {
-            GeoAPI.GeometryServiceProvider.Instance = NetTopologySuite.NtsGeometryServices.Instance;
+            NtsGeometryServices.Instance = NtsGeometryServices.Instance;
         }
 
         [Test]

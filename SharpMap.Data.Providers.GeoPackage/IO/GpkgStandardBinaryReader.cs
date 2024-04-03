@@ -1,6 +1,6 @@
 ﻿using System.IO;
-using GeoAPI;
-using GeoAPI.Geometries;
+using NetTopologySuite.Geometries;
+using NetTopologySuite;
 using NetTopologySuite.IO;
 using SharpMap.Data.Providers.Geometry;
 
@@ -12,11 +12,11 @@ namespace SharpMap.Data.Providers.IO
         private readonly WKBReader _wkbReader;
 
         internal GpkgStandardBinaryReader()
-            :this(GeometryServiceProvider.Instance)
+            :this(NtsGeometryServices.Instance)
         {
         }
 
-        internal GpkgStandardBinaryReader(IGeometryServices services)
+        internal GpkgStandardBinaryReader(NtsGeometryServices services)
         {
             _wkbReader = new WKBReader(services);
         }

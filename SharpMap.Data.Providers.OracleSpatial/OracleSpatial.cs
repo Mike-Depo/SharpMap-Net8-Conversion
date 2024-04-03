@@ -18,14 +18,13 @@
 // along with SharpMap; if not, write to the Free Software
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA 
 
-using GeoAPI.Geometries;
+using NetTopologySuite.Geometries;
 using Oracle.DataAccess.Client;
 using SharpMap.Data.Providers.OracleUDT;
 using System;
 using System.Collections.ObjectModel;
 using System.Data;
 using System.Globalization;
-using Geometry = GeoAPI.Geometries.IGeometry;
 
 namespace SharpMap.Data.Providers
 {

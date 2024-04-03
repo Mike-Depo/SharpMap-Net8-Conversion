@@ -1,12 +1,14 @@
-﻿namespace ExampleCodeSnippets
+﻿using NetTopologySuite.Geometries;
+
+namespace ExampleCodeSnippets
 {
     /// <summary>
     /// A clipping utility that ensures every geometry is labeled within the current map viewport
     /// </summary>
     public class ClipLabelPosition
     {
-        private GeoAPI.Geometries.IGeometry _clip;
-        private GeoAPI.Geometries.Prepared.IPreparedGeometry _prepClip;
+        private Geometry _clip;
+        private NetTopologySuite.Geometries.Prepared.IPreparedGeometry _prepClip;
 
         /// <summary>
         /// Creates an instance of this class
@@ -27,7 +29,7 @@
         /// </summary>
         /// <param name="row">A feature</param>
         /// <returns>A label position</returns>
-        public GeoAPI.Geometries.Coordinate GetClippedPosition(SharpMap.Data.FeatureDataRow row)
+        public Coordinate GetClippedPosition(SharpMap.Data.FeatureDataRow row)
         {
             var g = _prepClip.Contains(row.Geometry)
                 ? row.Geometry

@@ -1,7 +1,7 @@
 using System.ComponentModel.Design;
 using System.Linq;
-using GeoAPI;
-using GeoAPI.Geometries;
+using NetTopologySuite;
+using NetTopologySuite.Geometries;
 using Oracle.DataAccess.Types;
 using System;
 using System.Collections.Generic;
@@ -223,10 +223,10 @@ namespace SharpMap.Data.Providers.OracleUDT
         }
 
         /// <summary>
-        /// Get geometry as GeoAPI IGeometry
+        /// Get geometry as NetTopologySuite Geometry
         /// </summary>
         /// <returns></returns>
-        public IGeometry AsGeometry()
+        public Geometry AsGeometry()
         {
             if (!SdoGtype.HasValue)
                 return null;
@@ -237,7 +237,7 @@ namespace SharpMap.Data.Providers.OracleUDT
             if (gType == (int) SdoGeometryTypes.EtypeSimple.Point && SdoPoint != null)
             {
                 return
-                    GeometryServiceProvider.Instance.CreateGeometryFactory()
+                    NtsGeometryServices.Instance.CreateGeometryFactory()
                         .CreatePoint(new Coordinate(Convert.ToDouble(SdoPoint.X), Convert.ToDouble(SdoPoint.Y)));
             }
             
@@ -255,7 +255,7 @@ namespace SharpMap.Data.Providers.OracleUDT
 
                 if (_elemArray[1] == 2) //Line
                 {
-                    return GeometryServiceProvider.Instance.CreateGeometryFactory().CreateLineString(coords.ToArray());
+                    return NtsGeometryServices.Instance.CreateGeometryFactory().CreateLineString(coords.ToArray());
                 }
 
                 if (_elemArray[1] == 1003)
@@ -263,10 +263,10 @@ namespace SharpMap.Data.Providers.OracleUDT
                     if (_elemArray[2] == 1)
                     {
                         //Check that the polygon is self-enclosing, else fix
-                        var seq = GeometryServiceProvider.Instance.DefaultCoordinateSequenceFactory.Create(coords.ToArray());
+                        var seq = NtsGeometryServices.Instance.DefaultCoordinateSequenceFactory.Create(coords.ToArray());
                         
                         coords.EnsureValidRing();
-                        return GeometryServiceProvider.Instance.CreateGeometryFactory().CreatePolygon(seq);
+                        return NtsGeometryServices.Instance.CreateGeometryFactory().CreatePolygon(seq);
                     }
 
                     if (_elemArray[2] == 3)
@@ -276,7 +276,7 @@ namespace SharpMap.Data.Providers.OracleUDT
                         coords.Add(coords[0]);
                         coords.Insert(1, new Coordinate(coords[0].X, coords[1].Y));
 
-                        return GeometryServiceProvider.Instance.CreateGeometryFactory().CreatePolygon(coords.ToArray());
+                        return NtsGeometryServices.Instance.CreateGeometryFactory().CreatePolygon(coords.ToArray());
                     }
                 }
             }

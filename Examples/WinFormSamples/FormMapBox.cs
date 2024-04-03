@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
+using NetTopologySuite.Geometries;
 using ProjNet.CoordinateSystems;
 using ProjNet.CoordinateSystems.Transformations;
 using SharpMap;
@@ -341,7 +342,7 @@ namespace WinFormSamples
             UpdatePropertyGrid();
         }
 
-        private void mapImage_MapCenterChanged(GeoAPI.Geometries.Coordinate center)
+        private void mapImage_MapCenterChanged(Coordinate center)
         {
             UpdatePropertyGrid();
         }

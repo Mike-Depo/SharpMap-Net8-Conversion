@@ -17,9 +17,8 @@ namespace WinFormSamples
     using System.Windows.Forms;
     using BruTile;
     //using BruTile.PreDefined;
-    using GeoAPI.Geometries;
     using NetTopologySuite.Geometries;
-    using GeoAPI.CoordinateSystems.Transformations;
+    using NetTopologySuite.CoordinateSystems.Transformations;
     using SharpMap.Data.Providers;
     using SharpMap.Forms;
     using SharpMap.Layers;
@@ -42,14 +41,14 @@ namespace WinFormSamples
             this.mapBox1.Map.BackgroundLayer.Add(tileLayer);
             GeometryFactory gf = new GeometryFactory(new PrecisionModel(), 3857);
 
-            IMathTransform mathTransform = LayerTools.Wgs84toGoogleMercator.MathTransform;
+            ProjNet.CoordinateSystems.Transformations.MathTransform mathTransform = LayerTools.Wgs84toGoogleMercator.MathTransform;
             Envelope geom = GeometryTransform.TransformBox(
                 new Envelope(-9.205626, -9.123736, 38.690993, 38.740837),
                 mathTransform);
 
             //Adds a pushpin layer
             VectorLayer pushPinLayer = new VectorLayer("PushPins");
-            List<IGeometry> geos = new List<IGeometry>();
+            List<Geometry> geos = new List<Geometry>();
             geos.Add(gf.CreatePoint(geom.Centre));
             GeometryProvider geoProvider = new GeometryProvider(geos);
             pushPinLayer.DataSource = geoProvider;

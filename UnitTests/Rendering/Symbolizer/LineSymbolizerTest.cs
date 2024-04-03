@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using NetTopologySuite;
+using NUnit.Framework;
 
 namespace UnitTests.Rendering.Symbolizer
 {
@@ -6,7 +7,7 @@ namespace UnitTests.Rendering.Symbolizer
     {
         static LineSymbolizerTest()
         {
-            GeoAPI.GeometryServiceProvider.Instance = new NetTopologySuite.NtsGeometryServices();
+            NtsGeometryServices.Instance = new NtsGeometryServices();
         }
 
         [NUnit.Framework.Test] 

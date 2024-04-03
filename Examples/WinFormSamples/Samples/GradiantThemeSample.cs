@@ -3,7 +3,7 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Text;
 using System.IO;
-using GeoAPI.Geometries;
+using NetTopologySuite.Geometries;
 using SharpMap;
 using SharpMap.Data.Providers;
 using SharpMap.Layers;
@@ -11,7 +11,6 @@ using SharpMap.Rendering;
 using SharpMap.Rendering.Thematics;
 using SharpMap.Styles;
 using ColorBlend=SharpMap.Rendering.Thematics.ColorBlend;
-using Point = GeoAPI.Geometries.Coordinate;
 
 namespace WinFormSamples.Samples
 {
@@ -131,7 +130,7 @@ namespace WinFormSamples.Samples
             map.MaximumZoom = 30;
 
             map.Zoom = 20;
-            map.Center = new Point(0, 0);
+            map.Center = new Coordinate(0, 0);
 
             Matrix mat = new Matrix();
             mat.RotateAt(angle, map.WorldToImage(map.Center));

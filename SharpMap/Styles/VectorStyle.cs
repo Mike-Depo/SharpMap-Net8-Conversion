@@ -19,7 +19,7 @@ using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Reflection;
-using GeoAPI.Geometries;
+using NetTopologySuite.Geometries;
 using SharpMap.Rendering.Symbolizer;
 using Common.Logging;
 #if NETSTANDARD2_0
@@ -451,7 +451,7 @@ namespace SharpMap.Styles
                     break;
                 case 2:
                     var alpha = _rnd.Next(67, 256);
-                    res.Fill = new LinearGradientBrush(new Point(0, 0), new Point(_rnd.Next(5, 10), _rnd.Next(5, 10)),
+                    res.Fill = new LinearGradientBrush(new System.Drawing.Point(0, 0), new System.Drawing.Point(_rnd.Next(5, 10), _rnd.Next(5, 10)),
                         CreateRandomKnownColor(alpha), CreateRandomKnownColor(alpha));
                     break;
             }

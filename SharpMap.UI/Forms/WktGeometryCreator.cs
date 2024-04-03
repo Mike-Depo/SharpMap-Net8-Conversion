@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
+using NetTopologySuite.Geometries;
 using NetTopologySuite.IO;
 
 namespace SharpMap.Forms
@@ -47,12 +48,12 @@ namespace SharpMap.Forms
             Hide();
         }
 
-        private GeoAPI.Geometries.IGeometry _geometry;
+        private Geometry _geometry;
         
         /// <summary>
         /// Gets or sets a value indicating the current geometry
         /// </summary>
-        public GeoAPI.Geometries.IGeometry Geometry
+        public Geometry Geometry
         {
             get
             {

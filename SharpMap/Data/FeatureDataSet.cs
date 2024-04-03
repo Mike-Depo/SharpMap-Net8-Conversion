@@ -26,8 +26,8 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
-using GeoAPI;
-using GeoAPI.Geometries;
+using NetTopologySuite;
+using NetTopologySuite.Geometries;
 using NetTopologySuite.IO;
 
 namespace SharpMap.Data
@@ -481,7 +481,7 @@ namespace SharpMap.Data
 
         //private void InitClass()
         //{
-        //    //this.columnFeatureGeometry = new DataColumn("FeatureGeometry", typeof(GeoAPI.Geometries.IGeometry), null, System.Data.MappingType.Element);
+        //    //this.columnFeatureGeometry = new DataColumn("FeatureGeometry", typeof(Geometry), null, System.Data.MappingType.Element);
         //    //this.Columns.Add(this.columnFeatureGeometry);
         //}
 
@@ -854,7 +854,7 @@ namespace SharpMap.Data
     {
         //private FeatureDataTable tableFeatureTable;
 
-        private IGeometry _geometry;
+        private Geometry _geometry;
 
         /// <summary>
         /// Creates an instance of this class
@@ -868,7 +868,7 @@ namespace SharpMap.Data
         /// <summary>
         /// The geometry of the current feature
         /// </summary>
-        public IGeometry Geometry
+        public Geometry Geometry
         {
             get { return _geometry; }
             set

@@ -7,7 +7,7 @@ using SharpMap.Data.Providers;
 using SharpMap.Layers;
 using SharpMap.Styles;
 using SharpMap.Utilities.Wfs;
-using Point = GeoAPI.Geometries.Coordinate;
+using NetTopologySuite.Geometries;
 
 namespace WinFormSamples.Samples
 {
@@ -137,7 +137,7 @@ namespace WinFormSamples.Samples
                 map.Layers.Add(layer6);
                 map.Layers.Add(layLabel);
 
-                map.Center = new Point(-74.0, 40.7);
+                map.Center = new Coordinate(-74.0, 40.7);
                 map.Zoom = 10;
                 // Alternatively zoom closer
                 // demoMap.Zoom = 0.2;

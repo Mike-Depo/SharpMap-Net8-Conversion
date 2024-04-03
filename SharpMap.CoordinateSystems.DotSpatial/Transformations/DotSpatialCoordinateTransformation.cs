@@ -1,6 +1,6 @@
 ﻿using System;
-using GeoAPI.CoordinateSystems;
-using GeoAPI.CoordinateSystems.Transformations;
+using ProjNet.CoordinateSystems;
+using ProjNet.CoordinateSystems.Transformations;
 
 namespace SharpMap.CoordinateSystems.Transformations
 {
@@ -55,7 +55,7 @@ namespace SharpMap.CoordinateSystems.Transformations
         }
 
         /// <summary>Gets math transform.</summary>
-        public IMathTransform MathTransform
+        public MathTransform MathTransform
         {
             get { return _transform; }
         }
@@ -73,13 +73,13 @@ namespace SharpMap.CoordinateSystems.Transformations
         }
 
         /// <summary>Source coordinate system.</summary>
-        public ICoordinateSystem SourceCS
+        public CoordinateSystem SourceCS
         {
             get { return _source; }
         }
 
         /// <summary>Target coordinate system.</summary>
-        public ICoordinateSystem TargetCS
+        public CoordinateSystem TargetCS
         {
             get { return _target; }
         }

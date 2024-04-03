@@ -10,7 +10,7 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="DotSpatial.Projections" Version="1.9.0.0" />
-    <PackageReference Include="GeoAPI.Core" Version="1.7.5" />
+    <PackageReference Include="NetTopologySuite" Version="2.5.0" />
     <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="6.0.0" />
   </ItemGroup>
   <ItemGroup>

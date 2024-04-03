@@ -20,7 +20,10 @@
  */
 using System;
 using DotSpatial.Projections;
-using GeoAPI.CoordinateSystems;
+using ProjNet.CoordinateSystems;
+using SharpMap.Base.GeoAPI.CoordinateSystems;
+using AngularUnit = DotSpatial.Projections.AngularUnit;
+using LinearUnit = DotSpatial.Projections.LinearUnit;
 
 namespace SharpMap.CoordinateSystems
 {
@@ -56,13 +59,17 @@ namespace SharpMap.CoordinateSystems
         /// <summary>
         /// Creates an instance of this class using the provided projection info, enhanced by an alias, an abbreviation and a remark
         /// </summary>
-        /// <param name="projecionInfo">The projection info</param>
+        /// <param name="projectionInfo">The projection info</param>
         /// <param name="alias">The alias</param>
         /// <param name="abbreviation">The abbreviation</param>
         /// <param name="remarks">The remarks</param>
-        public DotSpatialCoordinateSystem(ProjectionInfo projecionInfo, string alias = null, string abbreviation = null, string remarks = null)
-            :this(projecionInfo)
+        public DotSpatialCoordinateSystem(ProjectionInfo projectionInfo, string alias = null, string abbreviation = null, string remarks = null)
+            : this(projectionInfo)
         {
+            if (projectionInfo == null)
+                throw new ArgumentNullException("projecionInfo");
+
+            _projectionInfo = projectionInfo;
             _alias = alias;
             _abbreviation = abbreviation;
             _remarks = remarks;
@@ -212,7 +219,7 @@ namespace SharpMap.CoordinateSystems
             public abstract bool EqualParams(object obj);
         }
 
-        private class AngularUnitWrapper : UnitWrapper, IAngularUnit
+        private class AngularUnitWrapper : UnitWrapper
         {
             private AngularUnit Unit
             {
@@ -244,7 +251,7 @@ namespace SharpMap.CoordinateSystems
             }
         }
 
-        private class LinearUnitWrapper : UnitWrapper, ILinearUnit
+        private class LinearUnitWrapper : UnitWrapper
         {
             private LinearUnit Unit
             {

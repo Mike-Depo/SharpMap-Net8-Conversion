@@ -3,7 +3,7 @@ using System.Drawing;
 using System.IO;
 using System.Reflection;
 using System.Windows.Forms;
-using GeoAPI.Geometries;
+using NetTopologySuite.Geometries;
 using SharpMap;
 using SharpMap.Forms;
 using SharpMap.Forms.Tools;
@@ -172,7 +172,7 @@ namespace WinFormSamples
             _magnified.Image = _map.GetMap();
             _magnified.Visible = true;
             
-            var newLocation = Point.Add(mouseEventArgs.Location, Offset);
+            var newLocation = System.Drawing.Point.Add(mouseEventArgs.Location, Offset);
             if (newLocation.X + _magnified.Size.Width > _parentMapBox.ClientSize.Width)
                 newLocation.X = mouseEventArgs.Location.X - Offset.Width - _magnified.Size.Width;
             if (newLocation.Y + _magnified.Size.Height > _parentMapBox.ClientSize.Height)
@@ -197,7 +197,7 @@ namespace WinFormSamples
                 var old = _offset;
                 _offset = value;
                 if (Enabled)
-                    _magnified.Location = Point.Add(Point.Subtract(_magnified.Location, old), _offset);
+                    _magnified.Location = System.Drawing.Point.Add(System.Drawing.Point.Subtract(_magnified.Location, old), _offset);
             }
         }
 

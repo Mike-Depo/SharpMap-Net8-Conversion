@@ -18,9 +18,7 @@
 using System;
 using System.Collections.ObjectModel;
 using System.Data;
-using GeoAPI.Geometries;
-using Geometry = GeoAPI.Geometries.IGeometry;
-using BoundingBox = GeoAPI.Geometries.Envelope;
+using NetTopologySuite.Geometries;
 
 namespace SharpMap.Data.Providers
 {
@@ -162,10 +160,10 @@ namespace SharpMap.Data.Providers
         /// </summary>
         /// <param name="bbox"></param>
         /// <returns></returns>
-        public override Collection<IGeometry> GetGeometriesInView(Envelope bbox)
+        public override Collection<Geometry> GetGeometriesInView(Envelope bbox)
         {
             DataRow[] drow;
-            var features = new Collection<IGeometry>();
+            var features = new Collection<Geometry>();
 
             if (Table.Rows.Count == 0)
             {
@@ -192,7 +190,7 @@ namespace SharpMap.Data.Providers
         /// </summary>
         /// <param name="bbox"></param>
         /// <returns></returns>
-        public override Collection<uint> GetObjectIDsInView(BoundingBox bbox)
+        public override Collection<uint> GetObjectIDsInView(Envelope bbox)
         {
             DataRow[] drow;
             Collection<uint> objectlist = new Collection<uint>();
@@ -249,7 +247,7 @@ namespace SharpMap.Data.Providers
         /// </summary>
         /// <param name="bbox">Bounds of the region to search.</param>
         /// <param name="ds">FeatureDataSet to fill data into</param>
-        public override void ExecuteIntersectionQuery(BoundingBox bbox, FeatureDataSet ds)
+        public override void ExecuteIntersectionQuery(Envelope bbox, FeatureDataSet ds)
         {
             DataRow[] rows;
 
@@ -321,7 +319,7 @@ namespace SharpMap.Data.Providers
         /// </summary>
         /// <param name="row">The data row</param>
         /// <returns>A geometry</returns>
-        protected virtual IGeometry CreateGeometry(DataRow row)
+        protected virtual Geometry CreateGeometry(DataRow row)
         {
             return Factory.CreatePoint(
                 new Coordinate(
@@ -337,14 +335,14 @@ namespace SharpMap.Data.Providers
         /// A BoundingBox instance which minimally bounds all the features
         /// available in this data source.
         /// </returns>
-        public override BoundingBox GetExtents()
+        public override Envelope GetExtents()
         {
             if (Table.Rows.Count == 0)
             {
                 return null;
             }
 
-            BoundingBox box;
+            Envelope box;
 
             double minX = Double.PositiveInfinity,
                    minY = Double.PositiveInfinity,
@@ -359,7 +357,7 @@ namespace SharpMap.Data.Providers
                 if (maxY < (double) dr[YColumn]) maxY = (double) dr[YColumn];
             }
 
-            box = new BoundingBox(minX, maxX, minY, maxY);
+            box = new Envelope(minX, maxX, minY, maxY);
 
             return box;
         }

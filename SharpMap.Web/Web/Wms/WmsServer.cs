@@ -24,13 +24,14 @@ using System.Linq;
 using System.Reflection;
 using System.Web;
 using System.Xml;
-using GeoAPI.Geometries;
+using NetTopologySuite.Geometries;
+using NetTopologySuite.CoordinateSystems.Transformations;
 using SharpMap.Data;
 using SharpMap.Data.Providers;
 using SharpMap.Layers;
 using System.Collections.Generic;
 using System.Text;
-using GeoAPI.CoordinateSystems.Transformations;
+using ProjNet.CoordinateSystems.Transformations;
 
 namespace SharpMap.Web.Wms
 {    
@@ -1066,7 +1067,7 @@ namespace SharpMap.Web.Wms
                         var data = Converters.GeoJSON.GeoJSONHelper.GetData(fds);
 
                         // Reproject geometries if needed
-                        IMathTransform transform = null;
+                        MathTransform transform = null;
                         if (queryLayer is VectorLayer)
                         {
                             ICoordinateTransformation transformation = (queryLayer as VectorLayer).CoordinateTransformation;

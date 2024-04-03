@@ -1,4 +1,6 @@
-﻿namespace ExampleCodeSnippets
+﻿using NetTopologySuite.Geometries;
+
+namespace ExampleCodeSnippets
 {
 
 /// <summary>
@@ -26,7 +28,7 @@ public class StreetDirectionSymbolizer : SharpMap.Rendering.Symbolizer.BaseSymbo
     /// <param name="map"></param>
     /// <param name="lineString"></param>
     /// <param name="graphics"></param>
-    private void OnRenderInternal(SharpMap.MapViewport map, GeoAPI.Geometries.ILineString lineString,
+    private void OnRenderInternal(SharpMap.MapViewport map, LineString lineString,
         System.Drawing.Graphics graphics)
     {
 
@@ -36,7 +38,7 @@ public class StreetDirectionSymbolizer : SharpMap.Rendering.Symbolizer.BaseSymbo
         {
             var start = System.Math.Max(0, (length - ArrowLength)/2);
             var end = System.Math.Min(length, (length + ArrowLength)/2);
-            var arrow = (GeoAPI.Geometries.ILineString) lil.ExtractLine(start, end);
+            var arrow = (LineString) lil.ExtractLine(start, end);
 
             RenderArrow(map, graphics, arrow);
 
@@ -48,7 +50,7 @@ public class StreetDirectionSymbolizer : SharpMap.Rendering.Symbolizer.BaseSymbo
 
         while (offset + ArrowLength < lineString.Length)
         {
-            var arrow = (GeoAPI.Geometries.ILineString) lil.ExtractLine(offset, offset + ArrowLength);
+            var arrow = (LineString) lil.ExtractLine(offset, offset + ArrowLength);
             RenderArrow(map, graphics, arrow);
             offset += RepeatInterval;
         }
@@ -61,7 +63,7 @@ public class StreetDirectionSymbolizer : SharpMap.Rendering.Symbolizer.BaseSymbo
     /// <param name="map">The map</param>
     /// <param name="graphics">The graphics object</param>
     /// <param name="arrow">The arrow</param>
-    private void RenderArrow(SharpMap.MapViewport map, System.Drawing.Graphics graphics, GeoAPI.Geometries.ILineString arrow)
+    private void RenderArrow(SharpMap.MapViewport map, System.Drawing.Graphics graphics, LineString arrow)
     {
         var pts = new System.Drawing.PointF[arrow.Coordinates.Length];
         for (var i = 0; i < pts.Length; i++)
@@ -93,18 +95,18 @@ public class StreetDirectionSymbolizer : SharpMap.Rendering.Symbolizer.BaseSymbo
         ArrowPen.CustomEndCap = new System.Drawing.Drawing2D.AdjustableArrowCap(size, size);
     }
 
-    public void Render(SharpMap.MapViewport map, GeoAPI.Geometries.ILineal geometry, System.Drawing.Graphics graphics)
+    public void Render(SharpMap.MapViewport map, ILineal geometry, System.Drawing.Graphics graphics)
     {
-        if (geometry is GeoAPI.Geometries.IMultiLineString)
+        if (geometry is MultiLineString)
         {
-            var mls = (GeoAPI.Geometries.IMultiLineString) geometry;
+            var mls = (MultiLineString) geometry;
             for (var i = 0; i < mls.Count; i++)
             {
-                OnRenderInternal(map, (GeoAPI.Geometries.ILineString) mls.GetGeometryN(i), graphics);
+                OnRenderInternal(map, (LineString) mls.GetGeometryN(i), graphics);
             }
             return;
         }
-        OnRenderInternal(map, (GeoAPI.Geometries.ILineString) geometry, graphics);
+        OnRenderInternal(map, (LineString) geometry, graphics);
     }
 
     protected override void ReleaseManagedResources()
@@ -126,7 +128,7 @@ public class StreetDirectionSymbolizer : SharpMap.Rendering.Symbolizer.BaseSymbo
         [NUnit.Framework.OneTimeSetUp]
         public void OneTimeSetUp()
         {
-            GeoAPI.GeometryServiceProvider.Instance = NetTopologySuite.NtsGeometryServices.Instance;
+            NetTopologySuite.NtsGeometryServices.Instance = NetTopologySuite.NtsGeometryServices.Instance;
         }
         [NUnit.Framework.Test] 
         public void TestBasicLineSymbolizer()
@@ -392,7 +394,7 @@ public class StreetDirectionSymbolizer : SharpMap.Rendering.Symbolizer.BaseSymbo
             var m = new SharpMap.Map(new System.Drawing.Size(640, 320));
 
             var l = new SharpMap.Layers.Symbolizer.PuntalVectorLayer("l",
-            new SharpMap.Data.Providers.GeometryProvider(m.Factory.CreatePoint(new GeoAPI.Geometries.Coordinate(0, 51.478885))),
+            new SharpMap.Data.Providers.GeometryProvider(m.Factory.CreatePoint(new Coordinate(0, 51.478885))),
             SharpMap.Rendering.Symbolizer.PathPointSymbolizer.CreateCircle(System.Drawing.Pens.Aquamarine, System.Drawing.Brushes.BurlyWood, 24));
 
             var ctFact = new ProjNet.CoordinateSystems.Transformations.CoordinateTransformationFactory();
@@ -402,8 +404,8 @@ public class StreetDirectionSymbolizer : SharpMap.Rendering.Symbolizer.BaseSymbo
             m.Layers.Add(new SharpMap.Layers.TileLayer(BruTile.Predefined.KnownTileSources.Create(),"b"));
             m.Layers.Add(l);
 
-            var e = new GeoAPI.Geometries.Envelope(-0.02, 0.02, 51.478885 - 0.01, 51.478885 + 0.01);
-            e = GeoAPI.CoordinateSystems.Transformations.GeometryTransform.TransformBox(e,
+            var e = new Envelope(-0.02, 0.02, 51.478885 - 0.01, 51.478885 + 0.01);
+            e = NetTopologySuite.CoordinateSystems.Transformations.GeometryTransform.TransformBox(e,
                 l.CoordinateTransformation.MathTransform);
             m.ZoomToBox(e);
             m.GetMap().Save("Greenwich.png", System.Drawing.Imaging.ImageFormat.Png);

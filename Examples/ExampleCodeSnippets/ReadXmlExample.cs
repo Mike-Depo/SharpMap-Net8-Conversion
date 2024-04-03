@@ -1,15 +1,17 @@
-﻿namespace ExampleCodeSnippets
+﻿using NetTopologySuite.Geometries;
+
+namespace ExampleCodeSnippets
 {
     public class ReadXmlExample
     {
         /// <summary>
-        /// Creates an enumeration of <see cref="GeoAPI.Geometries.Coordinate"/>s from an xml string
+        /// Creates an enumeration of <see cref="Coordinate"/>s from an xml string
         /// </summary>
         /// <param name="factory"></param>
         /// <param name="xml">the xml string</param>
         /// <returns>Coordinates</returns>
-        public static System.Collections.Generic.IEnumerable<GeoAPI.Geometries.IGeometry> PointsFromXml(
-            GeoAPI.Geometries.IGeometryFactory factory,
+        public static System.Collections.Generic.IEnumerable<Geometry> PointsFromXml(
+            GeometryFactory factory,
             System.IO.Stream xml)
         {
             foreach (var coordinate in CoordinatesFromXml(xml))
@@ -17,11 +19,11 @@
         }
 
         /// <summary>
-        /// Creates an enumeration of <see cref="GeoAPI.Geometries.Coordinate"/>s from an xml string
+        /// Creates an enumeration of <see cref="Coordinate"/>s from an xml string
         /// </summary>
         /// <param name="xml">the xml string</param>
         /// <returns>Coordinates</returns>
-        public static System.Collections.Generic.IEnumerable<GeoAPI.Geometries.Coordinate> CoordinatesFromXml(System.IO.Stream xml)
+        public static System.Collections.Generic.IEnumerable<Coordinate> CoordinatesFromXml(System.IO.Stream xml)
         {
             var reader = System.Xml.XmlReader.Create(xml);
             var doc = System.Xml.Linq.XDocument.Load(reader);
@@ -47,7 +49,7 @@
                     var y = double.Parse(element.Value,
                                          System.Globalization.NumberFormatInfo.InvariantInfo);
 
-                    yield return new GeoAPI.Geometries.Coordinate(x, y);
+                    yield return new Coordinate(x, y);
                 }
             }
         }
@@ -69,7 +71,7 @@
             using (var sw = new System.IO.StreamWriter(System.IO.File.OpenWrite(xmlFileName)))
                 sw.Write(xml);
 
-            var factory = new NetTopologySuite.Geometries.GeometryFactory();
+            var factory = new GeometryFactory();
 
             SharpMap.Data.Providers.GeometryProvider p = null;
             using (var fs = System.IO.File.OpenRead(xmlFileName))

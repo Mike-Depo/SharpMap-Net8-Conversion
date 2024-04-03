@@ -25,9 +25,10 @@ using System.Drawing.Imaging;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using GeoAPI.CoordinateSystems;
-using GeoAPI.CoordinateSystems.Transformations;
-using GeoAPI.Geometries;
+using ProjNet.CoordinateSystems;
+using ProjNet.CoordinateSystems.Transformations;
+using NetTopologySuite.Geometries;
+using NetTopologySuite.CoordinateSystems.Transformations;
 using SharpKml.Base;
 using SharpKml.Dom;
 using SharpKml.Engine;
@@ -35,6 +36,7 @@ using SharpMap.Rendering.Thematics;
 using SharpMap.Styles;
 using ColorMode = SharpKml.Dom.ColorMode;
 using Point = SharpKml.Dom.Point;
+using NetTopologySuite;
 
 namespace SharpMap.Data.Providers
 {
@@ -118,9 +120,9 @@ namespace SharpMap.Data.Providers
         private int _sequence;
         //private ICoordinateTransformationFactory _coordinateTransformationFactory;
         //private ICoordinateSystemFactory _coordinateSystemFactory;
-        private IGeometryFactory _earthGeometryFactory;
+        private GeometryFactory _earthGeometryFactory;
         private int _earthSrid;
-        private ICoordinateSystem _earthCs;
+        private CoordinateSystem _earthCs;
         private readonly List<string> _additionalFiles;
         #endregion
 
@@ -203,7 +205,7 @@ namespace SharpMap.Data.Providers
                 if (_earthSrid != value)
                 {
                     _earthSrid = value;
-                    _earthGeometryFactory = GeoAPI.GeometryServiceProvider.Instance.CreateGeometryFactory(value);
+                    _earthGeometryFactory = NtsGeometryServices.Instance.CreateGeometryFactory(value);
 
                     _earthCs = SharpMap.Session.Instance.CoordinateSystemServices.GetCoordinateSystem(value);
                 }
@@ -412,7 +414,7 @@ namespace SharpMap.Data.Providers
         /// </summary>
         /// <param name="geometry">A geometry</param>
         /// <returns>A geometry in WGS84</returns>
-        protected virtual IGeometry ToTarget(IGeometry geometry)
+        protected virtual NetTopologySuite.Geometries.Geometry ToTarget(NetTopologySuite.Geometries.Geometry geometry)
         {
             if (geometry.SRID == EarthSrid || (geometry.SRID <= 0 && CoordinateTransformation == null))
                 return geometry;
@@ -480,7 +482,7 @@ namespace SharpMap.Data.Providers
                     }
                 case OgcGeometryType.Polygon:
                     {
-                        var polygon = (IPolygon)geometry;
+                        var polygon = (NetTopologySuite.Geometries.Polygon)geometry;
 
                         var kmlPolygon = CreateKmlPolygon(polygon);
 
@@ -490,7 +492,7 @@ namespace SharpMap.Data.Providers
                     {
                         var multiGeometry = new MultipleGeometry();
 
-                        var multiLineString = (IMultiLineString)geometry;
+                        var multiLineString = (MultiLineString)geometry;
                         foreach (var innerGeometry in multiLineString.Geometries)
                         {
                             var lineString = CreateLineString(innerGeometry);
@@ -503,9 +505,9 @@ namespace SharpMap.Data.Providers
                 case OgcGeometryType.MultiPolygon:
                     {
                         var multiGeometry = new MultipleGeometry();
-                        var multiPoly = (IMultiPolygon)geometry;
+                        var multiPoly = (MultiPolygon)geometry;
 
-                        foreach (var innerGeometry in multiPoly.Geometries.Cast<IPolygon>())
+                        foreach (var innerGeometry in multiPoly.Geometries.Cast<NetTopologySuite.Geometries.Polygon>())
                         {
                             var polygon = CreateKmlPolygon(innerGeometry);
 
@@ -620,9 +622,9 @@ namespace SharpMap.Data.Providers
             }
         }
 
-        private LineString CreateLineString(IGeometry geometry)
+        private SharpKml.Dom.LineString CreateLineString(NetTopologySuite.Geometries.Geometry geometry)
         {
-            var lineString = new LineString { Coordinates = new CoordinateCollection() };
+            var lineString = new SharpKml.Dom.LineString { Coordinates = new CoordinateCollection() };
 
             foreach (var coordinate in geometry.Coordinates)
             {
@@ -632,10 +634,10 @@ namespace SharpMap.Data.Providers
 
             return lineString;
         }
-        private Polygon CreateKmlPolygon(IPolygon polygon)
+        private SharpKml.Dom.Polygon CreateKmlPolygon(NetTopologySuite.Geometries.Polygon polygon)
         {
-            var kmlPolygon = new Polygon();
-            var ring = new LinearRing { Coordinates = new CoordinateCollection() };
+            var kmlPolygon = new SharpKml.Dom.Polygon();
+            var ring = new SharpKml.Dom.LinearRing { Coordinates = new CoordinateCollection() };
 
             kmlPolygon.OuterBoundary = new OuterBoundary { LinearRing = ring };
 
@@ -649,7 +651,7 @@ namespace SharpMap.Data.Providers
                 var innerBoundary = new InnerBoundary();
                 kmlPolygon.AddInnerBoundary(innerBoundary);
 
-                ring = new LinearRing { Coordinates = new CoordinateCollection() };
+                ring = new SharpKml.Dom.LinearRing { Coordinates = new CoordinateCollection() };
 
                 innerBoundary.LinearRing = ring;
 
@@ -693,7 +695,7 @@ namespace SharpMap.Data.Providers
             return null;
         }
 
-        private Placemark WrapPlacemark(Geometry kmlGeometry, StyleSelector style, FeatureDataRow feature)
+        private Placemark WrapPlacemark(SharpKml.Dom.Geometry kmlGeometry, StyleSelector style, FeatureDataRow feature)
         {
             var placemark = new Placemark();
             if (!string.IsNullOrEmpty(NameColumn))

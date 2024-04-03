@@ -1,6 +1,11 @@
 ﻿using System;
 using Common.Logging;
-using GeoAPI;
+using NetTopologySuite;
+using NetTopologySuite.Geometries;
+using NetTopologySuite.Utilities;
+using ProjNet.CoordinateSystems;
+using ProjNet.Geometries;
+using SharpMap.CoordinateSystems;
 
 namespace SharpMap
 {
@@ -9,8 +14,8 @@ namespace SharpMap
     /// </summary>
     public class Session : ISession
     {
-        private static ICoordinateSystemRepository _repository;
-        private ICoordinateSystemServices _coordinateSystemServices;
+        private static CoordinateSystemServices _repository;
+        private CoordinateSystemServices _coordinateSystemServices;
 
         /// <summary>
         /// Static constructor
@@ -28,12 +33,12 @@ namespace SharpMap
         /// <summary>
         /// The geometry services instance
         /// </summary>
-        public IGeometryServices GeometryServices { get; set; }
+        public NtsGeometryServices GeometryServices { get; set; }
 
         /// <summary>
         /// Gets the coordinate system services instance
         /// </summary>
-        public ICoordinateSystemServices CoordinateSystemServices
+        public CoordinateSystemServices CoordinateSystemServices
         {
             get
             {
@@ -47,9 +52,9 @@ namespace SharpMap
         /// <summary>
         /// Gets the coordinate system repository
         /// </summary>
-        public ICoordinateSystemRepository CoordinateSystemRepository
+        public CoordinateSystemServices CoordinateSystemRepository
         {
-            get { return _repository ?? CoordinateSystemServices as ICoordinateSystemRepository; }
+            get { return _repository ?? CoordinateSystemServices; }
             set { _repository = value; }
         }
 
@@ -60,7 +65,7 @@ namespace SharpMap
         /// </summary>
         /// <param name="geometryServices">The geometry services class</param>
         /// <returns>A reference to this session</returns>
-        public ISession SetGeometryServices(IGeometryServices geometryServices)
+        public ISession SetGeometryServices(NtsGeometryServices geometryServices)
         {
             GeometryServices = geometryServices;
             return this;
@@ -71,7 +76,7 @@ namespace SharpMap
         /// </summary>
         /// <param name="coordinateSystemServices">The coordinate system services class</param>
         /// <returns>A reference to this session</returns>
-        public ISession SetCoordinateSystemServices(ICoordinateSystemServices coordinateSystemServices)
+        public ISession SetCoordinateSystemServices(CoordinateSystemServices coordinateSystemServices)
         {
             CoordinateSystemServices = coordinateSystemServices;
             return this;
@@ -82,7 +87,7 @@ namespace SharpMap
         /// </summary>
         /// <param name="coordinateSystemRepository">The coordinate system repository class</param>
         /// <returns>A reference to this session</returns>
-        public ISession SetCoordinateSystemRepository(ICoordinateSystemRepository coordinateSystemRepository)
+        public ISession SetCoordinateSystemRepository(CoordinateSystemServices coordinateSystemRepository)
         {
             CoordinateSystemRepository = coordinateSystemRepository;
             return this;

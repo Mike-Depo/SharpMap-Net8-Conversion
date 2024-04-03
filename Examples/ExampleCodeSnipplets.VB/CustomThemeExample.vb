@@ -1,7 +1,9 @@
-﻿Public Class CustomThemeExample
+﻿Using NetTopologySuite.Geometries;
+
+Public Class CustomThemeExample
 
     Private _testColumn As String
-    Private ReadOnly _styles As Dictionary(Of String, SharpMap.Styles.IStyle) = _
+    Private ReadOnly _styles As Dictionary(Of String, SharpMap.Styles.IStyle) =
         New Dictionary(Of String, SharpMap.Styles.IStyle)
     Private _defaultStyle As SharpMap.Styles.IStyle
 
@@ -11,7 +13,7 @@
 
     Protected Overrides Sub Finalize()
 
-        For Each kvp as KeyValuePair(Of String, SharpMap.Styles.IStyle) in  _styles
+        For Each kvp As KeyValuePair(Of String, SharpMap.Styles.IStyle) In _styles
             kvp.Value.Dispose()
         Next
 
@@ -50,7 +52,7 @@
 End Class
 
 
-public Class UniqueValuesThemeTest
+Public Class UniqueValuesThemeTest
 
  Private delObjektLabelBez As SharpMap.Layers.LabelLayer.GetLabelMethod
   Private delObjektLabelPos As SharpMap.Layers.LabelLayer.GetLocationMethod
@@ -151,12 +153,12 @@ public Class UniqueValuesThemeTest
   
     Private Shared function LabelObjektBezeichnung(fdr As SharpMap.Data.FeatureDataRow) As String
         return "The quick brown fox ..."
-    End function
-
-    Private Shared Function LabelBezeichnungPos(fdr As SharpMap.Data.FeatureDataRow) As GeoAPI.Geometries.Coordinate
-        return new GeoAPI.Geometries.Coordinate(0, 0)
     End Function
-    
+
+    Private Shared Function LabelBezeichnungPos(fdr As SharpMap.Data.FeatureDataRow) As Coordinate
+        Return New Coordinate(0, 0)
+    End Function
+
     Private shared function GetObjektLabelStyle(fdr As SharpMap.Data.FeatureDataRow) As SharpMap.Styles.LabelStyle
 
     End function

@@ -10,7 +10,7 @@ using SharpMap.Rendering;
 using SharpMap.Rendering.Symbolizer;
 using SharpMap.Rendering.Thematics;
 using SharpMap.Styles;
-using Point = GeoAPI.Geometries.Coordinate;
+using NetTopologySuite.Geometries;
 
 namespace WinFormSamples.Samples
 {
@@ -162,7 +162,7 @@ namespace WinFormSamples.Samples
             map.BackColor = Color.LightBlue;
 
             map.Zoom = 360;
-            map.Center = new Point(0, 0);
+            map.Center = new Coordinate(0, 0);
 
             Matrix mat = new Matrix();
             mat.RotateAt(angle, map.WorldToImage(map.Center));
@@ -304,7 +304,7 @@ namespace WinFormSamples.Samples
             map.BackColor = Color.LightBlue;
 
             map.Zoom = 360;
-            map.Center = new Point(0, 0);
+            map.Center = new Coordinate(0, 0);
 
             Matrix mat = new Matrix();
             mat.RotateAt(angle, map.WorldToImage(map.Center));
@@ -395,7 +395,7 @@ namespace WinFormSamples.Samples
             map.BackColor = Color.LightBlue;
 
             map.Zoom = 360;
-            map.Center = new Point(0, 0);
+            map.Center = new Coordinate(0, 0);
 
             Matrix mat = new Matrix();
             mat.RotateAt(angle, map.WorldToImage(map.Center));

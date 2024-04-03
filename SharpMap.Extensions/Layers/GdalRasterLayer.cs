@@ -23,21 +23,20 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using Common.Logging;
-using GeoAPI;
-using GeoAPI.Geometries;
+using NetTopologySuite;
+using NetTopologySuite.Geometries;
 using OSGeo.GDAL;
-using GeoAPI.CoordinateSystems;
-using GeoAPI.CoordinateSystems.Transformations;
+using NetTopologySuite.CoordinateSystems;
+using NetTopologySuite.CoordinateSystems.Transformations;
 using NetTopologySuite.Index.Strtree;
 using SharpMap.Base;
 using SharpMap.CoordinateSystems;
 using SharpMap.Data;
 using SharpMap.Extensions.Data;
-using Geometry = GeoAPI.Geometries.IGeometry;
 using SharpMap.Rendering.Thematics;
+using ProjNet.CoordinateSystems;
+using ProjNet.CoordinateSystems.Transformations;
 using Point = System.Drawing.Point;
-
-using Polygon = GeoAPI.Geometries.IPolygon;
 
 namespace SharpMap.Layers
 {
@@ -70,17 +69,17 @@ namespace SharpMap.Layers
         /// </summary>
         private STRtree<string> _subDataSets;
 
-        private IGeometryFactory _factory;
+        private GeometryFactory _factory;
         
         /// <summary>
         /// Gets or sets a value indicating the geometry factory to use when creating geometries.
         /// </summary>
         /// <returns>A geometry factory</returns>
-        protected IGeometryFactory Factory
+        protected GeometryFactory Factory
         {
             get
             {
-                return _factory ?? (_factory = GeometryServiceProvider.Instance.CreateGeometryFactory(SRID));
+                return _factory ?? (_factory = NtsGeometryServices.Instance.CreateGeometryFactory(SRID));
             }
             set { _factory = value; }
         }
@@ -650,7 +649,7 @@ namespace SharpMap.Layers
         /// Gets the spatial reference system of this layer
         /// </summary>
         /// <returns>A spatial reference system.</returns>
-        public ICoordinateSystem GetProjection()
+        public CoordinateSystem GetProjection()
         {
 
             try
@@ -795,7 +794,7 @@ namespace SharpMap.Layers
         /// Gets transform between raster's native projection and the map projection and sets it to <see cref="Layer.CoordinateTransformation"/>
         /// </summary>
         /// <param name="mapProjection">A map projection</param>
-        private void GetTransform(ICoordinateSystem mapProjection)
+        private void GetTransform(CoordinateSystem mapProjection)
         {
             if (mapProjection == null || Projection == "")
             {
@@ -941,7 +940,7 @@ namespace SharpMap.Layers
         /// Reprojects current raster to the given spatial reference system.
         /// </summary>
         /// <param name="cs">A spatial reference system.</param>
-        public void ReprojectToCoordinateSystem(ICoordinateSystem cs)
+        public void ReprojectToCoordinateSystem(CoordinateSystem cs)
         {
             GetTransform(cs);
             ApplyTransformToEnvelope();
@@ -954,7 +953,7 @@ namespace SharpMap.Layers
         /// <param name="map">The map</param>
         public void ReprojectToMap(Map map)
         {
-            ICoordinateSystem cs = null;
+            CoordinateSystem cs = null;
             if (map.SRID > 0)
             {
                 using (var p = new OSGeo.OSR.SpatialReference(null))
@@ -978,7 +977,7 @@ namespace SharpMap.Layers
         /// <param name="mapProjection">The spatial reference system of the map</param>
         /// <param name="map">The map viewport</param>
         protected virtual void GetPreview(Dataset dataset, Size size, Graphics g,
-            Envelope displayBbox, ICoordinateSystem mapProjection, MapViewport map)
+            Envelope displayBbox, CoordinateSystem mapProjection, MapViewport map)
         {
             //check if image is in bounding box
             var dataSetBbox = ToTarget(GetExtent(dataset));
@@ -1180,7 +1179,7 @@ namespace SharpMap.Layers
                     // get inverse transform  
                     // NOTE: calling transform.MathTransform.Inverse() once and storing it
                     // is much faster than having to call every time it is needed
-                    IMathTransform inverseTransform = null;
+                    MathTransform inverseTransform = null;
                     if (ReverseCoordinateTransformation != null)
                         inverseTransform = ReverseCoordinateTransformation.MathTransform;
 
@@ -1488,7 +1487,7 @@ namespace SharpMap.Layers
 
         // faster than rotated display
         private void GetNonRotatedPreview(Dataset dataset, Size size, Graphics g,
-            Envelope bbox, ICoordinateSystem mapProjection)
+            Envelope bbox, CoordinateSystem mapProjection)
         {
             var geoTransform = new GeoTransform(dataset);
 

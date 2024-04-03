@@ -25,7 +25,7 @@ using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
 using SharpMap.Converters.WellKnownBinary;
-using GeoAPI.Geometries;
+using NetTopologySuite.Geometries;
 
 namespace SharpMap.Data.Providers
 {
@@ -157,7 +157,7 @@ namespace SharpMap.Data.Providers
                 //                        col.DataType = typeof(bool);
                 //                        break;
                 //                    case "geometry":
-                //                        col.DataType = typeof(GeoAPI.Geometries.IGeometry);
+                //                        col.DataType = typeof(Geometry);
                 //                        break;
                 //                    default:
                 //                        col.DataType = typeof(object);
@@ -263,7 +263,7 @@ namespace SharpMap.Data.Providers
 
 
         /// <summary>
-        /// Gets the object of features that lie within the specified <see cref="GeoAPI.Geometries.Envelope"/>
+        /// Gets the object of features that lie within the specified <see cref="Envelope"/>
         /// </summary>
         /// <param name="bbox">The bounding box</param>
         /// <returns>A collection of object ids</returns>
@@ -624,7 +624,7 @@ namespace SharpMap.Data.Providers
             return res;
         }
 
-        private string BuildGeometry(IGeometry geometry, SqlCommand command)
+        private string BuildGeometry(Geometry geometry, SqlCommand command)
         {
             var res = "ST.GeomFromWKB(@PGeom,@PTargetSrid)";
 
@@ -651,7 +651,7 @@ namespace SharpMap.Data.Providers
         /// <param name="bbox">The geometry</param>
         /// <param name="command">The command object, that is supposed to execute the query.</param>
         /// <returns>The spatial component of a SQL where clause</returns>
-        protected override string GetSpatialWhere(IGeometry bbox, DbCommand command)
+        protected override string GetSpatialWhere(Geometry bbox, DbCommand command)
         {
             var sqlCommand = (SqlCommand)command;
 

@@ -6,6 +6,7 @@ using System.IO;
 using System.Drawing;
 using System.Net;
 using System.Xml.Serialization;
+using NetTopologySuite.Geometries;
 using SharpMap.Serialization.Model;
 
 namespace SharpMap.Serialization
@@ -25,7 +26,7 @@ namespace SharpMap.Serialization
             Map m = new Map();
 
             if (md.Extent != null)
-                m.ZoomToBox(new GeoAPI.Geometries.Envelope(md.Extent.Xmin, md.Extent.Xmax, md.Extent.Ymin, md.Extent.Ymax));
+                m.ZoomToBox(new Envelope(md.Extent.Xmin, md.Extent.Xmax, md.Extent.Ymin, md.Extent.Ymax));
 
             if (!string.IsNullOrEmpty(md.BackGroundColor))
             {

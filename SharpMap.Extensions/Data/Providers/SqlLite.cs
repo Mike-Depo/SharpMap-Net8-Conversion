@@ -21,8 +21,7 @@ using System.Data;
 using System.Data.SQLite;
 using System.Globalization;
 using SharpMap.Converters.WellKnownText;
-using BoundingBox = GeoAPI.Geometries.Envelope;
-using Geometry = GeoAPI.Geometries.IGeometry;
+using NetTopologySuite.Geometries;
 using Common.Logging;
 
 namespace SharpMap.Data.Providers
@@ -103,7 +102,7 @@ namespace SharpMap.Data.Providers
         #region IProvider Members
 
         /// <inheritdoc cref="IBaseProvider.GetGeometriesInView"/>
-        public override Collection<Geometry> GetGeometriesInView(BoundingBox bbox)
+        public override Collection<Geometry> GetGeometriesInView(Envelope bbox)
         {
             var features = new Collection<Geometry>();
             using (var conn = new SQLiteConnection(ConnectionID))
@@ -138,7 +137,7 @@ namespace SharpMap.Data.Providers
         }
 
         /// <inheritdoc cref="IProvider{T}.GetObjectIDsInView"/>
-        public override Collection<uint> GetObjectIDsInView(BoundingBox bbox)
+        public override Collection<uint> GetObjectIDsInView(Envelope bbox)
         {
             var objectlist = new Collection<uint>();
             using (var conn = new SQLiteConnection(ConnectionID))
@@ -224,8 +223,8 @@ namespace SharpMap.Data.Providers
             ds.Tables.Add(res);
         }
 
-        /// <inheritdoc cref="BaseProvider.ExecuteIntersectionQuery(BoundingBox, FeatureDataSet)"/>
-        public override void ExecuteIntersectionQuery(BoundingBox box, FeatureDataSet ds)
+        /// <inheritdoc cref="BaseProvider.ExecuteIntersectionQuery(Envelope, FeatureDataSet)"/>
+        public override void ExecuteIntersectionQuery(Envelope box, FeatureDataSet ds)
         {
             using (var conn = new SQLiteConnection(ConnectionID))
             {
@@ -326,9 +325,9 @@ namespace SharpMap.Data.Providers
 
 
         /// <inheritdoc cref="BaseProvider.GetExtents"/>
-        public override BoundingBox GetExtents()
+        public override Envelope GetExtents()
         {
-            BoundingBox box = null;
+            Envelope box = null;
             using (var conn = new SQLiteConnection(ConnectionString))
             {
                 string strSQL =
@@ -341,7 +340,7 @@ namespace SharpMap.Data.Providers
                     using (SQLiteDataReader dr = command.ExecuteReader())
                         if (dr.Read())
                         {
-                            box = new BoundingBox((double) dr[0], (double) dr[2], (double) dr[1], (double) dr[3]);
+                            box = new Envelope((double) dr[0], (double) dr[2], (double) dr[1], (double) dr[3]);
                         }
                     conn.Close();
                 }
@@ -351,7 +350,7 @@ namespace SharpMap.Data.Providers
 
         #endregion
 
-        private static string GetBoxClause(BoundingBox bbox)
+        private static string GetBoxClause(Envelope bbox)
         {
             return String.Format(Map.NumberFormatEnUs,
                                  "(minx < {0} AND maxx > {1} AND miny < {2} AND maxy > {3})",

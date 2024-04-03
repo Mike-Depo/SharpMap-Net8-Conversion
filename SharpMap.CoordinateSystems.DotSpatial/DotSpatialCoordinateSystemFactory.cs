@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Globalization;
 using DotSpatial.Projections;
-using GeoAPI.CoordinateSystems;
-using DatumType = GeoAPI.CoordinateSystems.DatumType;
+using NetTopologySuite.Geometries;
+using ProjNet.CoordinateSystems;
+using ProjNet.IO.CoordinateSystems;
 
 namespace SharpMap.CoordinateSystems
 {
@@ -11,32 +12,19 @@ namespace SharpMap.CoordinateSystems
     /// An implementation for a coordinate system factory that creates <see cref="DotSpatialCoordinateSystem"/>s.
     /// </summary>
     /// <remarks>The only supported method is <see cref="CreateFromWkt"/></remarks>
-    public class DotSpatialCoordinateSystemFactory : ICoordinateSystemFactory
+    public class DotSpatialCoordinateSystemFactory : CoordinateSystemFactory
     {
-        /// <summary>
-        /// Creates a <see cref="T:GeoAPI.CoordinateSystems.ICompoundCoordinateSystem" />.
-        /// </summary>
-        /// <param name="name">Name of compound coordinate system.</param>
-        /// <param name="head">Head coordinate system</param>
-        /// <param name="tail">Tail coordinate system</param>
-        /// <returns>Compound coordinate system</returns>
-        /// <exception cref="NotSupportedException"></exception>
-        public ICompoundCoordinateSystem CreateCompoundCoordinateSystem(string name, ICoordinateSystem head, ICoordinateSystem tail)
-        {
-            throw new NotSupportedException();
-        }
-
         /// <summary>
         /// Creates an <see cref="T:GeoAPI.CoordinateSystems.IEllipsoid" /> from radius values.
         /// </summary>
-        /// <seealso cref="M:GeoAPI.CoordinateSystems.ICoordinateSystemFactory.CreateFlattenedSphere(System.String,System.Double,System.Double,GeoAPI.CoordinateSystems.ILinearUnit)" />
+        /// <seealso cref="M:GeoAPI.CoordinateSystems.ICoordinateSystemFactory.CreateFlattenedSphere(System.String,System.Double,System.Double,LinearUnit)" />
         /// <param name="name">Name of ellipsoid</param>
         /// <param name="semiMajorAxis"></param>
         /// <param name="semiMinorAxis"></param>
         /// <param name="linearUnit"></param>
         /// <returns>Ellipsoid</returns>
         /// <exception cref="NotSupportedException"></exception>
-        public IEllipsoid CreateEllipsoid(string name, double semiMajorAxis, double semiMinorAxis, ILinearUnit linearUnit)
+        public Ellipsoid CreateEllipsoid(string name, double semiMajorAxis, double semiMinorAxis, ProjNet.CoordinateSystems.LinearUnit linearUnit)
         {
             throw new NotSupportedException();
         }
@@ -56,7 +44,7 @@ namespace SharpMap.CoordinateSystems
         /// <param name="arAxes"></param>
         /// <returns>Fitted coordinate system</returns>
         /// <exception cref="NotSupportedException"></exception>
-        public IFittedCoordinateSystem CreateFittedCoordinateSystem(string name, ICoordinateSystem baseCoordinateSystem,
+        public FittedCoordinateSystem CreateFittedCoordinateSystem(string name, CoordinateSystem baseCoordinateSystem,
             string toBaseWkt, List<AxisInfo> arAxes)
         {
             throw new NotSupportedException();
@@ -65,14 +53,14 @@ namespace SharpMap.CoordinateSystems
         /// <summary>
         /// Creates an <see cref="T:GeoAPI.CoordinateSystems.IEllipsoid" /> from an major radius, and inverse flattening.
         /// </summary>
-        /// <seealso cref="M:GeoAPI.CoordinateSystems.ICoordinateSystemFactory.CreateEllipsoid(System.String,System.Double,System.Double,GeoAPI.CoordinateSystems.ILinearUnit)" />
+        /// <seealso cref="M:GeoAPI.CoordinateSystems.ICoordinateSystemFactory.CreateEllipsoid(System.String,System.Double,System.Double,LinearUnit)" />
         /// <param name="name">Name of ellipsoid</param>
         /// <param name="semiMajorAxis">Semi major-axis</param>
         /// <param name="inverseFlattening">Inverse flattening</param>
         /// <param name="linearUnit">Linear unit</param>
         /// <returns>Ellipsoid</returns>
         /// <exception cref="NotSupportedException"></exception>
-        public IEllipsoid CreateFlattenedSphere(string name, double semiMajorAxis, double inverseFlattening, ILinearUnit linearUnit)
+        public Ellipsoid CreateFlattenedSphere(string name, double semiMajorAxis, double inverseFlattening, ProjNet.CoordinateSystems.LinearUnit linearUnit)
         {
             throw new NotSupportedException();
         }
@@ -83,7 +71,7 @@ namespace SharpMap.CoordinateSystems
         /// <param name="xml">XML representation for the spatial reference</param>
         /// <returns>The resulting spatial reference object</returns>
         /// <exception cref="NotSupportedException"></exception>
-        public ICoordinateSystem CreateFromXml(string xml)
+        public CoordinateSystem CreateFromXml(string xml)
         {
             throw new NotSupportedException();
         }
@@ -95,7 +83,7 @@ namespace SharpMap.CoordinateSystems
         /// </summary>
         /// <param name="wkt">The Well-known text representation for the spatial reference</param>
         /// <returns>The resulting spatial reference object</returns>
-        public ICoordinateSystem CreateFromWkt(string wkt)
+        public new CoordinateSystem CreateFromWkt(string wkt)
         {
             //Hack: DotSpatial.Projections does not handle Authority and AuthorityCode
             var pos1 = wkt.LastIndexOf("AUTHORITY[", StringComparison.InvariantCulture);
@@ -136,7 +124,7 @@ namespace SharpMap.CoordinateSystems
         }
 
         /// <summary>
-        /// Creates a <see cref="T:GeoAPI.CoordinateSystems.IGeographicCoordinateSystem" />, which could be Lat/Lon or Lon/Lat.
+        /// Creates a <see cref="T:GeographicCoordinateSystem" />, which could be Lat/Lon or Lon/Lat.
         /// </summary>
         /// <param name="name">Name of geographical coordinate system</param>
         /// <param name="angularUnit">Angular units</param>
@@ -146,8 +134,8 @@ namespace SharpMap.CoordinateSystems
         /// <param name="axis1">Second axis</param>
         /// <returns>Geographic coordinate system</returns>
         /// <exception cref="NotSupportedException"></exception>
-        public IGeographicCoordinateSystem CreateGeographicCoordinateSystem(string name, IAngularUnit angularUnit,
-            IHorizontalDatum datum, IPrimeMeridian primeMeridian, AxisInfo axis0, AxisInfo axis1)
+        public new GeographicCoordinateSystem CreateGeographicCoordinateSystem(string name, ProjNet.CoordinateSystems.AngularUnit angularUnit,
+            HorizontalDatum datum, PrimeMeridian primeMeridian, AxisInfo axis0, AxisInfo axis1)
         {
             throw new NotSupportedException();
         }
@@ -167,12 +155,13 @@ namespace SharpMap.CoordinateSystems
         /// <param name="toWgs84">Wgs84 conversion parameters</param>
         /// <returns>Horizontal datum</returns>
         /// <exception cref="NotSupportedException"></exception>
-        public IHorizontalDatum CreateHorizontalDatum(string name, DatumType datumType, IEllipsoid ellipsoid,
+        public new HorizontalDatum CreateHorizontalDatum(string name, ProjNet.CoordinateSystems.DatumType datumType, Ellipsoid ellipsoid,
             Wgs84ConversionInfo toWgs84)
         {
             throw new NotSupportedException();
         }
 
+        /*
         /// <summary>
         /// Creates a <see cref="T:GeoAPI.CoordinateSystems.ILocalCoordinateSystem">local coordinate system</see>.
         /// </summary>
@@ -200,10 +189,11 @@ namespace SharpMap.CoordinateSystems
         /// <param name="datumType">Datum type</param>
         /// <returns></returns>
         /// <exception cref="NotSupportedException"></exception>
-        public ILocalDatum CreateLocalDatum(string name, DatumType datumType)
+        public ILocalDatum CreateLocalDatum(string name, ProjNet.CoordinateSystems.DatumType datumType)
         {
             throw new NotSupportedException();
         }
+        */
 
         /// <summary>
         /// Creates a <see cref="T:GeoAPI.CoordinateSystems.IPrimeMeridian" />, relative to Greenwich.
@@ -213,7 +203,7 @@ namespace SharpMap.CoordinateSystems
         /// <param name="longitude">Longitude</param>
         /// <returns>Prime meridian</returns>
         /// <exception cref="NotSupportedException"></exception>
-        public IPrimeMeridian CreatePrimeMeridian(string name, IAngularUnit angularUnit, double longitude)
+        public new PrimeMeridian CreatePrimeMeridian(string name, ProjNet.CoordinateSystems.AngularUnit angularUnit, double longitude)
         {
             throw new NotSupportedException();
         }
@@ -229,8 +219,8 @@ namespace SharpMap.CoordinateSystems
         /// <param name="axis1">Secondary axis</param>
         /// <returns>Projected coordinate system</returns>
         /// <exception cref="NotSupportedException"></exception>
-        public IProjectedCoordinateSystem CreateProjectedCoordinateSystem(string name, IGeographicCoordinateSystem gcs,
-            IProjection projection, ILinearUnit linearUnit, AxisInfo axis0, AxisInfo axis1)
+        public new ProjectedCoordinateSystem CreateProjectedCoordinateSystem(string name, GeographicCoordinateSystem gcs,
+            IProjection projection, ProjNet.CoordinateSystems.LinearUnit linearUnit, AxisInfo axis0, AxisInfo axis1)
         {
             throw new NotSupportedException();
         }
@@ -243,13 +233,14 @@ namespace SharpMap.CoordinateSystems
         /// <param name="parameters">Projection parameters</param>
         /// <returns>Projection</returns>
         /// <exception cref="NotSupportedException"></exception>
-        public IProjection CreateProjection(string name, string wktProjectionClass, List<ProjectionParameter> parameters)
+        public new IProjection CreateProjection(string name, string wktProjectionClass, List<ProjectionParameter> parameters)
         {
             throw new NotSupportedException();
         }
 
+        /*
         /// <summary>
-        /// Creates a <see cref="T:GeoAPI.CoordinateSystems.IVerticalCoordinateSystem" /> from a <see cref="T:GeoAPI.CoordinateSystems.IVerticalDatum">datum</see> and <see cref="T:GeoAPI.CoordinateSystems.ILinearUnit">linear units</see>.
+        /// Creates a <see cref="T:GeoAPI.CoordinateSystems.IVerticalCoordinateSystem" /> from a <see cref="T:GeoAPI.CoordinateSystems.IVerticalDatum">datum</see> and <see cref="T:LinearUnit">linear units</see>.
         /// </summary>
         /// <param name="name">Name of vertical coordinate system</param>
         /// <param name="datum">Vertical datum</param>
@@ -257,7 +248,7 @@ namespace SharpMap.CoordinateSystems
         /// <param name="axis">Axis info</param>
         /// <returns>Vertical coordinate system</returns>
         /// <exception cref="NotSupportedException"></exception>
-        public IVerticalCoordinateSystem CreateVerticalCoordinateSystem(string name, IVerticalDatum datum, ILinearUnit verticalUnit,
+        public IVerticalCoordinateSystem CreateVerticalCoordinateSystem(string name, IVerticalDatum datum, ProjNet.CoordinateSystems.LinearUnit verticalUnit,
             AxisInfo axis)
         {
             throw new NotSupportedException();
@@ -270,9 +261,10 @@ namespace SharpMap.CoordinateSystems
         /// <param name="datumType">Type of datum</param>
         /// <returns>Vertical datum</returns>
         /// <exception cref="NotSupportedException"></exception>
-        public IVerticalDatum CreateVerticalDatum(string name, DatumType datumType)
+        public IVerticalDatum CreateVerticalDatum(string name, ProjNet.CoordinateSystems.DatumType datumType)
         {
             throw new NotSupportedException();
         }
+        */
     }
 }

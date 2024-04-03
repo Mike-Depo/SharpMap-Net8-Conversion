@@ -17,7 +17,7 @@
 
 using System;
 using System.Drawing;
-using GeoAPI.Geometries;
+using NetTopologySuite.Geometries;
 using NetTopologySuite.Geometries.Utilities;
 
 namespace SharpMap.Utilities
@@ -45,7 +45,7 @@ namespace SharpMap.Utilities
             for (var i = 0; i < coordinates.Length; i++)
             {
                 var coord = coordinates[i];
-                if (coord.IsEmpty() || double.IsNaN(coord.X) || double.IsNaN(coord.Y))
+                if (!coord.IsValid || double.IsNaN(coord.X) || double.IsNaN(coord.Y))
                 {
                     points[i] = PointF.Empty;
                 }
@@ -118,7 +118,7 @@ namespace SharpMap.Utilities
         /// <param name="map">Map defining current view properties</param>
         public static Coordinate[] MapToWorld(PointF[] points, Map map)
         {
-            return MapToWorld(points, map.Center, map.Zoom, map.MapHeight, map.PixelWidth, map.PixelHeight);
+            return MapToWorld(points, map.Center.Coordinate, map.Zoom, map.MapHeight, map.PixelWidth, map.PixelHeight);
         }
 
 
@@ -136,7 +136,7 @@ namespace SharpMap.Utilities
             double mapHeight, double pixelWidth, double pixelHeight)
         {
             var coords = new Coordinate[points.Length];
-            if (worldCenter.IsEmpty() || double.IsNaN(mapHeight))
+            if (!worldCenter.IsValid || double.IsNaN(mapHeight))
                 for (var i = 0; i < points.Length; i++)
                     coords[i] = new Coordinate(0, 0);
             else

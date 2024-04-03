@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Windows.Forms;
+using NetTopologySuite.Geometries;
 
 namespace SharpMap.Forms.ToolBar
 {
@@ -134,7 +135,7 @@ namespace SharpMap.Forms.ToolBar
                 return;
             }
 
-            _geometryProvider = new Data.Providers.GeometryProvider((GeoAPI.Geometries.IGeometry)null);
+            _geometryProvider = new Data.Providers.GeometryProvider((Geometry)null);
             _layer = new Layers.VectorLayer("_tmp_Geometries", _geometryProvider);
 
             MapControl.ActiveToolChanged += OnMapControlActiveToolChanged;
@@ -201,7 +202,7 @@ namespace SharpMap.Forms.ToolBar
             }
         }
 
-        private void OnGeometryDefined(GeoAPI.Geometries.IGeometry geometry)
+        private void OnGeometryDefined(Geometry geometry)
         {
             if (geometry == null)
                 return;
@@ -216,7 +217,7 @@ namespace SharpMap.Forms.ToolBar
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public MapBox.GeometryDefinedHandler GeometryDefinedHandler{ get; set; }
 
-        private void DefaultGeometryDefinedMethod(GeoAPI.Geometries.IGeometry geom)
+        private void DefaultGeometryDefinedMethod(Geometry geom)
         {
             using (var frm = new WktGeometryCreator())
             {

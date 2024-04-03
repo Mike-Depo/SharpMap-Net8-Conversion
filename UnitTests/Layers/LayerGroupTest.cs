@@ -1,5 +1,6 @@
 ﻿using System;
-using GeoAPI.Geometries;
+using NetTopologySuite.Geometries;
+using ProjNet.CoordinateSystems.Transformations;
 using NUnit.Framework;
 using SharpMap.Layers;
 using SharpMap.Styles;
@@ -29,7 +30,7 @@ namespace UnitTests.Layers
         } 
         #endregion
 
-        private GeoAPI.CoordinateSystems.Transformations.ICoordinateTransformation CreateTransformation()
+        private ICoordinateTransformation CreateTransformation()
         {
             var ctf = new ProjNet.CoordinateSystems.Transformations.CoordinateTransformationFactory();
             return ctf.CreateFromCoordinateSystems(
@@ -37,7 +38,7 @@ namespace UnitTests.Layers
                 ProjNet.CoordinateSystems.GeographicCoordinateSystem.WGS84);
         }
 
-        private GeoAPI.CoordinateSystems.Transformations.ICoordinateTransformation CreateReverseTransformation()
+        private ICoordinateTransformation CreateReverseTransformation()
         {
             var ctf = new ProjNet.CoordinateSystems.Transformations.CoordinateTransformationFactory();
             return ctf.CreateFromCoordinateSystems(

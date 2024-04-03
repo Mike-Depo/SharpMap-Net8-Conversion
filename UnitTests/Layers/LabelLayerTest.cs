@@ -2,7 +2,8 @@
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Runtime.InteropServices;
-using GeoAPI.Geometries;
+using NetTopologySuite;
+using NetTopologySuite.Geometries;
 using NUnit.Framework;
 using SharpMap.Data;
 using SharpMap.Data.Providers;
@@ -25,7 +26,7 @@ namespace UnitTests.Layers
             fdt.Columns.Add(new DataColumn("HALIGN", typeof (int)));
             fdt.Columns.Add(new DataColumn("VALIGN", typeof (int)));
 
-            var factory = GeoAPI.GeometryServiceProvider.Instance.CreateGeometryFactory(4236);
+            var factory = NtsGeometryServices.Instance.CreateGeometryFactory(4236);
             for (var i = 0; i < 3; i++)
             {
                 for (var j = 0; j < 3; j++)

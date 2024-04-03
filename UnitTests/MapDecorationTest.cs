@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Drawing;
-using GeoAPI.Geometries;
+using NetTopologySuite.Geometries;
 using NUnit.Framework;
 using SharpMap;
 using SharpMap.Data.Providers;
@@ -8,7 +8,7 @@ using SharpMap.Rendering.Decoration;
 //using SharpMap.Geometries;
 using SharpMap.Rendering.Decoration.ScaleBar;
 using SharpMap.Layers;
-using GeoPoint = GeoAPI.Geometries.Coordinate;
+using GeoPoint = NetTopologySuite.Geometries.Coordinate;
 
 namespace UnitTests
 {
@@ -31,7 +31,7 @@ namespace UnitTests
         public void TestMapDecorationTest()
         {
             var m = new Map(new Size(780, 540)) {BackColor = Color.White};
-            var p = new GeometryProvider(new List<IGeometry>());
+            var p = new GeometryProvider(new List<Geometry>());
             var pts = new [] {new GeoPoint(0, 0), new GeoPoint(779, 539)};
             var ls = m.Factory.CreateLineString(pts);
             p.Geometries.Add(ls);
@@ -44,7 +44,7 @@ namespace UnitTests
                                       BorderColor = Color.Green,
                                       BackgroundColor = Color.LightGreen,
                                       BorderWidth = 2,
-                                      Location = new Point(10, 10),
+                                      Location = new System.Drawing.Point(10, 10),
                                       BorderMargin = new Size(5, 5),
                                       RoundedEdges = true,
                                       Opacity = 0.6f
@@ -56,7 +56,7 @@ namespace UnitTests
                 BorderColor = Color.Red,
                 BackgroundColor = Color.LightCoral,
                 BorderWidth = 2,
-                Location = new Point(10, 10),
+                Location = new System.Drawing.Point(10, 10),
                 BorderMargin = new Size(5, 5),
                 RoundedEdges = true,
                 Opacity = 0.2f
@@ -68,7 +68,7 @@ namespace UnitTests
                 BorderColor = Color.Blue,
                 BackgroundColor = Color.CornflowerBlue,
                 BorderWidth = 2,
-                Location = new Point(10, 10),
+                Location = new System.Drawing.Point(10, 10),
                 BorderMargin = new Size(5, 5),
                 RoundedEdges = true,
                 BarWidth = 4,
