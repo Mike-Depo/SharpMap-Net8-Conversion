@@ -229,10 +229,9 @@ namespace SharpMap.Layers
             else
                 RenderInternal(g, mvp, envelope);
 
-
             //OnLayerRendered(g);
             // Obsolete (and will cause infinite loop)
-            base.Render(g, mvp);
+            //base.Render(g, mvp);
         }
 
         /// <summary>

@@ -63,13 +63,9 @@ namespace SharpMap.Rendering
             //_transform = _map.MapTransform;
             g.PageUnit = GraphicsUnit.Pixel;
             if (AllowParallel && allowParallel && ParallelHeuristic(mapViewPort.Size, g.DpiX, _layers.Length))
-            {
-                RenderParellel(g);
-            }
+                RenderParallel(g);
             else
-            {
-                RenderSequenial(g);
-            }
+                RenderSequential(g);
         }
 
         /// <summary>
@@ -98,7 +94,7 @@ namespace SharpMap.Rendering
             return (size.Width < 1920 && size.Height <= 1920 && numLayers < 100);
         }
 
-        private void RenderSequenial(Graphics g)
+        private void RenderSequential(Graphics g)
         {
             for (var layerIndex = 0; layerIndex < _layers.Length; layerIndex++)
             {
@@ -114,7 +110,7 @@ namespace SharpMap.Rendering
             }
         }
 
-        private void RenderParellel(Graphics g)
+        private void RenderParallel(Graphics g)
         {
             _images = new Image[_layers.Length];
 
