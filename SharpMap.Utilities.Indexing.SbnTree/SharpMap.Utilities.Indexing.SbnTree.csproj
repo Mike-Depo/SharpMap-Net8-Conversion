@@ -1,5 +1,4 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <Import Project="$(SolutionDir)SharpMap.Common.props" />
   <PropertyGroup>
     <TargetFrameworks>net8.0</TargetFrameworks>
     <Copyright>Copyright (c) 2014 - 2019 SharpMap - Team</Copyright>
