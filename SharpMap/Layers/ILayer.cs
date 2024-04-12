@@ -30,9 +30,10 @@ namespace SharpMap.Layers
         /// Gets or sets the group ID that the layer belongs to for parallel rendering
         /// </summary>
         /// <remarks>
-        /// Layers that have the same <see cref="GroupingID"/> are rendered sequentially.
+        /// A layer with null <see cref="SequentialGID"/> will always be rendered in parallel to other layers assuming parallel rendering is, in general, enabled.<br />
+        /// Layers that have the same non-null <see cref="SequentialGID"/> are rendered sequentially.
         /// </remarks>
-        string GroupingID { get; set; }
+        string SequentialGID { get; set; }
 
         /// <summary>
         /// Minimum visible zoom level

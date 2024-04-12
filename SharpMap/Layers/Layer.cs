@@ -467,7 +467,7 @@ namespace SharpMap.Layers
         /// </summary>
         public string Proj4Projection { get; set; }
         
-        public string GroupingID { get; set; }
+        public string SequentialGID { get; set; }
 
         /// <summary>
         /// Minimum visibility zoom, including this value

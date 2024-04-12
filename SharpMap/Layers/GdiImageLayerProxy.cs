@@ -109,7 +109,7 @@ namespace SharpMap.Layers
         /// </summary>
         public T BaseLayer{ get { return _baseLayer; }}
 
-        public string GroupingID { get; set; }
+        public string SequentialGID { get; set; }
 
         double ILayer.MinVisible
         {

@@ -117,7 +117,7 @@ namespace SharpMap.Rendering
             Matrix backup = g.Transform;
             var groups = _layers
                 .Select( ( o, i ) => new { index = i, layer = o } )
-                .GroupBy( t => t.layer.GroupingID ?? $"{Guid.NewGuid()}", t => t );
+                .GroupBy( t => t.layer.SequentialGID ?? $"{Guid.NewGuid()}", t => t );
             ParallelLoopResult r;
             //
 

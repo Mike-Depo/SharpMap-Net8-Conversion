@@ -98,7 +98,7 @@ namespace SharpMap.Layers
             ((ILayer)this).VisibilityUnits = baseLayer.VisibilityUnits;
         }
 
-        public string GroupingID { get; set; }
+        public string SequentialGID { get; set; }
 
         double ILayer.MinVisible
         {
