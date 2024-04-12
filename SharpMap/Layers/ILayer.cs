@@ -27,6 +27,14 @@ namespace SharpMap.Layers
     public interface ILayer
     {
         /// <summary>
+        /// Gets or sets the group ID that the layer belongs to for parallel rendering
+        /// </summary>
+        /// <remarks>
+        /// Layers that have the same <see cref="GroupingID"/> are rendered sequentially.
+        /// </remarks>
+        string GroupingID { get; set; }
+
+        /// <summary>
         /// Minimum visible zoom level
         /// </summary>
         double MinVisible { get; set; }

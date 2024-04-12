@@ -109,6 +109,8 @@ namespace SharpMap.Layers
         /// </summary>
         public T BaseLayer{ get { return _baseLayer; }}
 
+        public string GroupingID { get; set; }
+
         double ILayer.MinVisible
         {
             get { return _baseLayer.MinVisible; }
