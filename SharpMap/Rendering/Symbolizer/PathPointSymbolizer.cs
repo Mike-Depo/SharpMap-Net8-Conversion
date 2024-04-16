@@ -51,8 +51,11 @@ namespace SharpMap.Rendering.Symbolizer
         ///<returns>The PathPointSymbolizer object</returns>
         public static PathPointSymbolizer CreateEllipse(Pen line, Brush fill, float a, float b)
         {
+            // Warning: GraphicsPath.AddEllipse() accepts a rectangle that bounds an ellipse, so
+            // the x and y are the upper-left corner of that rectangle!
+
             GraphicsPath path = new GraphicsPath();
-            path.AddEllipse(0, 0, a, b);
+            path.AddEllipse(new RectangleF(-0.5f * a, -0.5f * b, a, b));
             return new PathPointSymbolizer(
                 new[] { new PathDefinition { Line = line, Fill = fill, Path = path } });
         }
@@ -82,11 +85,7 @@ namespace SharpMap.Rendering.Symbolizer
         ///<returns>The PathPointSymbolizer object</returns>
         public static PathPointSymbolizer CreateSquare(Pen line, Brush fill, float size)
         {
-            
-            GraphicsPath path = new GraphicsPath();
-            path.AddRectangle(new RectangleF(-0.5f * size, -0.5f * size, size, size));
-            return new PathPointSymbolizer(
-                new[] { new PathDefinition { Line = line, Fill = fill, Path = path } });
+            return CreateRectangle(line, fill, size, size);
         }
 
         ///<summary>
@@ -98,13 +97,19 @@ namespace SharpMap.Rendering.Symbolizer
         ///<returns>The PathPointSymbolizer object</returns>
         public static PathPointSymbolizer CreateTriangle(Pen line, Brush fill, float size)
         {
+            // https://www.onlinemathlearning.com/trig-special-angles.html
+
+            float half = 0.5f * size;
+            float sqrt = ( float ) Math.Sqrt( 3 );
             GraphicsPath path = new GraphicsPath();
-            path.AddPolygon(new[]
-                                {
-                                    new PointF(-0.5f*size, size/3f), new PointF(0, 2f*size/3f),
-                                    new PointF(0.5f*size, size/3f), new PointF(-0.5f*size, size/3f),
-                                }
-                );
+            path.AddPolygon( 
+                new []
+                {
+                    new PointF(  0.0f, -( 2.0f / sqrt ) * half ), 
+                    new PointF( +half, +( 1.0f / sqrt ) * half ), 
+                    new PointF( -half, +( 1.0f / sqrt ) * half ), 
+                } );
+
             return new PathPointSymbolizer(
                 new[] { new PathDefinition { Line = line, Fill = fill, Path = path } });
         }
