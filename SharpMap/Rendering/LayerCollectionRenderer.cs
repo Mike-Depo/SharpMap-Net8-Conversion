@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Common.Logging;
@@ -63,13 +64,9 @@ namespace SharpMap.Rendering
             //_transform = _map.MapTransform;
             g.PageUnit = GraphicsUnit.Pixel;
             if (AllowParallel && allowParallel && ParallelHeuristic(mapViewPort.Size, g.DpiX, _layers.Length))
-            {
-                RenderParellel(g);
-            }
+                RenderParallel(g);
             else
-            {
-                RenderSequenial(g);
-            }
+                RenderSequential(g);
         }
 
         /// <summary>
@@ -98,7 +95,7 @@ namespace SharpMap.Rendering
             return (size.Width < 1920 && size.Height <= 1920 && numLayers < 100);
         }
 
-        private void RenderSequenial(Graphics g)
+        private void RenderSequential(Graphics g)
         {
             for (var layerIndex = 0; layerIndex < _layers.Length; layerIndex++)
             {
@@ -114,26 +111,33 @@ namespace SharpMap.Rendering
             }
         }
 
-        private void RenderParellel(Graphics g)
+        private void RenderParallel(Graphics g)
         {
-            _images = new Image[_layers.Length];
+            //
+            Matrix backup = g.Transform;
+            var groups = _layers
+                .Select( ( o, i ) => new { index = i, layer = o } )
+                .GroupBy( t => t.layer.SequentialGID ?? $"{Guid.NewGuid()}", t => t );
+            ParallelLoopResult r;
+            //
 
-            var res = Parallel.For(0, _layers.Length, RenderToImage);
-            
-            var tmpTransform = g.Transform;
-            g.Transform = new Matrix();
-            if (res.IsCompleted)
-            {
-                for (var i = 0; i < _images.Length; i++)
+            _images = new Image[_layers.Length];
+            r = Parallel.ForEach( groups, 
+                ( group, state ) => 
                 {
-                    if (_images[i] != null)
-                    {
-                        g.DrawImageUnscaled(_images[i], 0, 0);
-                        //break;
-                    }
-                }
+                    foreach ( var t in group )
+                        RenderToImage( t.index, state );
+                } );
+
+            if ( r.IsCompleted )
+            {
+                g.Transform = new Matrix();
+                foreach ( var image in _images )
+                    if ( image != null )
+                        g.DrawImageUnscaled( image, 0, 0 );
             }
-            g.Transform = tmpTransform;
+
+            g.Transform = backup;
         }
 
         private void RenderToImage(int layerIndex, ParallelLoopState pls)

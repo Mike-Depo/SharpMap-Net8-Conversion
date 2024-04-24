@@ -467,11 +467,9 @@ namespace SharpMap.Layers
         /// Proj4 projection definition string
         /// </summary>
         public string Proj4Projection { get; set; }
-        /*
-        private bool _Enabled = true;
-        private double _MaxVisible = double.MaxValue;
-        private double _MinVisible = 0;
-        */
+        
+        public string SequentialGID { get; set; }
+
         /// <summary>
         /// Minimum visibility zoom, including this value
         /// </summary>

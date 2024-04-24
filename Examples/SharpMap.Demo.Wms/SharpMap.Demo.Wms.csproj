@@ -1,5 +1,4 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk" DefaultTargets="Build">
-  <Import Project="$(SolutionDir)SharpMap.Common.props" />
   <PropertyGroup>
       <TargetFramework>net8.0-windows</TargetFramework>
       <ProjectGuid>{7EF67DF8-D868-4177-8817-4CC2E94ABD66}</ProjectGuid>
