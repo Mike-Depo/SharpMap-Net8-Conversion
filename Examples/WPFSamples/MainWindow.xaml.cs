@@ -115,15 +115,5 @@ namespace WPFSamples
         {
 
         }
-
-        private void AddSurvalentfgdb_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void AddSurvalentpostgis_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
     }
 }

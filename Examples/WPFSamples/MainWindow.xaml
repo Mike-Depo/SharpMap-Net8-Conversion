@@ -15,8 +15,6 @@
             </MenuItem>
             <MenuItem Header="_Add Layer">
                 <MenuItem Header="_ShapeFile" Name="AddShapeLayer" Click="AddShapeLayer_OnClick"/>
-                <MenuItem Header="_Stc fGDB" Name="AddSurvalentfgdb" Click="AddSurvalentfgdb_Click"/>
-                <MenuItem Header="_Stc Post GIS" Name="AddSurvalentpostgis" Click="AddSurvalentpostgis_Click"/>
             </MenuItem>
             <MenuItem Header="_BackgroundMap">
                 <MenuItem Header="_OpenStreetMap" Name="BgOsm" Click="BgOSM_OnClick" IsCheckable="False"/>
