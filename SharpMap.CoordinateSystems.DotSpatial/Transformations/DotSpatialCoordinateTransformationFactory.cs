@@ -1,5 +1,6 @@
 using DotSpatial.Projections;
 using NetTopologySuite.CoordinateSystems;
+using SharpMap.Base.GeoAPI.CoordinateSystems;
 using ProjNet.CoordinateSystems.Transformations;
 
 namespace SharpMap.CoordinateSystems.Transformations
@@ -8,7 +9,7 @@ namespace SharpMap.CoordinateSystems.Transformations
     /// An implementation for a coordinate transformation factory, that creates 
     /// coordinate transformations based on <see cref="DotSpatialCoordinateSystem"/>s.
     /// </summary>
-    public class DotSpatialCoordinateTransformationFactory : ICoordinateTransformationFactory
+    public class DotSpatialCoordinateTransformationFactory : CoordinateTransformationFactory
     {
         /// <summary>
         /// Creates a transformation between two coordinate systems.

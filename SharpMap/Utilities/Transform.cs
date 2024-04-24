@@ -118,7 +118,7 @@ namespace SharpMap.Utilities
         /// <param name="map">Map defining current view properties</param>
         public static Coordinate[] MapToWorld(PointF[] points, Map map)
         {
-            return MapToWorld(points, map.Center.Coordinate, map.Zoom, map.MapHeight, map.PixelWidth, map.PixelHeight);
+            return MapToWorld(points, map.Center, map.Zoom, map.MapHeight, map.PixelWidth, map.PixelHeight);
         }
 
 

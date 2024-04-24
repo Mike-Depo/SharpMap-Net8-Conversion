@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using SharpMap.Base.GeoAPI.CoordinateSystems;
 using DotSpatial.Projections;
 using NetTopologySuite.Geometries;
 using ProjNet.CoordinateSystems;
@@ -71,7 +72,7 @@ namespace SharpMap.CoordinateSystems
         /// <param name="xml">XML representation for the spatial reference</param>
         /// <returns>The resulting spatial reference object</returns>
         /// <exception cref="NotSupportedException"></exception>
-        public CoordinateSystem CreateFromXml(string xml)
+        public new ICoordinateSystem CreateFromXml(string xml)
         {
             throw new NotSupportedException();
         }
@@ -83,7 +84,7 @@ namespace SharpMap.CoordinateSystems
         /// </summary>
         /// <param name="wkt">The Well-known text representation for the spatial reference</param>
         /// <returns>The resulting spatial reference object</returns>
-        public new CoordinateSystem CreateFromWkt(string wkt)
+        public new ICoordinateSystem CreateFromWkt(string wkt)
         {
             //Hack: DotSpatial.Projections does not handle Authority and AuthorityCode
             var pos1 = wkt.LastIndexOf("AUTHORITY[", StringComparison.InvariantCulture);

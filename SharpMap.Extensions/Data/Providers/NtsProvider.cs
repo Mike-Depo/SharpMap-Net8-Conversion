@@ -21,6 +21,7 @@ using System.Collections.ObjectModel;
 using System.Data;
 using NetTopologySuite.Features;
 using NetTopologySuite.Geometries;
+using SharpMap.Base;
 
 
 namespace SharpMap.Data.Providers

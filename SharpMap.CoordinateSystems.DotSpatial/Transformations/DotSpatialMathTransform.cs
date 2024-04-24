@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using DotSpatial.Projections;
 using ProjNet.CoordinateSystems.Transformations;
 using NetTopologySuite.Geometries;
+using System.Linq;
 
 namespace SharpMap.CoordinateSystems.Transformations
 {
@@ -230,7 +231,7 @@ namespace SharpMap.CoordinateSystems.Transformations
         }
 
         /// <summary>Reverses the transformation</summary>
-        public void Invert()
+        public override void Invert()
         {
             if (_isInverted)
                 _order = new[] {_source, _target};
@@ -241,10 +242,11 @@ namespace SharpMap.CoordinateSystems.Transformations
 
         /// <summary>
         /// Transforms a coordinate sequence. The input coordinate sequence remains unchanged.
+        /// Doesn't seem used and seems incredibly hard to add support after NetTopologySuite 2.5 changes from 1.X so removed
         /// </summary>
         /// <param name="coordinateSequence">The coordinate sequence to transform.</param>
         /// <returns>The transformed coordinate sequence.</returns>
-        public CoordinateSequence Transform(CoordinateSequence coordinateSequence)
+        /*public CoordinateSequence Transform(CoordinateSequence coordinateSequence)
         {
             //if (coordinateSequence)
             
@@ -282,28 +284,38 @@ namespace SharpMap.CoordinateSystems.Transformations
 
             // return it
             return res;
+        }*/
+
+        public override void Transform(ref double x, ref double y, ref double z)
+        {
+            double[] inPoints = new double[3] { x, y, z };
+            IList<double[]> inPointsList = new List<double[]>() { inPoints };
+            var retList = TransformList(inPointsList);
+            x = retList.First()[0];
+            y = retList.First()[1];
+            z = retList.First()[2];
         }
 
         /// <summary>Gets the dimension of input points.</summary>
-        public int DimSource
+        public override int DimSource
         {
             get { throw new NotSupportedException(); }
         }
 
         /// <summary>Gets the dimension of output points.</summary>
-        public int DimTarget
+        public override int DimTarget
         {
             get { throw new NotSupportedException(); }
         }
 
         /// <summary>Gets a Well-Known text representation of this object.</summary>
-        public string WKT
+        public override string WKT
         {
             get { throw new NotSupportedException(); }
         }
 
         /// <summary>Gets an XML representation of this object.</summary>
-        public string XML
+        public override string XML
         {
             get { throw new NotSupportedException(); }
         }

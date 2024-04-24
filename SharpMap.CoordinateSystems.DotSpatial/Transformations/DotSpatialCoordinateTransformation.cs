@@ -73,15 +73,21 @@ namespace SharpMap.CoordinateSystems.Transformations
         }
 
         /// <summary>Source coordinate system.</summary>
+        /// Used to just return _source, but I cannot inherit from projNet 2.0's new CoordinateSystem class anymore due to internal constructors
+        /// So I cannot return a DotSpatialCoordinateSystem here. This seems to have no references for now, if this throws I'll come up with a 
+        /// workaround once it's actually used somewhere
         public CoordinateSystem SourceCS
         {
-            get { return _source; }
+            get { throw new NotImplementedException(); }
         }
 
         /// <summary>Target coordinate system.</summary>
+        /// Used to just return _target, but I cannot inherit from projNet 2.0's new CoordinateSystem class anymore due to internal constructors
+        /// So I cannot return a DotSpatialCoordinateSystem here. This seems to have no references for now, if this throws I'll come up with a 
+        /// workaround once it's actually used somewhere
         public CoordinateSystem TargetCS
         {
-            get { return _target; }
+            get { throw new NotImplementedException(); }
         }
 
         /// <summary>

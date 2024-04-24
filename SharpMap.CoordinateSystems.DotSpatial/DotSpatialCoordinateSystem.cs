@@ -19,6 +19,7 @@
  *
  */
 using System;
+using System.Runtime.Serialization;
 using DotSpatial.Projections;
 using ProjNet.CoordinateSystems;
 using SharpMap.Base.GeoAPI.CoordinateSystems;

@@ -8,7 +8,7 @@ namespace ProjNet
    /// An interface for classes that offer access to coordinate system creating facillities.
     /// </summary>
     //public interface ICoordinateSystemServicesRepository : ICoordinateSystemServices, IEnumerable<KeyValuePair<int, ICoordinateSystem>>
-    public interface ICoordinateSystemRepository : IEnumerable<KeyValuePair<int, CoordinateSystem>>
+    public interface ICoordinateSystemServicesRepository : IEnumerable<KeyValuePair<int, CoordinateSystem>>
     {
         /// <summary>
         /// Gets a value indicating the number of unique coordinate systems in the repository

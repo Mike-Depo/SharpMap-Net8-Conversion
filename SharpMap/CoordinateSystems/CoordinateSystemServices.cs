@@ -14,7 +14,7 @@ namespace SharpMap.CoordinateSystems
     /// <summary>
     /// A coordinate system services class
     /// </summary>
-    public class CoordinateSystemServices : /*ICoordinateSystemServices, ICoordinateSystemRepository, */IEnumerable
+    public class CoordinateSystemServices : /*ICoordinateSystemServices, ICoordinateSystemServicesRepository, */IEnumerable, IEnumerable<KeyValuePair<int, CoordinateSystem>>
     {
         private readonly Dictionary<int, CoordinateSystem> _csBySrid;
         private readonly Dictionary<IInfo, int> _sridByCs;

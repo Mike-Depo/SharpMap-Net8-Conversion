@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
-using GeoAPI.Geometries;
+using NetTopologySuite.Geometries;
 using SharpSbn;
-using SbnEnvelope = GeoAPI.Geometries.Envelope;
+using SbnEnvelope = SharpSbn.DataStructures.Envelope;
 
 namespace SharpMap.Utilities.Indexing
 {
@@ -23,11 +23,15 @@ namespace SharpMap.Utilities.Indexing
             return new SbnTreeWrapper(SbnTree.Create(ToCollection(entries)));
         }
 
-        private static ICollection<Tuple<uint, Envelope>> ToCollection(IEnumerable<ISpatialIndexItem<uint>> entries)
+        private static ICollection<Tuple<uint, SbnEnvelope>> ToCollection(IEnumerable<ISpatialIndexItem<uint>> entries)
         {
-            var res = new List<Tuple<uint, Envelope>>();
+            var res = new List<Tuple<uint, SbnEnvelope>>();
             foreach (var sii in entries)
-                res.Add(Tuple.Create(sii.ID, sii.Box));
+            {
+                SbnEnvelope sEnv = new SbnEnvelope(sii.Box.MinX, sii.Box.MaxX, sii.Box.MinY, sii.Box.MaxY);
+                res.Add(Tuple.Create(sii.ID, sEnv));
+            }
+
             return res;
         }
 
@@ -62,8 +66,10 @@ namespace SharpMap.Utilities.Indexing
 
             public Collection<uint> Search(Envelope e)
             {
+                SbnEnvelope sEnv = new SbnEnvelope(e.MinX, e.MaxX, e.MinY, e.MaxY);
+
                 var list = new List<uint>();
-                foreach (var queryFid in _sbnTree.QueryFids(e))
+                foreach (var queryFid in _sbnTree.QueryFids(sEnv))
                 {
                     var oid = queryFid - 1;
                     if (oid < _sbnTree.FeatureCount) list.Add(oid);
@@ -73,7 +79,11 @@ namespace SharpMap.Utilities.Indexing
 
             public Envelope Box
             {
-                get { return _sbnTree.Extent; }
+                get 
+                {
+                    Envelope retEnv = new Envelope(_sbnTree.Extent.MinX, _sbnTree.Extent.MaxX, _sbnTree.Extent.MinY, _sbnTree.Extent.MaxY);
+                    return retEnv;
+                }
             }
 
             void ISpatialIndex<uint>.SaveIndex(string filename)
