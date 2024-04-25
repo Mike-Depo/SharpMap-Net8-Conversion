@@ -6,18 +6,15 @@ namespace SharpMap.Demo.Wms.Handlers
     using System.IO;
     using System.Linq;
     using System.Web;
-
+    using NetTopologySuite.CoordinateSystems.Transformations;
     using NetTopologySuite.Geometries;
 
-    using GeoAPI.CoordinateSystems.Transformations;
+    using ProjNet.CoordinateSystems.Transformations;
 
     using SharpMap.Converters.GeoJSON;
     using SharpMap.Data;
     using SharpMap.Layers;
     using SharpMap.Web.Wms;
-
-    using Geometry = GeoAPI.Geometries.IGeometry;
-    using BoundingBox = GeoAPI.Geometries.Envelope;
 
     public class StdJsonMapHandler : AbstractStdMapHandler
     {
@@ -34,7 +31,7 @@ namespace SharpMap.Demo.Wms.Handlers
 
                 Map map = this.GetMap(context.Request);
                 bool flip = map.Layers[0].TargetSRID == 4326;
-                BoundingBox bbox = WmsServer.ParseBBOX(s, flip);
+                Envelope bbox = WmsServer.ParseBBOX(s, flip);
                 if (bbox == null)
                 {
                     WmsException.ThrowWmsException("Invalid parameter BBOX", context);
@@ -57,7 +54,10 @@ namespace SharpMap.Demo.Wms.Handlers
 
                 context.Response.Clear();
                 context.Response.ContentType = "text/json";
-                context.Response.BufferOutput = true;
+
+                // As of .Net 8 this is read only - not sure why it was assigned to initially, but if there's a bug it might be because of this removal
+                // Sharpmap.Demo.WMS cannot be run anyways in .Net8 until it's converted to use ASP.Net so I'm not spending time fixing this
+                // context.Response.BufferOutput = true;
                 context.Response.Write(buffer);
                 context.Response.Flush();
                 context.Response.SuppressContent = true;
@@ -71,7 +71,7 @@ namespace SharpMap.Demo.Wms.Handlers
             }
         }
 
-        private static IEnumerable<GeoJSON> GetData(Map map, BoundingBox bbox)
+        private static IEnumerable<GeoJSON> GetData(Map map, Envelope bbox)
         {
             if (map == null)
                 throw new ArgumentNullException("map");
@@ -92,7 +92,7 @@ namespace SharpMap.Demo.Wms.Handlers
             return items;
         }
 
-        private static IEnumerable<GeoJSON> QueryData(BoundingBox bbox, ICanQueryLayer layer)
+        private static IEnumerable<GeoJSON> QueryData(Envelope bbox, ICanQueryLayer layer)
         {
             if (layer == null)
                 throw new ArgumentNullException("layer");
@@ -103,7 +103,7 @@ namespace SharpMap.Demo.Wms.Handlers
             IEnumerable<GeoJSON> data = GeoJSONHelper.GetData(ds);
 
             // Reproject geometries if needed
-            IMathTransform transform = null;
+            MathTransform transform = null;
             if (layer is VectorLayer)
             {
                 ICoordinateTransformation transformation = (layer as VectorLayer).CoordinateTransformation;

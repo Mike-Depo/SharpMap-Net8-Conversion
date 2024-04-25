@@ -5,9 +5,7 @@
     using System.Drawing;
     using System.Drawing.Drawing2D;
 
-    using GeoAPI.CoordinateSystems;
     using ProjNet.CoordinateSystems;
-    using GeoAPI.CoordinateSystems.Transformations;
     using ProjNet.CoordinateSystems.Transformations;
 
     using SharpMap.Layers;
@@ -19,7 +17,7 @@
         {
             CoordinateSystemFactory csFac = new CoordinateSystemFactory();
             CoordinateTransformationFactory ctFac = new CoordinateTransformationFactory();
-            IGeographicCoordinateSystem sourceCs = csFac.CreateGeographicCoordinateSystem(
+            GeographicCoordinateSystem sourceCs = csFac.CreateGeographicCoordinateSystem(
                 "WGS 84",
                 AngularUnit.Degrees,
                 HorizontalDatum.WGS84,
@@ -38,7 +36,7 @@
                 new ProjectionParameter("false_northing", 0.0)
             };
             IProjection projection = csFac.CreateProjection("Google Mercator", "mercator_1sp", parameters);
-            IProjectedCoordinateSystem targetCs = csFac.CreateProjectedCoordinateSystem(
+            ProjectedCoordinateSystem targetCs = csFac.CreateProjectedCoordinateSystem(
                 "Google Mercator",
                 sourceCs,
                 projection,

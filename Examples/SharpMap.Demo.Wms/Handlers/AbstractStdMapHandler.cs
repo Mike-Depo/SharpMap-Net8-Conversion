@@ -3,19 +3,22 @@ namespace SharpMap.Demo.Wms.Handlers
     using System;
     using System.Web;
 
-    using GeoAPI;
-
     using NetTopologySuite;
 
     using SharpMap.Demo.Wms.Helpers;
 
-    public abstract class AbstractStdMapHandler : IHttpHandler
+    // TODO: IHttpHandlers were removed in .Net 8 - if this demo is necessary this needs to be converted to middleware as  in
+    // https://learn.microsoft.com/en-us/aspnet/core/migration/http-modules?view=aspnetcore-8.0
+    public abstract class AbstractStdMapHandler /*: IHttpHandler*/
     {
         private static readonly object SyncLock = new object();
 
         static AbstractStdMapHandler()
         {
-            GeometryServiceProvider.SetInstanceIfNotAlreadySetDirectly(NtsGeometryServices.Instance);
+            if (NtsGeometryServices.Instance is null)
+            {
+                NtsGeometryServices.Instance = new NtsGeometryServices();
+            }
         }
 
         public abstract void ProcessRequest(HttpContext context);

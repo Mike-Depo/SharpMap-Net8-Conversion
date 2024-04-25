@@ -7,11 +7,11 @@ namespace SharpMap.Demo.Wms.Controllers
     using System.Linq;
     using Microsoft.AspNetCore.Mvc;
 
-    using GeoAPI.Geometries;
+    using NetTopologySuite.Geometries;
 
     using Mapstache;
 
-    using GeoAPI.CoordinateSystems.Transformations;
+    using ProjNet.CoordinateSystems.Transformations;
 
     using SharpMap.Converters.GeoJSON;
     using SharpMap.Data;
@@ -31,8 +31,8 @@ namespace SharpMap.Demo.Wms.Controllers
 
         private Envelope GetBoundingBoxInLatLngWithMargin(int tileX, int tileY, int zoom)
         {
-            Point px1 = new Point((tileX * 256), (tileY * 256));
-            Point px2 = new Point(((tileX + 1) * 256), ((tileY + 1) * 256));
+            System.Drawing.Point px1 = new System.Drawing.Point((tileX * 256), (tileY * 256));
+            System.Drawing.Point px2 = new System.Drawing.Point(((tileX + 1) * 256), ((tileY + 1) * 256));
 
             PointF ll1 = TileSystemHelper.PixelXYToLatLong(px1, zoom);
             PointF ll2 = TileSystemHelper.PixelXYToLatLong(px2, zoom);
@@ -74,7 +74,7 @@ namespace SharpMap.Demo.Wms.Controllers
                 int i = 1;
                 foreach (GeoJSON val in data)
                 {
-                    IGeometry geom = val.Geometry;
+                    Geometry geom = val.Geometry;
                     IDictionary<string, object> dict = val.Values;
                     grid.FillPolygon(geom, i, dict);
                     i = i + 1;

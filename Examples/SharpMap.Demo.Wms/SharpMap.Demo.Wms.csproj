@@ -22,12 +22,9 @@
   <ItemGroup>
     <PackageReference Include="Common.Logging" Version="3.4.1" />
     <PackageReference Include="Common.Logging.Core" Version="3.4.1" />
-    <PackageReference Include="GeoAPI.Core" Version="1.7.5" />
-    <PackageReference Include="GeoAPI.CoordinateSystems" Version="1.7.5" />
-    <PackageReference Include="NetTopologySuite" Version="1.15.3" />
-    <PackageReference Include="NetTopologySuite.Core" Version="1.15.3" />
-    <PackageReference Include="NetTopologySuite.CoordinateSystems" Version="1.15.3" />
-    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+    <PackageReference Include="NetTopologySuite" Version="2.5.0" />
+    <PackageReference Include="ProjNET" Version="2.0.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="System.Data.SQLite.Core" Version="1.0.112" />
     <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="6.0.0" />
   </ItemGroup>
