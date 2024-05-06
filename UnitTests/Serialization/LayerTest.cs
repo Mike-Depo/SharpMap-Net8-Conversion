@@ -239,11 +239,11 @@ namespace UnitTests.Serialization
                     result = false;
                 }
 
-                if (lhs.SmoothingMode != rhs.SmoothingMode)
-                {
-                    DifferAt.Add("SmoothingMode");
-                    result = false;
-                }
+                //if (lhs.SmoothingMode != rhs.SmoothingMode)
+                //{
+                //    DifferAt.Add("SmoothingMode");
+                //    result = false;
+                //}
 
                 if (lhs.Theme == null ^ rhs.Theme == null)
                 {

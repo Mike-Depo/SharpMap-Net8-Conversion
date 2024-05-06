@@ -49,7 +49,6 @@ namespace SharpMap.Demo.Wms.Helpers
                 TargetSRID = 900913,
                 CoordinateTransformation = transformation,
                 Style = style,
-                SmoothingMode = SmoothingMode.AntiAlias,
             };
             return item;
         }

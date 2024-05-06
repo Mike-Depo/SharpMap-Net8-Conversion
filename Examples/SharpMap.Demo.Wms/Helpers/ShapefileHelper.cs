@@ -87,7 +87,6 @@ namespace SharpMap.Demo.Wms.Helpers
                     CoordinateTransformation = pos,
                     ReverseCoordinateTransformation = neg,
                     Style = (VectorStyle)data.Style,
-                    SmoothingMode = SmoothingMode.AntiAlias,
                     IsQueryEnabled = true
                 };
                 map.Layers.Add(item);
@@ -115,7 +114,6 @@ namespace SharpMap.Demo.Wms.Helpers
                 {
                     SRID = 4326,
                     Style = (VectorStyle)data.Style,
-                    SmoothingMode = SmoothingMode.AntiAlias
                 };
                 map.Layers.Add(item);
             }

@@ -98,7 +98,6 @@ namespace SharpMap.Data.Providers
                 var pUse = new FileGdbProvider(samplePath) { Table = fc };
                 var vl = new VectorLayer("Layer:" + fc, pUse)
                              {
-                                 SmoothingMode = SmoothingMode.HighQuality,
                                  Style = {Fill = RandomBrush(), Line = RandomPen()}
                              };
                 m.Layers.Add(vl);

@@ -437,7 +437,6 @@ namespace UnitTests.Layers
 
             var vLyr = new SharpMap.Layers.VectorLayer("Geometry", new GeometryFeatureProvider(fdt));
             vLyr.Style.Line = new System.Drawing.Pen(System.Drawing.Color.Black, 4);
-            vLyr.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
             vLyr.SRID = map.SRID;
             map.Layers.Add(vLyr);
 

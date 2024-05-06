@@ -62,7 +62,6 @@ namespace UnitTests.Rendering.GroupStyle
 
             VectorLayer vLay = new VectorLayer("test");
             vLay.Style = style;
-            vLay.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
             vLay.DataSource = new SharpMap.Data.Providers.GeometryProvider("POINT(0 0)");
 
             Map m = new Map(new Size(11, 11));

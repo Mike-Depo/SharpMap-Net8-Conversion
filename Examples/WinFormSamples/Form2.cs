@@ -160,7 +160,6 @@ namespace WinFormSamples
                 //CoordinateTransformation = LayerTools.Wgs84toGoogleMercator,
                 TargetSRID = 3857,
                 Style = style,
-                SmoothingMode = SmoothingMode.AntiAlias
             };
             return layer;
         }
