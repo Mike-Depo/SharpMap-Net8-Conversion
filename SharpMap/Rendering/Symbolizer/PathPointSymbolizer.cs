@@ -230,8 +230,16 @@ namespace SharpMap.Rendering.Symbolizer
             }
             set
             {
-                //throw new NotImplementedException();
             }
+        }
+
+        protected override SizeF GetOffset()
+        {
+            // Warning: The base class version of this method offsets the point by half its size in order to centre it,
+            // but we don't need to do this here, as this is already done inside the Create methods that create
+            // the GraphicsPaths!
+
+            return new SizeF(Offset.X, Offset.Y);
         }
 
         /// <summary>
@@ -239,7 +247,7 @@ namespace SharpMap.Rendering.Symbolizer
         /// </summary>
         /// <param name="pt">The point</param>
         /// <param name="g">The graphics object</param>
-        internal override void OnRenderInternal(PointF pt, Graphics g)
+        protected override void OnRenderInternal(PointF pt, Graphics g)
         {
             var f = new SizeF(pt);
             var combinedArea = RectangleF.Empty;

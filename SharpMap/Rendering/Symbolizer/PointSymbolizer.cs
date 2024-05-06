@@ -74,7 +74,7 @@ namespace SharpMap.Rendering.Symbolizer
             }
         }
 
-        private SizeF GetOffset()
+        protected virtual SizeF GetOffset()
         {
             var size = Size;
             var result = new SizeF(Offset.X - Scale * (size.Width * 0.5f), Offset.Y - Scale * (size.Height * 0.5f));
@@ -103,7 +103,7 @@ namespace SharpMap.Rendering.Symbolizer
                 using (var t = g.Transform)
                 {
                     t.RotateAt(Rotation, rotationCenter);
-                    t.Translate(offset.Width + 1, offset.Height + 1);
+                    t.Translate(offset.Width, offset.Height);
                     g.Transform = t;
 
                     OnRenderInternal(pp, g);
@@ -114,7 +114,7 @@ namespace SharpMap.Rendering.Symbolizer
                 using (var symTrans = new Matrix())
                 {
                     symTrans.RotateAt(Rotation, rotationCenter);
-                    symTrans.Translate(offset.Width + 1, offset.Height + 1);
+                    symTrans.Translate(offset.Width, offset.Height);
                     var pts = CanvasArea.ToPointArray();
                     symTrans.TransformPoints(pts);
                     CanvasArea = pts.ToRectangleF();
@@ -132,7 +132,7 @@ namespace SharpMap.Rendering.Symbolizer
         /// </summary>
         /// <param name="pt">The point</param>
         /// <param name="g">The graphics object</param>
-        internal abstract void OnRenderInternal(PointF pt, Graphics g);
+        protected abstract void OnRenderInternal(PointF pt, Graphics g);
 
         /// <summary>
         /// Utility function to transform any <see cref="IPointSymbolizer"/> into an unscaled <see cref="RasterPointSymbolizer"/>. This may bring performance benefits.
