@@ -41,7 +41,7 @@ namespace SharpMap.Layers
         private bool _clippingEnabled;
         private bool _isQueryEnabled = true;
         private IBaseProvider _dataSource;
-        private SmoothingMode _smoothingMode;
+        private Action<Graphics> _setupGraphics;
         private ITheme _theme;
         private Envelope _envelope;
 
@@ -53,7 +53,7 @@ namespace SharpMap.Layers
             : base(new VectorStyle())
         {
             LayerName = layername;
-            SmoothingMode = SmoothingMode.AntiAlias;
+            SetupGraphics = g => g.SmoothingMode = SmoothingMode.AntiAlias;
         }
 
         /// <summary>
@@ -102,12 +102,12 @@ namespace SharpMap.Layers
         }
 
         /// <summary>
-        /// Render whether smoothing (antialiasing) is applied to lines and curves and the edges of filled areas
+        /// Gets or set the method that will be called to setup the <see cref="Graphics"/> for rendering
         /// </summary>
-        public SmoothingMode SmoothingMode
+        public Action<Graphics> SetupGraphics
         {
-            get { return _smoothingMode; }
-            set { _smoothingMode = value; }
+            get { return _setupGraphics; }
+            set { _setupGraphics = value; }
         }
 
         /// <summary>
@@ -217,7 +217,7 @@ namespace SharpMap.Layers
             if (mvp.Center == null)
                 throw (new ApplicationException("Cannot render map. View center not specified"));
 
-            g.SmoothingMode = SmoothingMode;
+            SetupGraphics( g );
             var envelope = ToSource(mvp.Envelope); //View to render
 
             if (DataSource == null)
