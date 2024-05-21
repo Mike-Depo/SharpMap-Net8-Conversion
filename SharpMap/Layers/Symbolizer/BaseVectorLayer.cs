@@ -153,7 +153,7 @@ namespace SharpMap.Layers.Symbolizer
             }
 
             //Setting up the Symbolizer
-            Symbolizer.Begin(graphics, map, 0);
+            //Symbolizer.Begin(graphics, map, 0);
         }
 
         /// <summary>
@@ -171,7 +171,7 @@ namespace SharpMap.Layers.Symbolizer
                     Symbolizer.Render(map, tmpGeometry as TGeometry, graphics);
                 }
             }
-            Symbolizer.Symbolize(graphics, map);
+            //Symbolizer.Symbolize(graphics, map);
         }
 
         /// <summary>
@@ -181,7 +181,7 @@ namespace SharpMap.Layers.Symbolizer
         /// <param name="map">The map</param>
         protected virtual void OnRendered(Graphics graphics, MapViewport map)
         {
-            Symbolizer.End(graphics, map);
+            //Symbolizer.End(graphics, map);
             _geometries = null;
         }
 

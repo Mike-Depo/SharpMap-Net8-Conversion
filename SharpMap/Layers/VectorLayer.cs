@@ -414,7 +414,7 @@ namespace SharpMap.Layers
 
                         if (vStyle.LineSymbolizer != null)
                         {
-                            vStyle.LineSymbolizer.Begin(g, map, geoms.Count);
+                            //vStyle.LineSymbolizer.Begin(g, map, geoms.Count);
                         }
                         else
                         {
@@ -446,11 +446,11 @@ namespace SharpMap.Layers
                             }
                         }
 
-                        if (vStyle.LineSymbolizer != null)
-                        {
-                            vStyle.LineSymbolizer.Symbolize(g, map);
-                            vStyle.LineSymbolizer.End(g, map);
-                        }
+                        //if (vStyle.LineSymbolizer != null)
+                        //{
+                        //    vStyle.LineSymbolizer.Symbolize(g, map);
+                        //    vStyle.LineSymbolizer.End(g, map);
+                        //}
                     }
                 }
             }
