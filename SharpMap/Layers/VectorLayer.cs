@@ -511,16 +511,25 @@ namespace SharpMap.Layers
             switch (geometryType)
             {
                 case OgcGeometryType.Polygon:
+                    if (style.PolygonSymbolizer != null )
+                    {
+                        style.PolygonSymbolizer.Render(map, (Polygon)feature, g);
+                        return RectangleF.Empty;
+                    }
                     if (style.EnableOutline)
-                        return VectorRenderer.DrawPolygonEx(g, (Polygon)feature, style.Fill, style.Outline, _clippingEnabled,
-                                                   map);
-                    else
-                        return VectorRenderer.DrawPolygonEx(g, (Polygon)feature, style.Fill, null, _clippingEnabled, map);
+                        return VectorRenderer.DrawPolygonEx(g, (Polygon)feature, style.Fill, style.Outline, _clippingEnabled, map);
+                    return VectorRenderer.DrawPolygonEx(g, (Polygon)feature, style.Fill, null, _clippingEnabled, map);
 
                 case OgcGeometryType.MultiPolygon:
+                    if (style.PolygonSymbolizer != null )
+                    {
+                        style.PolygonSymbolizer.Render(map, (MultiPolygon)feature, g);
+                        return RectangleF.Empty;
+                    }
                     if (style.EnableOutline)
                         return VectorRenderer.DrawMultiPolygonEx(g, (MultiPolygon)feature, style.Fill, style.Outline, _clippingEnabled, map);
                     return VectorRenderer.DrawMultiPolygonEx(g, (MultiPolygon)feature, style.Fill, null, _clippingEnabled, map);
+
                 case OgcGeometryType.LineString:
                     if (style.LineSymbolizer != null)
                     {
@@ -536,25 +545,19 @@ namespace SharpMap.Layers
                         return RectangleF.Empty;
                     }
                     return VectorRenderer.DrawMultiLineStringEx(g, (MultiLineString)feature, style.Line, map, style.LineOffset);
-                    
 
                 case OgcGeometryType.Point:
                     if (style.PointSymbolizer != null)
                         return VectorRenderer.DrawPointEx(style.PointSymbolizer, g, (NetTopologySuite.Geometries.Point)feature, map);
-
                     if (style.Symbol != null || style.PointColor == null)
-                        return VectorRenderer.DrawPointEx(g, feature.Coordinate, style.Symbol, style.SymbolScale, style.SymbolOffset,
-                                                 style.SymbolRotation, map);
-
+                        return VectorRenderer.DrawPointEx(g, feature.Coordinate, style.Symbol, style.SymbolScale, style.SymbolOffset, style.SymbolRotation, map);
                     return VectorRenderer.DrawPointEx(g, feature.Coordinate, style.PointColor, style.PointSize, style.SymbolOffset, map);
 
                 case OgcGeometryType.MultiPoint:
                     if (style.PointSymbolizer != null)
                         return VectorRenderer.DrawMultiPointEx(style.PointSymbolizer, g, (MultiPoint)feature, map);
-                    
                     if (style.Symbol != null || style.PointColor == null)
                         return VectorRenderer.DrawMultiPointEx(g, (MultiPoint)feature, style.Symbol, style.SymbolScale, style.SymbolOffset, style.SymbolRotation, map);
-
                     return VectorRenderer.DrawMultiPointEx(g, (MultiPoint)feature, style.PointColor, style.PointSize, style.SymbolOffset, map);
 
                 case OgcGeometryType.GeometryCollection:
@@ -567,7 +570,6 @@ namespace SharpMap.Layers
                         combinedArea = canvasArea.ExpandToInclude(combinedArea);
                     }
                     return combinedArea;
-                
             }
             throw new NotSupportedException();
         }
