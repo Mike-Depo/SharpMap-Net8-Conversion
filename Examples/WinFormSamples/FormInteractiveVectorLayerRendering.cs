@@ -399,7 +399,7 @@ namespace WinFormSamples
 
             //Lisbon...
             var mathTransform = LayerTools.Wgs84toGoogleMercator.MathTransform;
-            var geom = GeometryTransform.TransformBox(
+            var geom = TransformMethods.TransformBox(
                 new Envelope(-9.205626, -9.123736, 38.690993, 38.740837),
                 mathTransform);
             //geom.ExpandBy(2500);

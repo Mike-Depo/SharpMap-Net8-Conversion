@@ -428,7 +428,7 @@ namespace SharpMap.Data.Providers
                     _earthCs);
             }
 
-            return GeometryTransform.TransformGeometry(geometry, CoordinateTransformation.MathTransform, _earthGeometryFactory);
+            return TransformMethods.TransformGeometry(geometry, CoordinateTransformation.MathTransform, _earthGeometryFactory);
         }
 
         /// <summary>

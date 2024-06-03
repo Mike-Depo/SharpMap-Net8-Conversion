@@ -80,7 +80,7 @@ namespace UnitTests.Serialization
             var ct = Wgs84ToWebMercator;
             //Env[7,45731445821406 : 7,53454260528903, 53,4342695512313 : 53,478793942147]
             var box = new Envelope(7.45731445821406, 7.53454260528903, 53.4342695512313, 53.478793942147);
-            var box3857 = GeometryTransform.TransformBox(box, ct.MathTransform);
+            var box3857 = TransformMethods.TransformBox(box, ct.MathTransform);
 
             m.ZoomToBox(box3857);
 

@@ -222,8 +222,7 @@ namespace SharpMap.Rendering.Decoration.Graticule
                 // geographic >> projection
                 if (isGcsStyle && _project != null)
                 {
-                    def.WcsGraticule =
-                        (LineString) GeometryTransform.TransformLineString(def.WcsGraticule, _project, targetFactory);
+                    def.WcsGraticule = (LineString) TransformMethods.TransformGeometry(def.WcsGraticule, _project, targetFactory);
                     def.WcsTickMarks = new MultiPoint(TransformPreserveZ(_project, def.WcsTickMarks.Coordinates));
                 }
 

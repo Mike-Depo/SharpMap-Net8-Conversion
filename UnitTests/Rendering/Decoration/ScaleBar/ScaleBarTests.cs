@@ -1256,7 +1256,7 @@ namespace UnitTests.Rendering.Decoration.ScaleBar
                 box.ExpandToInclude(geometry.EnvelopeInternal);
 
             if (vectorLyr.CoordinateTransformation != null)
-                box = GeometryTransform.TransformBox(box, vectorLyr.CoordinateTransformation.MathTransform);
+                box = TransformMethods.TransformBox(box, vectorLyr.CoordinateTransformation.MathTransform);
 
             _map.ZoomToBox(box);
 

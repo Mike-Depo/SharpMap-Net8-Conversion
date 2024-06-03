@@ -1015,7 +1015,7 @@ namespace SharpMap.Layers
             if (ReverseCoordinateTransformation != null)
             {
                 shownImageBbox =
-                    GeometryTransform.TransformBox(trueImageBbox, ReverseCoordinateTransformation.MathTransform);
+                    TransformMethods.TransformBox(trueImageBbox, ReverseCoordinateTransformation.MathTransform);
             }
 
             // find min/max x and y pixels needed from image
@@ -2213,12 +2213,12 @@ namespace SharpMap.Layers
             {
                 if (ReverseCoordinateTransformation != null)
                 {
-                    pt = GeometryTransform.TransformCoordinate(pt, ReverseCoordinateTransformation.MathTransform);
+                    pt = TransformMethods.TransformCoordinate(pt, ReverseCoordinateTransformation.MathTransform);
                 }
                 else
                 {
                     CoordinateTransformation.MathTransform.Invert();
-                    pt = GeometryTransform.TransformCoordinate(pt, CoordinateTransformation.MathTransform);
+                    pt = TransformMethods.TransformCoordinate(pt, CoordinateTransformation.MathTransform);
                     CoordinateTransformation.MathTransform.Invert();
                 }
             }

@@ -26,7 +26,7 @@ namespace NetTopologySuite.CoordinateSystems.Transformations
     /// <summary>
     /// Helper class for transforming <see cref="T:NetTopologySuite.Geometries.Geometry"/>
     /// </summary>
-    public class GeometryTransform
+    internal class GeometryTransform
     {
         /// <summary>
         /// Transforms a <see cref="Envelope"/>.

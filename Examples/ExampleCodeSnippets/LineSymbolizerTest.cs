@@ -1,4 +1,5 @@
 ﻿using NetTopologySuite.Geometries;
+using SharpMap;
 
 namespace ExampleCodeSnippets
 {
@@ -405,7 +406,7 @@ public class StreetDirectionSymbolizer : SharpMap.Rendering.Symbolizer.BaseSymbo
             m.Layers.Add(l);
 
             var e = new Envelope(-0.02, 0.02, 51.478885 - 0.01, 51.478885 + 0.01);
-            e = NetTopologySuite.CoordinateSystems.Transformations.GeometryTransform.TransformBox(e,
+            e = TransformMethods.TransformBox(e,
                 l.CoordinateTransformation.MathTransform);
             m.ZoomToBox(e);
             m.GetMap().Save("Greenwich.png", System.Drawing.Imaging.ImageFormat.Png);

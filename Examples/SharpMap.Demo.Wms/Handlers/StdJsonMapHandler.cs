@@ -114,7 +114,7 @@ namespace SharpMap.Demo.Wms.Handlers
                 GeometryFactory gf = new GeometryFactory();
                 data = data.Select(d =>
                     {
-                        Geometry converted = GeometryTransform.TransformGeometry(d.Geometry, transform, gf);
+                        Geometry converted = TransformMethods.TransformGeometry(d.Geometry, transform, gf);
                         d.SetGeometry(converted);
                         return d;
                     });

@@ -6,8 +6,7 @@ using SharpMap.Layers;
 using BruTile.Predefined;
 
 using WinFormSamples.Properties;
-
-using GeometryTransform = NetTopologySuite.CoordinateSystems.Transformations.GeometryTransform;
+using SharpMap;
 
 namespace WinFormSamples
 {
@@ -33,7 +32,7 @@ namespace WinFormSamples
 
             //Lisbon...
             var mathTransform = LayerTools.Wgs84toGoogleMercator.MathTransform;
-            Envelope geom = GeometryTransform.TransformBox(
+            Envelope geom = TransformMethods.TransformBox(
                 new Envelope(-9.205626, -9.123736, 38.690993, 38.740837),
                 mathTransform);
 

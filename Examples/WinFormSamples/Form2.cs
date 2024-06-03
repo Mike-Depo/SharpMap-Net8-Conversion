@@ -23,6 +23,7 @@ namespace WinFormSamples
     using SharpMap.Forms;
     using SharpMap.Layers;
     using SharpMap.Styles;
+    using SharpMap;
 
     public partial class Form2 : Form
     {
@@ -42,7 +43,7 @@ namespace WinFormSamples
             GeometryFactory gf = new GeometryFactory(new PrecisionModel(), 3857);
 
             ProjNet.CoordinateSystems.Transformations.MathTransform mathTransform = LayerTools.Wgs84toGoogleMercator.MathTransform;
-            Envelope geom = GeometryTransform.TransformBox(
+            Envelope geom = TransformMethods.TransformBox(
                 new Envelope(-9.205626, -9.123736, 38.690993, 38.740837),
                 mathTransform);
 

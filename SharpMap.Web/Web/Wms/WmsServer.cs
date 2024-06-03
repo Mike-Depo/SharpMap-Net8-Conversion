@@ -1078,7 +1078,7 @@ namespace SharpMap.Web.Wms
                         {
                             data = data.Select(d =>
                             {
-                                var converted = GeometryTransform.TransformGeometry(d.Geometry, transform, map.Factory);
+                                var converted = TransformMethods.TransformGeometry(d.Geometry, transform, map.Factory);
                                 d.SetGeometry(converted);
                                 return d;
                             });

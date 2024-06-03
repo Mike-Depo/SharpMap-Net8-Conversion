@@ -242,7 +242,7 @@ namespace SharpMap.Layers
                 var res = DataSource.GetExtents();
                 if (CoordinateTransformation != null)
                 {
-                    return GeometryTransform.TransformBox(res, CoordinateTransformation.MathTransform);
+                    return TransformMethods.TransformBox(res, CoordinateTransformation.MathTransform);
                 }
                 return res;
             }
@@ -259,7 +259,7 @@ namespace SharpMap.Layers
         {
             if (CoordinateTransformation != null)
             {
-                box = GeometryTransform.TransformBox(box, CoordinateTransformation.MathTransform.Inverse());
+                box = TransformMethods.TransformBox(box, CoordinateTransformation.MathTransform.Inverse());
             }
             DataSource.ExecuteIntersectionQuery(box, ds);
             if (ds.Tables.Count > 0)
@@ -279,7 +279,7 @@ namespace SharpMap.Layers
         {
             if (CoordinateTransformation != null)
             {
-                geometry = GeometryTransform.TransformGeometry(geometry, CoordinateTransformation.MathTransform.Inverse(), geometry.Factory);
+                geometry = TransformMethods.TransformGeometry(geometry, CoordinateTransformation.MathTransform.Inverse(), geometry.Factory);
             }
             DataSource.ExecuteIntersectionQuery(geometry, ds);
             if (ds.Tables.Count > 0)
@@ -514,7 +514,7 @@ namespace SharpMap.Layers
                 var c = row.Geometry.PointOnSurface.Coordinate;
                 if (CoordinateTransformation != null)
                 {
-                    c = GeometryTransform.TransformCoordinate(c, CoordinateTransformation.MathTransform);
+                    c = TransformMethods.TransformCoordinate(c, CoordinateTransformation.MathTransform);
                 }
                 var posF = map.WorldToImage(c);
                 var pos = System.Drawing.Point.Round(posF);

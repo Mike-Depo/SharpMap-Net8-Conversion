@@ -13,8 +13,7 @@ using SharpMap.Rendering.Thematics;
 using BruTile.Web;
 using BruTile.Predefined;
 using SharpMap.Data.Providers;
-
-using GeometryTransform = NetTopologySuite.CoordinateSystems.Transformations.GeometryTransform;
+using SharpMap;
 
 namespace WinFormSamples
 {
@@ -48,7 +47,7 @@ namespace WinFormSamples
             this.mapBox1.Map.Layers.Add(vl);
 
             var mathTransform = LayerTools.Wgs84toGoogleMercator.MathTransform;
-            var geom = GeometryTransform.TransformBox(
+            var geom = TransformMethods.TransformBox(
                 new Envelope(-9.205626, -9.123736, 38.690993, 38.740837),
                 mathTransform);
 

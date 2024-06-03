@@ -1,6 +1,7 @@
 //#define alglib
 
 using NetTopologySuite;
+using SharpMap;
 
 namespace ExampleCodeSnippets
 {
@@ -466,7 +467,7 @@ public static void ReprojectFeatureDataTable(SharpMap.Data.FeatureDataTable fdt,
     {
         var fdr = fdt[i];
         fdr.Geometry =
-            NetTopologySuite.CoordinateSystems.Transformations.GeometryTransform.TransformGeometry(fdr.Geometry,
+            TransformMethods.TransformGeometry(fdr.Geometry,
                 ct.MathTransform, geomFactory);
     }
 }

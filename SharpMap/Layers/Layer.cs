@@ -591,7 +591,7 @@ namespace SharpMap.Layers
             if (coordinateTransformation == null)
                 return envelope;
 
-            return GeometryTransform.TransformBox(envelope, coordinateTransformation.MathTransform);
+            return TransformMethods.TransformBox(envelope, coordinateTransformation.MathTransform);
         }
 
         /// <summary>
@@ -613,14 +613,14 @@ namespace SharpMap.Layers
         {
             if (ReverseCoordinateTransformation != null)
             {
-                return GeometryTransform.TransformBox(envelope, ReverseCoordinateTransformation.MathTransform);
+                return TransformMethods.TransformBox(envelope, ReverseCoordinateTransformation.MathTransform);
             }
 
             if (CoordinateTransformation != null)
             {
                 var mt = CoordinateTransformation.MathTransform;
                 mt.Invert();
-                var res = GeometryTransform.TransformBox(envelope, mt);
+                var res = TransformMethods.TransformBox(envelope, mt);
                 mt.Invert();
                 return res;
             }
@@ -641,7 +641,7 @@ namespace SharpMap.Layers
 
             if (CoordinateTransformation != null)
             {
-                return GeometryTransform.TransformGeometry(geometry, CoordinateTransformation.MathTransform, TargetFactory);
+                return TransformMethods.TransformGeometry(geometry, CoordinateTransformation.MathTransform, TargetFactory);
             }
 
             return geometry;
@@ -659,14 +659,14 @@ namespace SharpMap.Layers
 
             if (ReverseCoordinateTransformation != null)
             {
-                return GeometryTransform.TransformGeometry(geometry,
+                return TransformMethods.TransformGeometry(geometry,
                     ReverseCoordinateTransformation.MathTransform, SourceFactory);
             }
             if (CoordinateTransformation != null)
             {
                 var mt = CoordinateTransformation.MathTransform;
                 mt.Invert();
-                var res = GeometryTransform.TransformGeometry(geometry, mt, SourceFactory);
+                var res = TransformMethods.TransformGeometry(geometry, mt, SourceFactory);
                 mt.Invert();
                 return res;
             }
