@@ -15,16 +15,15 @@
 // along with SharpMap; if not, write to the Free Software
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA 
 
+using NetTopologySuite.Geometries;
+using SharpMap.Data.Providers;
+using SharpMap.Logging;
+using SharpMap.Utilities.Indexing;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
-using Common.Logging;
-using NetTopologySuite.Geometries;
-using NetTopologySuite.Utilities;
-using SharpMap.Data.Providers;
-using SharpMap.Utilities.Indexing;
 
 namespace SharpMap.Utilities.Indexing
 {
@@ -771,8 +770,7 @@ namespace SharpMap.Utilities.SpatialIndexing
                 sw.Start();
                 var tree = QuadTree.FromFile(sidxFileName);
                 sw.Stop();
-                if (_logger.IsDebugEnabled)
-                    _logger.DebugFormat("Loading QuadTree took {0}ms", sw.ElapsedMilliseconds);
+                _logger.DebugFormat("Loading QuadTree took {0}ms", sw.ElapsedMilliseconds);
                 return tree;
             }
             catch (QuadTree.ObsoleteFileFormatException)
@@ -824,8 +822,7 @@ namespace SharpMap.Utilities.SpatialIndexing
             }
 
             sw.Stop();
-            if (_logger.IsDebugEnabled)
-                _logger.DebugFormat("Linear creation of QuadTree took {0}ms", sw.ElapsedMilliseconds);
+            _logger.DebugFormat("Linear creation of QuadTree took {0}ms", sw.ElapsedMilliseconds);
 
             return root;
 
@@ -859,8 +856,7 @@ namespace SharpMap.Utilities.SpatialIndexing
 
             sw.Stop();
 
-            if (_logger.IsDebugEnabled)
-                _logger.DebugFormat("Recursive creation of QuadTree took {0}ms", sw.ElapsedMilliseconds);
+            _logger.DebugFormat("Recursive creation of QuadTree took {0}ms", sw.ElapsedMilliseconds);
 
             return root;
         }

@@ -30,15 +30,14 @@
 // By default, the provider ignores invalid spatial objects. This behaviour can be changed by setting 
 // SqlServer2008.ValidateGeometries = True BUT take note of comments on this property.
 
-using System;
-using System.Collections.ObjectModel;
-using System.Collections.Generic;
-using System.Data.SqlClient;
-using System.Globalization;
-using System.Text;
-using NetTopologySuite.Geometries;
-using Common.Logging;
 using NetTopologySuite;
+using NetTopologySuite.Geometries;
+using SharpMap.Logging;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Data.SqlClient;
+using System.Text;
 
 namespace SharpMap.Data.Providers
 {
@@ -432,7 +431,7 @@ namespace SharpMap.Data.Providers
                      $"AND name NOT IN ('{GeometryColumn}') " +
                      "FOR XML PATH('')), 1, 2, '') + ']';";
 
-                if (_logger.IsDebugEnabled) _logger.DebugFormat("GetAttributeColumnNames {0}", strSql);
+                _logger.DebugFormat("GetAttributeColumnNames {0}", strSql);
 
                 using (var conn = new System.Data.SqlClient.SqlConnection(ConnectionString))
                 {
@@ -511,7 +510,7 @@ namespace SharpMap.Data.Providers
 
                 sb.Append($"{GetBoxFilterStr(bbox)} {GetExtraOptions()}");
 
-                if (_logger.IsDebugEnabled) _logger.DebugFormat("GetGeometriesInView {0}", sb.ToString());
+                _logger.DebugFormat("GetGeometriesInView {0}", sb.ToString());
 
                 using (var command = new SqlCommand(sb.ToString(), conn))
                 {
@@ -547,7 +546,7 @@ namespace SharpMap.Data.Providers
                 string strSql = $"SELECT {GeometryColumn}{GetMakeValidString()}.STAsBinary() FROM {QualifiedTable} " +
                                 $"WHERE {ObjectIdColumn} = {oid}";
 
-                if (_logger.IsDebugEnabled) _logger.DebugFormat("GetGeometryByID {0}", strSql);
+                _logger.DebugFormat("GetGeometryByID {0}", strSql);
 
                 using (var command = new SqlCommand(strSql, conn))
                 {
@@ -588,7 +587,7 @@ namespace SharpMap.Data.Providers
                 
                 sb.Append($"{GetBoxFilterStr(bbox)} {GetExtraOptions()}");
 
-                if (_logger.IsDebugEnabled) _logger.DebugFormat("GetObjectIDsInView {0}", sb.ToString());
+                _logger.DebugFormat("GetObjectIDsInView {0}", sb.ToString());
 
                 using (var command = new SqlCommand(sb.ToString(), conn))
                 {
@@ -659,7 +658,7 @@ namespace SharpMap.Data.Providers
 
             sb.Append($"{GeometryColumn}{makeValid}.STIntersects({_spatialTypeString}::STGeomFromText('{geomText}', {SRID}){_reorientObject})=1 {GetExtraOptions()}");
 
-            if (_logger.IsDebugEnabled) _logger.DebugFormat("OnExecuteIntersectionQuery {0}", sb.ToString());
+            _logger.DebugFormat("OnExecuteIntersectionQuery {0}", sb.ToString());
 
             ExecuteIntersectionQuery(sb.ToString(), fds);
         }
@@ -714,7 +713,7 @@ namespace SharpMap.Data.Providers
                 var strSql = $"SELECT {GetAttributeColumnNames()}, {GeometryColumn}{GetMakeValidString()}.STAsBinary() As {SharpMapWkb} " +
                              $"FROM {QualifiedTable} WHERE {ObjectIdColumn}={rowId}";
 
-                if (_logger.IsDebugEnabled) _logger.DebugFormat("GetFeature {0}", strSql);
+                _logger.DebugFormat("GetFeature {0}", strSql);
 
                 using (var adapter = new SqlDataAdapter(strSql, conn))
                 {
@@ -770,7 +769,7 @@ namespace SharpMap.Data.Providers
                               "FROM sys.spatial_index_tessellations " +
                               $"WHERE object_id = OBJECT_ID('{QualifiedTable}')";
 
-                        if (_logger.IsDebugEnabled) _logger.DebugFormat("GetExtents {0} {1}", ExtentsMode, sql);
+                        _logger.DebugFormat("GetExtents {0} {1}", ExtentsMode, sql);
 
                         using (var command = new SqlCommand(sql, conn))
                         {
@@ -809,7 +808,7 @@ namespace SharpMap.Data.Providers
                             sql += $"{GeometryColumn}.STIsValid()=1";
                         }
 
-                        if (_logger.IsDebugEnabled) _logger.DebugFormat("GetExtents {0} {1}", ExtentsMode, sql);
+                        _logger.DebugFormat("GetExtents {0} {1}", ExtentsMode, sql);
 
                         using (var command = new SqlCommand(sql, conn))
                         {
@@ -849,7 +848,7 @@ namespace SharpMap.Data.Providers
                             sql += $"{GeometryColumn}.STIsValid()=1";
                         }
 
-                        if (_logger.IsDebugEnabled) _logger.DebugFormat("GetExtents {0} {1}", ExtentsMode, sql);
+                        _logger.DebugFormat("GetExtents {0} {1}", ExtentsMode, sql);
 
                         using (var command = new SqlCommand(sql, conn))
                         {
@@ -895,7 +894,7 @@ namespace SharpMap.Data.Providers
 
             sb.Append($"{GetBoxFilterStr(bbox)} {GetExtraOptions()}");
 
-            if (_logger.IsDebugEnabled) _logger.DebugFormat("ExecuteIntersectionQuery {0}", sb.ToString());
+            _logger.DebugFormat("ExecuteIntersectionQuery {0}", sb.ToString());
 
             ExecuteIntersectionQuery(sb.ToString(), fds);
         }

@@ -1,17 +1,17 @@
-﻿using System;
+﻿using BruTile;
+using BruTile.Cache;
+using NetTopologySuite.Geometries;
+using SharpMap.Logging;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
-using System.Threading;
-using BruTile;
-using BruTile.Cache;
 using System.IO;
 using System.Net;
-using NetTopologySuite.Geometries;
-using System.Diagnostics;
+using System.Threading;
 using System.Threading.Tasks;
-using Common.Logging;
 
 namespace SharpMap.Layers
 {

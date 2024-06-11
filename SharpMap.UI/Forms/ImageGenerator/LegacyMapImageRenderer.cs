@@ -1,14 +1,12 @@
-﻿using System;
+﻿using NetTopologySuite.Geometries;
+using SharpMap.Layers;
+using SharpMap.Logging;
+using System;
 using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
-using System.Runtime.CompilerServices;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using Common.Logging;
-using NetTopologySuite.Geometries;
-using SharpMap.Layers;
 using Point = System.Drawing.Point;
 
 namespace SharpMap.Forms.ImageGenerator

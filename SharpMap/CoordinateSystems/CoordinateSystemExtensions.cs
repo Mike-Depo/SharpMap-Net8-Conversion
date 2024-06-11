@@ -1,12 +1,11 @@
-using System;
-using System.Runtime.CompilerServices;
-using Common.Logging;
-using System.Collections.Generic;
-using ProjNet.CoordinateSystems;
+using NetTopologySuite;
 using NetTopologySuite.Geometries;
+using ProjNet.CoordinateSystems;
 using SharpMap.Data.Providers;
 using SharpMap.Layers;
-using NetTopologySuite;
+using SharpMap.Logging;
+using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 
 namespace SharpMap.CoordinateSystems
 {

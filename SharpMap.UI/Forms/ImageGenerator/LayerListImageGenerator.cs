@@ -1,4 +1,9 @@
-﻿using System;
+﻿using NetTopologySuite.Geometries;
+using SharpMap.Layers;
+using SharpMap.Logging;
+using SharpMap.Rendering;
+using SharpMap.Styles;
+using System;
 using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -10,11 +15,6 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Common.Logging;
-using NetTopologySuite.Geometries;
-using SharpMap.Layers;
-using SharpMap.Rendering;
-using SharpMap.Styles;
 using Point = System.Drawing.Point;
 
 namespace SharpMap.Forms.ImageGenerator

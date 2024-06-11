@@ -15,19 +15,19 @@
 // along with SharpMap; if not, write to the Free Software
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA 
 
+using NetTopologySuite.Geometries;
+using SharpMap.CoordinateSystems;
+using SharpMap.Logging;
+using SharpMap.Rendering.Exceptions;
+using SharpMap.Web.Wms;
 using System;
-using System.Collections.ObjectModel;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Net;
 using System.Text;
-using NetTopologySuite.Geometries;
-using SharpMap.CoordinateSystems;
-using SharpMap.Rendering.Exceptions;
-using SharpMap.Web.Wms;
-using Common.Logging;
 
 namespace SharpMap.Layers
 {
@@ -146,21 +146,18 @@ namespace SharpMap.Layers
             Client result;
             if (!Web.HttpCacheUtility.TryGetValue("SharpMap_WmsClient_" + capabilitiesUrl, out result))
             {
-                if (Logger.IsDebugEnabled)
-                    Logger.Debug("Creating new client for url " + capabilitiesUrl);
+                Logger.Debug("Creating new client for url " + capabilitiesUrl);
 
                 result = new Client(capabilitiesUrl, proxy, credentials);
 
                 if (!Web.HttpCacheUtility.TryAddValue("SharpMap_WmsClient_" + capabilitiesUrl, result, cacheTime))
                 {
-                    if (Logger.IsDebugEnabled)
-                        Logger.Debug("Adding client to Cache for url " + capabilitiesUrl + " failed");
+                    Logger.Debug("Adding client to Cache for url " + capabilitiesUrl + " failed");
                 }
             }
             else
             {
-                if (Logger.IsDebugEnabled)
-                    Logger.Debug("Created client from Cache for url " + capabilitiesUrl);
+                Logger.Debug("Created client from Cache for url " + capabilitiesUrl);
             }
             return result;
         }
@@ -572,14 +569,12 @@ namespace SharpMap.Layers
         /// <param name="map">Map which is rendered</param>
         public override void Render(Graphics g, MapViewport map)
         {
-            if (Logger.IsDebugEnabled)
-                Logger.Debug("Rendering wmslayer: " + LayerName);
+            Logger.Debug("Rendering wmslayer: " + LayerName);
 
             Client.WmsOnlineResource resource = GetPreferredMethod();
             var myUri = new Uri(GetRequestUrl(map.Envelope, map.Size));
 
-            if (Logger.IsDebugEnabled)
-                Logger.Debug("Url: " + myUri);
+            Logger.Debug("Url: " + myUri);
 
             var myWebRequest = WebRequest.Create(myUri);
             myWebRequest.Method = resource.Type;
@@ -605,25 +600,21 @@ namespace SharpMap.Layers
 
             try
             {
-                if (Logger.IsDebugEnabled)
-                    Logger.Debug("Beginning request");
+                Logger.Debug("Beginning request");
 
                 using(var myWebResponse = (HttpWebResponse)myWebRequest.GetResponse())
                 {
-                    if (Logger.IsDebugEnabled)
-                        Logger.Debug("Got response");
+                    Logger.Debug("Got response");
 
                     using (var dataStream = myWebResponse.GetResponseStream())
                     {
                         if (dataStream != null && myWebResponse.ContentType.StartsWith("image"))
                         {
-                            if (Logger.IsDebugEnabled)
-                                Logger.Debug("Reading image from stream");
+                            Logger.Debug("Reading image from stream");
 
                             var cLength = (int) myWebResponse.ContentLength;
 
-                            if (Logger.IsDebugEnabled)
-                                Logger.Debug("Content-Length: " + cLength);
+                            Logger.Debug("Content-Length: " + cLength);
 
                             Image img;
                             using (var ms = new MemoryStream())
@@ -651,17 +642,11 @@ namespace SharpMap.Layers
 
                                             if ((DateTime.Now - lastTimeGotData).TotalSeconds > TimeOut)
                                             {
-                                                if (Logger.IsInfoEnabled)
-                                                    Logger.Info("Did not get any data for " + TimeOut +
-                                                                " seconds, aborting");
+                                                Logger.Info("Did not get any data for " + TimeOut + " seconds, aborting");
                                                 return;
-
                                             }
 
-                                            if (Logger.IsDebugEnabled)
-                                                Logger.Debug("No data to read. Have received: " +
-                                                             numRead + " of " + cLength);
-
+                                            Logger.Debug("No data to read. Have received: " + numRead + " of " + cLength);
 
                                             //Did not get data... sleep for a while to not spin
                                             System.Threading.Thread.Sleep(10);
@@ -687,16 +672,14 @@ namespace SharpMap.Layers
 
                                 } while (moreToRead);
 
-                                if (Logger.IsDebugEnabled)
-                                    Logger.Debug("Have received: " + numRead);
+                                Logger.Debug("Have received: " + numRead);
 
                                 ms.Seek(0, SeekOrigin.Begin);
                                 img = Image.FromStream(ms);
                             }
 
 
-                            if (Logger.IsDebugEnabled)
-                                Logger.Debug("Image read.. Drawing");
+                            Logger.Debug("Image read.. Drawing");
 
                             if (Opacity < 1f)
                             {
@@ -710,8 +693,7 @@ namespace SharpMap.Layers
                             else
                                 g.DrawImage(img, Rectangle.FromLTRB(0, 0, map.Size.Width, map.Size.Height));
 
-                            if (Logger.IsDebugEnabled)
-                                Logger.Debug("Draw complete");
+                            Logger.Debug("Draw complete");
 
                             dataStream.Close();
                         }

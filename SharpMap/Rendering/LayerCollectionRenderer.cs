@@ -1,4 +1,7 @@
-﻿using System;
+﻿using SharpMap.Layers;
+using SharpMap.Logging;
+using SharpMap.Styles;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
@@ -6,9 +9,6 @@ using System.Drawing.Imaging;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
-using Common.Logging;
-using SharpMap.Layers;
-using SharpMap.Styles;
 
 namespace SharpMap.Rendering
 {

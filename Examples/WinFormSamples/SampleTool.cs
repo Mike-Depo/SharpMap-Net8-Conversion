@@ -1,19 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using Common.Logging;
-using NetTopologySuite.Geometries;
+﻿using NetTopologySuite.Geometries;
 using SharpMap;
 using SharpMap.Data;
 using SharpMap.Forms;
 using SharpMap.Forms.Tools;
 using SharpMap.Layers;
+using SharpMap.Logging;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace WinFormSamples
 {

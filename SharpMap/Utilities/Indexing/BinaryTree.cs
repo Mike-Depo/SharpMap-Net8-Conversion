@@ -15,15 +15,14 @@
 // along with SharpMap; if not, write to the Free Software
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA 
 
+using SharpMap.Logging;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using Common.Logging;
 
 namespace SharpMap.Utilities.Indexing
 {
-// Binary Tree not working yet on Mono 
-// see bug: http://bugzilla.ximian.com/show_bug.cgi?id=78502
+    // Binary Tree not working yet on Mono 
+    // see bug: http://bugzilla.ximian.com/show_bug.cgi?id=78502
 #if !MONO
     [Serializable]
     internal class Node<T, U> where T : IComparable<T>
@@ -166,8 +165,7 @@ namespace SharpMap.Utilities.Indexing
             if (root.LeftNode != null)
                 TraceInOrder(root.LeftNode);
 
-            if (_logger.IsInfoEnabled)
-                _logger.Info(root.Item.ToString());
+            _logger.Info(root.Item.ToString());
 
             if (root.RightNode != null)
                 TraceInOrder(root.RightNode);

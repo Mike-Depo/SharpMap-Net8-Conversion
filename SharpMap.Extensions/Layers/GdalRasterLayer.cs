@@ -16,26 +16,24 @@
 // along with SharpMap; if not, write to the Free Software
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA 
 
+using NetTopologySuite;
+using NetTopologySuite.Geometries;
+using NetTopologySuite.Index.Strtree;
+using OSGeo.GDAL;
+using ProjNet.CoordinateSystems;
+using ProjNet.CoordinateSystems.Transformations;
+using SharpMap.Base;
+using SharpMap.CoordinateSystems;
+using SharpMap.Data;
+using SharpMap.Extensions.Data;
+using SharpMap.Logging;
+using SharpMap.Rendering.Thematics;
 using System;
 using System.Buffers;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
-using Common.Logging;
-using NetTopologySuite;
-using NetTopologySuite.Geometries;
-using OSGeo.GDAL;
-using NetTopologySuite.CoordinateSystems;
-using NetTopologySuite.CoordinateSystems.Transformations;
-using NetTopologySuite.Index.Strtree;
-using SharpMap.Base;
-using SharpMap.CoordinateSystems;
-using SharpMap.Data;
-using SharpMap.Extensions.Data;
-using SharpMap.Rendering.Thematics;
-using ProjNet.CoordinateSystems;
-using ProjNet.CoordinateSystems.Transformations;
 using Point = System.Drawing.Point;
 
 namespace SharpMap.Layers

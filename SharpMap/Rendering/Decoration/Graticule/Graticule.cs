@@ -1,18 +1,16 @@
+using NetTopologySuite.Geometries;
+using NetTopologySuite.Geometries.Utilities;
+using NetTopologySuite.Utilities;
+using ProjNet.CoordinateSystems;
+using ProjNet.CoordinateSystems.Transformations;
+using SharpMap.Logging;
+using SharpMap.Styles;
+using SharpMap.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Linq;
-using Common.Logging;
-using ProjNet.CoordinateSystems;
-using ProjNet.CoordinateSystems.Transformations;
-using NetTopologySuite;
-using NetTopologySuite.CoordinateSystems.Transformations;
-using NetTopologySuite.Geometries;
-using NetTopologySuite.Geometries.Utilities;
-using NetTopologySuite.Utilities;
-using SharpMap.Styles;
-using SharpMap.Utilities;
 using Matrix = System.Drawing.Drawing2D.Matrix;
 using Point = NetTopologySuite.Geometries.Point;
 

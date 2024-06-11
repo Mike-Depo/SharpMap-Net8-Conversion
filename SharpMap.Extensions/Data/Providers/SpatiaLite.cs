@@ -15,18 +15,17 @@
 // along with SharpMap; if not, write to the Free Software
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
+using NetTopologySuite.Geometries;
+using SharpMap.Converters.WellKnownBinary;
+using SharpMap.Converters.WellKnownText;
+using SharpMap.Logging;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Configuration;
 using System.Data;
 //using System.Diagnostics;
 using System.Data.SQLite;
 using System.Globalization;
-using Common.Logging;
-using NetTopologySuite.Geometries;
-using SharpMap.Converters.WellKnownBinary;
-using SharpMap.Converters.WellKnownText;
 
 namespace SharpMap.Data.Providers
 {

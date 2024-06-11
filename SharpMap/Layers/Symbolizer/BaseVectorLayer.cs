@@ -1,13 +1,13 @@
+using NetTopologySuite.Geometries;
+using SharpMap.Data;
+using SharpMap.Data.Providers;
+using SharpMap.Logging;
+using SharpMap.Rendering.Symbolizer;
 using System;
 using System.Collections.ObjectModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Runtime.CompilerServices;
-using NetTopologySuite.Geometries;
-using SharpMap.Data;
-using SharpMap.Data.Providers;
-using SharpMap.Rendering.Symbolizer;
-using Common.Logging;
 
 namespace SharpMap.Layers.Symbolizer
 {
@@ -145,8 +145,7 @@ namespace SharpMap.Layers.Symbolizer
 
                 _geometries = DataSource.GetGeometriesInView(envelope);
 
-                if (logger.IsDebugEnabled)
-                    logger.DebugFormat("Layer {0}, NumGeometries {1}", LayerName, _geometries.Count);
+                logger.DebugFormat("Layer {0}, NumGeometries {1}", LayerName, _geometries.Count);
 
                 if (!wasOpen)
                     _dataSource.Close();

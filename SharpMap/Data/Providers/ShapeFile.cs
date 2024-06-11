@@ -15,6 +15,13 @@
 // along with SharpMap; if not, write to the Free Software
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA 
 
+using NetTopologySuite;
+using NetTopologySuite.Geometries;
+using ProjNet.CoordinateSystems;
+using SharpMap.CoordinateSystems;
+using SharpMap.Logging;
+using SharpMap.Utilities.Indexing;
+using SharpMap.Utilities.SpatialIndexing;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -22,13 +29,6 @@ using System.Diagnostics;
 using System.IO;
 using System.Runtime.CompilerServices;
 using System.Text;
-using NetTopologySuite;
-using NetTopologySuite.Geometries;
-using SharpMap.Utilities.Indexing;
-using SharpMap.Utilities.SpatialIndexing;
-using Common.Logging;
-using ProjNet.CoordinateSystems;
-using SharpMap.CoordinateSystems;
 using Exception = System.Exception;
 
 namespace SharpMap.Data.Providers

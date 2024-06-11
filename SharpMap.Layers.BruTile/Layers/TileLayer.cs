@@ -1,4 +1,10 @@
-﻿using System;
+﻿using BruTile;
+using BruTile.Cache;
+using BruTile.Web;
+using NetTopologySuite.Geometries;
+using SharpMap.Base;
+using SharpMap.Logging;
+using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Drawing;
@@ -8,12 +14,6 @@ using System.IO;
 using System.Net;
 using System.Runtime.Serialization;
 using System.Threading;
-using BruTile;
-using BruTile.Cache;
-using BruTile.Web;
-using Common.Logging;
-using NetTopologySuite.Geometries;
-using SharpMap.Base;
 
 namespace SharpMap.Layers
 {

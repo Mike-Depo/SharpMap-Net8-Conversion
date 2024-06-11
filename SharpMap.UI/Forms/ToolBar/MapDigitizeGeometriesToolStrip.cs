@@ -1,8 +1,9 @@
-﻿using System;
+﻿using NetTopologySuite.Geometries;
+using SharpMap.Logging;
+using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Windows.Forms;
-using NetTopologySuite.Geometries;
 
 namespace SharpMap.Forms.ToolBar
 {
@@ -12,7 +13,7 @@ namespace SharpMap.Forms.ToolBar
     [DesignTimeVisible(true)]
     public class MapDigitizeGeometriesToolStrip : MapToolStrip
     {
-        private static readonly Common.Logging.ILog _logger = Common.Logging.LogManager.GetLogger(typeof(MapDigitizeGeometriesToolStrip));
+        private static readonly ILog _logger = LogManager.GetLogger(typeof(MapDigitizeGeometriesToolStrip));
 
         /// <summary>
         /// Creates an instance of this control

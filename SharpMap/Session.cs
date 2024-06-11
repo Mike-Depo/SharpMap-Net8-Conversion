@@ -1,11 +1,7 @@
-﻿using System;
-using Common.Logging;
-using NetTopologySuite;
-using NetTopologySuite.Geometries;
-using NetTopologySuite.Utilities;
-using ProjNet.CoordinateSystems;
-using ProjNet.Geometries;
+﻿using NetTopologySuite;
 using SharpMap.CoordinateSystems;
+using SharpMap.Logging;
+using System;
 
 namespace SharpMap
 {

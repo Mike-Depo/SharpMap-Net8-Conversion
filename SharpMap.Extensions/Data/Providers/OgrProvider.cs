@@ -15,26 +15,25 @@
 // along with SharpMap; if not, write to the Free Software
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA 
 
-using System;
-using System.Collections.ObjectModel;
-using Common.Logging;
 using NetTopologySuite.Geometries;
 using NetTopologySuite.IO;
 using SharpMap.Converters.WellKnownBinary;
 using SharpMap.Extensions.Data;
+using SharpMap.Logging;
+using System;
+using System.Collections.ObjectModel;
 //using SharpMap.Geometries;
 using BoundingBox = NetTopologySuite.Geometries.Envelope;
-using OgrOgr = OSGeo.OGR.Ogr;
 using OgrDataSource = OSGeo.OGR.DataSource;
-using OgrLayer = OSGeo.OGR.Layer;
-using OgrGeometry = OSGeo.OGR.Geometry;
 using OgrEnvelope = OSGeo.OGR.Envelope;
 using OgrFeature = OSGeo.OGR.Feature;
-using OgrFeatureDefn = OSGeo.OGR.FeatureDefn;
 using OgrFieldDefn = OSGeo.OGR.FieldDefn;
 using OgrFieldType = OSGeo.OGR.FieldType;
-using OsrSpatialReference = OSGeo.OSR.SpatialReference;
+using OgrGeometry = OSGeo.OGR.Geometry;
 using OgrGeometryType = OSGeo.OGR.wkbGeometryType;
+using OgrLayer = OSGeo.OGR.Layer;
+using OgrOgr = OSGeo.OGR.Ogr;
+using OsrSpatialReference = OSGeo.OSR.SpatialReference;
 
 namespace SharpMap.Data.Providers
 {

@@ -16,6 +16,11 @@
 // along with SharpMap; if not, write to the Free Software
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA 
 
+using NetTopologySuite.Geometries;
+using SharpMap.Logging;
+using SharpMap.Rendering.Exceptions;
+using SharpMap.Web.Wms;
+using SharpMap.Web.Wms.Tiling;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -26,12 +31,6 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Net;
 using System.Text;
-using NetTopologySuite.Geometries;
-using SharpMap.Rendering.Exceptions;
-using SharpMap.Utilities;
-using SharpMap.Web.Wms;
-using SharpMap.Web.Wms.Tiling;
-using Common.Logging;
 
 namespace SharpMap.Layers
 {
@@ -127,14 +126,12 @@ namespace SharpMap.Layers
 
             if (!Web.HttpCacheUtility.TryGetValue("SharpMap_WmsClient_" + url, out _WmsClient))
             {
-                if (logger.IsDebugEnabled)
-                    logger.Debug("Creating new client for url " + url);
+                logger.Debug("Creating new client for url " + url);
                 _WmsClient = new Client(url, _Proxy, _Credentials);
 
                 if (!Web.HttpCacheUtility.TryAddValue("SharpMap_WmsClient_" + url, _WmsClient))
                 {
-                    if (logger.IsDebugEnabled)
-                        logger.Debug("Adding client to Cache for url " + url + " failed");
+                    logger.Debug("Adding client to Cache for url " + url + " failed");
                 }
             }
             _TileSets = TileSet.ParseVendorSpecificCapabilitiesNode(_WmsClient.VendorSpecificCapabilities);
@@ -229,8 +226,7 @@ namespace SharpMap.Layers
 
                     List<Envelope> tileExtents = TileExtents.GetTileExtents(tileSet, map.Envelope, Math.Max(map.PixelWidth, map.PixelHeight));
 
-                    if (logger.IsDebugEnabled)
-                        logger.DebugFormat("TileCount: {0}", tileExtents.Count);
+                    logger.DebugFormat("TileCount: {0}", tileExtents.Count);
 
                     //TODO: Retrieve several tiles at the same time asynchronously to improve performance. PDD.
                     foreach (Envelope tileExtent in tileExtents)

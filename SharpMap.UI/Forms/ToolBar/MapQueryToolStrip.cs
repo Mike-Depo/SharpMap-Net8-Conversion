@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SharpMap.Logging;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Forms;
@@ -30,7 +31,7 @@ namespace SharpMap.Forms.ToolBar
             InitializeComponent();
         }
 
-        private static readonly Common.Logging.ILog _logger = Common.Logging.LogManager.GetLogger(typeof(MapQueryToolStrip));
+        private static readonly ILog _logger = LogManager.GetLogger(typeof(MapQueryToolStrip));
 
         private ToolStripButton _clear;
         private ToolStripSeparator _sep1;

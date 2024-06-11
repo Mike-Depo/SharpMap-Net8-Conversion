@@ -1,10 +1,11 @@
+using NetTopologySuite.Geometries;
+using SharpMap.Converters.WellKnownBinary;
+using SharpMap.Logging;
 using System;
 using System.Collections.ObjectModel;
 using System.Data;
 using System.Data.Common;
 using System.Text;
-using NetTopologySuite.Geometries;
-using SharpMap.Converters.WellKnownBinary;
 
 namespace SharpMap.Data.Providers
 {
@@ -14,7 +15,7 @@ namespace SharpMap.Data.Providers
     [Serializable]
     public abstract class SpatialDbProvider : BaseProvider
     {
-        private static readonly Common.Logging.ILog Logger = Common.Logging.LogManager.GetLogger(typeof(SpatialDbProvider));
+        private static readonly ILog Logger = LogManager.GetLogger(typeof(SpatialDbProvider));
         
         private bool Initialized { get; set; }
 

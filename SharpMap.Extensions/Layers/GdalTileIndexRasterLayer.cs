@@ -15,16 +15,16 @@
 // along with SharpMap; if not, write to the Free Software
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA 
 
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.IO;
-using Common.Logging;
 using NetTopologySuite.Geometries;
 using OSGeo.GDAL;
 using SharpMap.Base;
 using SharpMap.Data;
 using SharpMap.Data.Providers;
+using SharpMap.Logging;
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
 
 namespace SharpMap.Layers
 {

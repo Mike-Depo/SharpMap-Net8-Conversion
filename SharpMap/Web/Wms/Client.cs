@@ -1,15 +1,14 @@
+using NetTopologySuite.Geometries;
+using SharpMap.Logging;
 using System;
-using System.Collections.ObjectModel;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Drawing;
-using System.Globalization;
 using System.IO;
 using System.Net;
 using System.Text;
 using System.Xml;
 using System.Xml.Schema;
-using NetTopologySuite.Geometries;
-using Common.Logging;
 
 namespace SharpMap.Web.Wms
 {
@@ -987,8 +986,7 @@ namespace SharpMap.Web.Wms
                         settings.ValidationType = ValidationType.Schema;
                         break;
                     default:
-                        if (logger.IsInfoEnabled)
-                            logger.Info("Invalid selection: " + _version);
+                        logger.Info("Invalid selection: " + _version);
                         break;
                 }
 

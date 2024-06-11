@@ -36,22 +36,22 @@
  * 
  * FObermaier
  */
+using NetTopologySuite.Geometries;
+using SharpMap.Forms.ImageGenerator;
+using SharpMap.Forms.Tools;
+using SharpMap.Layers;
+using SharpMap.Logging;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
-using System.Runtime.InteropServices;
-using System.Windows.Forms;
-using NetTopologySuite.Geometries;
-using Point = System.Drawing.Point;
-using SharpMap.Forms.Tools;
-using SharpMap.Layers;
-using System.Drawing.Imaging;
-using System.Threading;
-using Common.Logging;
-using System.Collections.Generic;
 using System.Drawing.Drawing2D;
-using SharpMap.Forms.ImageGenerator;
+using System.Drawing.Imaging;
+using System.Runtime.InteropServices;
+using System.Threading;
+using System.Windows.Forms;
+using Point = System.Drawing.Point;
 
 namespace SharpMap.Forms
 {

@@ -15,18 +15,18 @@
 // along with SharpMap; if not, write to the Free Software
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA 
 
-using System;
-using System.Collections.ObjectModel;
-using System.Drawing;
-using System.Drawing.Drawing2D;
+using NetTopologySuite.Geometries;
 using SharpMap.Data;
 using SharpMap.Data.Providers;
-using NetTopologySuite.Geometries;
+using SharpMap.Logging;
 using SharpMap.Rendering;
 using SharpMap.Rendering.Thematics;
 using SharpMap.Styles;
+using System;
 using System.Collections.Generic;
-using Common.Logging;
+using System.Collections.ObjectModel;
+using System.Drawing;
+using System.Drawing.Drawing2D;
 
 namespace SharpMap.Layers
 {
@@ -397,10 +397,7 @@ namespace SharpMap.Layers
                                 if (!wasOpen) { DataSource.Close(); }
                             }
 
-                            if (_logger.IsDebugEnabled)
-                            {
-                                _logger.DebugFormat("Layer {0}, NumGeometries {1}", LayerName, geoms.Count);
-                            }
+                            _logger.DebugFormat("Layer {0}, NumGeometries {1}", LayerName, geoms.Count);
 
                             // Transform geometries if necessary
                             if (CoordinateTransformation != null)

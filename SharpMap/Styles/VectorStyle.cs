@@ -20,8 +20,8 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Reflection;
 using NetTopologySuite.Geometries;
+using SharpMap.Logging;
 using SharpMap.Rendering.Symbolizer;
-using Common.Logging;
 #if NETSTANDARD2_0
 using SmColor = SharpMap.Drawing.Color;
 using Color = System.Drawing.Color;

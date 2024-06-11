@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using Common.Logging;
-using System.Drawing;
+﻿using NetTopologySuite.Geometries;
 using SharpMap.Layers;
-using System.Globalization;
+using SharpMap.Logging;
 using SharpMap.Styles;
-using NetTopologySuite.Geometries;
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Globalization;
+using System.IO;
 using Point = System.Drawing.Point;
 
 namespace SharpMap.Serialization

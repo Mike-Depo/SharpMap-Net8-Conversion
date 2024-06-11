@@ -15,14 +15,14 @@
 // along with SqlLiteProvider; if not, write to the Free Software
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
+using NetTopologySuite.Geometries;
+using SharpMap.Converters.WellKnownText;
+using SharpMap.Logging;
 using System;
 using System.Collections.ObjectModel;
 using System.Data;
 using System.Data.SQLite;
 using System.Globalization;
-using SharpMap.Converters.WellKnownText;
-using NetTopologySuite.Geometries;
-using Common.Logging;
 
 namespace SharpMap.Data.Providers
 {

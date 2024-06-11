@@ -15,31 +15,27 @@
 // along with SharpMap; if not, write to the Free Software
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA 
 
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Collections.Specialized;
-using System.ComponentModel;
-using System.Diagnostics;
-using System.Drawing;
-using System.Drawing.Drawing2D;
-using System.Globalization;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices;
-using NetTopologySuite.Geometries;
 using NetTopologySuite;
+using NetTopologySuite.Geometries;
 using SharpMap.Layers;
+using SharpMap.Logging;
 using SharpMap.Rendering;
 using SharpMap.Rendering.Decoration;
 using SharpMap.Styles;
 using SharpMap.Utilities;
-using Point = NetTopologySuite.Geometries.Point;
-using Coordinate = NetTopologySuite.Geometries.Coordinate;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
+using System.ComponentModel;
+using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
-using Common.Logging;
+using System.Globalization;
+using System.IO;
+using System.Linq;
 using System.Reflection;
+using Coordinate = NetTopologySuite.Geometries.Coordinate;
 
 namespace SharpMap
 {
@@ -208,8 +204,7 @@ namespace SharpMap
 
             WireEvents();
 
-            if (_logger.IsDebugEnabled)
-                _logger.DebugFormat("Map initialized with size {0},{1}", size.Width, size.Height);
+            _logger.DebugFormat("Map initialized with size {0},{1}", size.Width, size.Height);
         }
 
         /// <summary>

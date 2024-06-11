@@ -1,11 +1,11 @@
-﻿using System;
+﻿using SharpMap.Logging;
+using System;
 using System.ComponentModel;
 using System.Diagnostics;
-using Common.Logging;
 
 namespace SharpMap.Forms
 {
-    
+
     /// <summary>
     /// Map tool
     /// </summary>
