@@ -13,12 +13,13 @@ namespace UnitTests.Rendering.Symbolizer
                 base.Begin(g, map, aproximateNumberOfGeometries);
                 _oldRenderOrigin = g.RenderingOrigin;
             }
-            protected override void OnRenderInternal(SharpMap.MapViewport map, Polygon polygon, System.Drawing.Graphics g)
+            protected override void OnRenderInternal(SharpMap.MapViewport map, Geometry feature, 
+                Polygon polygon, System.Drawing.Graphics g)
             {
                 var pt = polygon.Centroid;
                 g.RenderingOrigin = 
                     System.Drawing.Point.Truncate(map.WorldToImage(pt.Coordinate));
-                base.OnRenderInternal(map, polygon, g);
+                base.OnRenderInternal(map, feature, polygon, g);
             }
             public override void End(System.Drawing.Graphics g, SharpMap.MapViewport map)
             {
