@@ -275,7 +275,7 @@ namespace SharpMap.Forms.ToolBar
                 newTool = MapBox.Tools.QueryPoint;
             else
             {
-                if (_logger.IsWarnEnabled)
+                //if (_logger.IsWarnEnabled)
                     _logger.Warn("Unknown object invoking OnCheckedChanged()");
                 return;
             }

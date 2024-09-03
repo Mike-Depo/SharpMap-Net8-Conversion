@@ -120,7 +120,7 @@ namespace SharpMap.Layers
                         if (file == null)
                             continue;
 
-                        if (_logger.IsDebugEnabled)
+                        //if (_logger.IsDebugEnabled)
                             _logger.Debug("Drawing " + file);
 
                         if (!_openDatasets.ContainsKey(file))

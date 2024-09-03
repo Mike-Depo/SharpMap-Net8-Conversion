@@ -2053,7 +2053,7 @@ namespace SharpMap.Forms
         {
             try
             {
-                if (_logger.IsDebugEnabled)
+                //if (_logger.IsDebugEnabled)
                     _logger.Debug($"OnPaint ({pe.ClipRectangle}), ActiveTool: {Enum.GetName(typeof(Tools), _activeTool)}");
 
                 //Console.WriteLine($"OnPaint ({pe.ClipRectangle.ToString()})");
@@ -2579,7 +2579,7 @@ namespace SharpMap.Forms
             lowerLeft = new Coordinate(Math.Min(p1.X, p2.X), Math.Min(p1.Y, p2.Y));
             upperRight = new Coordinate(Math.Max(p1.X, p2.X), Math.Max(p1.Y, p2.Y));
 
-            if (_logger.IsDebugEnabled)
+            //if (_logger.IsDebugEnabled)
             {
                 _logger.Debug("p1: " + p1);
                 _logger.Debug("p2: " + p2);

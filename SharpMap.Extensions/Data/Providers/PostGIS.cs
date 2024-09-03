@@ -252,7 +252,7 @@ namespace SharpMap.Data.Providers
 
         private string GetBoxClause(Envelope bbox)
         {
-            if (Logger.IsDebugEnabled)
+            //if (Logger.IsDebugEnabled)
             {
                 var geom = Factory.ToGeometry(bbox);
                 Logger.Debug(string.Format("PEnv: SRID={1};{0}", geom.AsText(), Factory.SRID));
@@ -312,7 +312,7 @@ namespace SharpMap.Data.Providers
                     strSQL += "\"" + GeometryColumn + "\" && " + GetBoxClause(bbox);
                 }
 
-                if (Logger.IsDebugEnabled)
+                //if (Logger.IsDebugEnabled)
                     Logger.Debug(string.Format("{0}\n{1}", "GetGeometriesInView: executing sql:", strSQL));
 
                 using (var command = new NpgsqlCommand(strSQL, conn))
@@ -350,7 +350,7 @@ namespace SharpMap.Data.Providers
                 var strSQL = "SELECT \"" + GeometryColumn + "\"" + _geometryCast + "::bytea AS \"_smGeom_\" FROM " + QualifiedTable +
                              " WHERE \"" + ObjectIdColumn + "\"=" + oid + ";";
 
-                if (Logger.IsDebugEnabled)
+                //if (Logger.IsDebugEnabled)
                     Logger.Debug(string.Format("{0}\n{1}", "GetGeometryByID: executing sql:", strSQL));
 
                 using (var command = new NpgsqlCommand(strSQL, conn))
@@ -392,7 +392,7 @@ namespace SharpMap.Data.Providers
                 else
                     strSQL += "\"" + GeometryColumn + "\" && " + GetBoxClause(bbox);
 
-                if (Logger.IsDebugEnabled)
+                //if (Logger.IsDebugEnabled)
                     Logger.Debug(string.Format("{0}\n{1}", "GetObjectIDsInView: executing sql:", strSQL));
 
                 var cmd = new NpgsqlCommand(strSQL, conn);
@@ -470,7 +470,7 @@ namespace SharpMap.Data.Providers
                           strGeom + ")<0";
 
                  */
-                if (Logger.IsDebugEnabled)
+                //if (Logger.IsDebugEnabled)
                     Logger.Debug(string.Format("{0}\n{1}", "OnExecuteIntersectionQuery: executing sql:", strSql));
 
                 using (var cmd = new NpgsqlCommand(strSql, conn))
@@ -657,7 +657,7 @@ namespace SharpMap.Data.Providers
                     strSql += "\"" + GeometryColumn + "\" && " + GetBoxClause(bbox);
                 }
 
-                if (Logger.IsDebugEnabled)
+                //if (Logger.IsDebugEnabled)
                     Logger.Debug(string.Format("{0}\n{1}\n", "ExecuteIntersectionQuery: executing sql:", strSql));
 
                 using (var cmd = new NpgsqlCommand(strSql, conn))

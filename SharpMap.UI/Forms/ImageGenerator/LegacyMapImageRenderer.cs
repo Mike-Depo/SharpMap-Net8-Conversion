@@ -325,7 +325,7 @@ namespace SharpMap.Forms.ImageGenerator
             //        return;
             //}
 
-            if (_logger.IsDebugEnabled)
+            //if (_logger.IsDebugEnabled)
                 _logger.DebugFormat("{0} - {1} / {2}", res.Generation, res.bbox, res.UpdateArea);
 
             var mapBox = _mapBox;

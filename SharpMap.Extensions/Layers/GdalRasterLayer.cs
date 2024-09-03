@@ -413,12 +413,12 @@ namespace SharpMap.Layers
             {
                 Gdal.FileFromMemBuffer(memoryFileName, imageBuffer);
 
-                if (_logger.IsDebugEnabled)
+                //if (_logger.IsDebugEnabled)
                     _logger.Debug("Opening dataset " + memoryFileName);
 
                 _gdalDataset = Gdal.Open(memoryFileName, Access.GA_ReadOnly);
 
-                if (_logger.IsDebugEnabled)
+                //if (_logger.IsDebugEnabled)
                     _logger.Debug("Reading projection for " + memoryFileName);
 
                 // have gdal read the projection
@@ -444,7 +444,7 @@ namespace SharpMap.Layers
                     }
                 }
 
-                if (_logger.IsDebugEnabled)
+                //if (_logger.IsDebugEnabled)
                     _logger.Debug("Read sizes" + memoryFileName);
 
                 _imageSize = new Size(_gdalDataset.RasterXSize, _gdalDataset.RasterYSize);
@@ -454,7 +454,7 @@ namespace SharpMap.Layers
                     (int)_envelope.Height);
                 //Bands = _gdalDataset.RasterCount;
 
-                if (_logger.IsDebugEnabled)
+                //if (_logger.IsDebugEnabled)
                     _logger.Debug("Dataset open, " + memoryFileName);
 
             }
@@ -477,11 +477,11 @@ namespace SharpMap.Layers
         {
             try
             {
-                if (_logger.IsDebugEnabled)
+                //if (_logger.IsDebugEnabled)
                     _logger.Debug("Opening dataset " + imageFilename);
                 _gdalDataset = Gdal.OpenShared(imageFilename, Access.GA_ReadOnly);
 
-                if (_logger.IsDebugEnabled)
+                //if (_logger.IsDebugEnabled)
                     _logger.Debug("Reading projection for " + imageFilename);
                 
                 // have gdal read the projection
@@ -515,7 +515,7 @@ namespace SharpMap.Layers
                     }
                 }
 
-                if (_logger.IsDebugEnabled)
+                //if (_logger.IsDebugEnabled)
                     _logger.Debug("Read sizes" + imageFilename);
 
                 _imageSize = new Size(_gdalDataset.RasterXSize, _gdalDataset.RasterYSize);
@@ -525,7 +525,7 @@ namespace SharpMap.Layers
                     (int) _envelope.Height);
                 //Bands = _gdalDataset.RasterCount;
 
-                if (_logger.IsDebugEnabled)
+                //if (_logger.IsDebugEnabled)
                     _logger.Debug("Dataset open, " + imageFilename);
 
             }
@@ -656,7 +656,7 @@ namespace SharpMap.Layers
             }
             catch (Exception ee)
             {
-                if (_logger.IsErrorEnabled)
+                //if (_logger.IsErrorEnabled)
                     _logger.Error("Error parsing projection", ee);
             }
 
@@ -1200,7 +1200,7 @@ namespace SharpMap.Layers
                                     imageRect.Width, imageRect.Height,
                                     tempBuffer, displayImageSize.Width, rowsToRead, 0, 0);
 
-                                if (_logger.IsDebugEnabled)
+                                //if (_logger.IsDebugEnabled)
                                 {
                                     var took = DateTime.Now - start;
                                     totalReadDataTime += took.TotalMilliseconds;
@@ -1329,10 +1329,10 @@ namespace SharpMap.Layers
                                                           + intermediateValue[0] * 0.0722)]++;
 
                                 DateTime writeStart = DateTime.MinValue;
-                                if (_logger.IsDebugEnabled)
+                                //if (_logger.IsDebugEnabled)
                                     writeStart = DateTime.Now;
                                 WritePixel(pixX, intermediateValue, pixelSize, ch, row);
-                                if (_logger.IsDebugEnabled)
+                                //if (_logger.IsDebugEnabled)
                                 {
                                     TimeSpan took = DateTime.Now - writeStart;
                                     totalTimeSetPixel += took.TotalMilliseconds;
@@ -1370,7 +1370,7 @@ namespace SharpMap.Layers
             //using (var p = new Pen(new SolidBrush(Color.Crimson), 4f))
             //    g.DrawRectangle(p, rect);
 
-            if (_logger.IsDebugEnabled)
+            //if (_logger.IsDebugEnabled)
             {
                 TimeSpan took = DateTime.Now - drawStart;
                 TimeSpan drawGdiTook = DateTime.Now - drawGdiStart;

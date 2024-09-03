@@ -108,7 +108,7 @@ namespace SharpMap.Forms.ToolBar
         protected virtual void OnMouseDown(object sender, MouseEventArgs e)
         {
             Debug.WriteLine(string.Format("\nButtonClicked '{0}'", ((ToolStripButton)sender).Name));
-            if (_logger.IsDebugEnabled)
+            //if (_logger.IsDebugEnabled)
                 _logger.DebugFormat("\nButtonClicked '{0}'",((ToolStripButton)sender).Name);
         }
 
@@ -167,7 +167,7 @@ namespace SharpMap.Forms.ToolBar
                 newTool = MapBox.Tools.DrawPolygon;
             else
             {
-                if (_logger.IsWarnEnabled)
+                //if (_logger.IsWarnEnabled)
                     _logger.Warn("Unknown object invoking OnCheckedChanged()");
                 return;
             }

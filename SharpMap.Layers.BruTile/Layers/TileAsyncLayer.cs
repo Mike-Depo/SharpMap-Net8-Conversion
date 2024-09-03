@@ -177,7 +177,7 @@ namespace SharpMap.Layers
                     {
                         var localInfo = info;
 
-                        if (Logger.IsDebugEnabled)
+                        //if (Logger.IsDebugEnabled)
                             Logger.DebugFormat("Starting new Task to download tile {0},{1},{2}", info.Index.Level, info.Index.Col, info.Index.Row);
 
                         // Increase num pending downloads
@@ -192,7 +192,7 @@ namespace SharpMap.Layers
                                     token.ThrowIfCancellationRequested();
                                 }
 
-                                if (Logger.IsDebugEnabled)
+                                //if (Logger.IsDebugEnabled)
                                     Logger.DebugFormat("Task started for download of tile {0},{1},{2}", info.Index.Level, info.Index.Col, info.Index.Row);
 
 
@@ -306,7 +306,7 @@ namespace SharpMap.Layers
                 if (bitmaps.Find(tileInfo.Index) != null)
                     return true;
 
-                if (Logger.IsDebugEnabled)
+                //if (Logger.IsDebugEnabled)
                     Logger.DebugFormat("Calling ITileProvider.GetTile for tile {0},{1},{2}", tileInfo.Index.Level, tileInfo.Index.Col, tileInfo.Index.Row);
 
                 byte[] bytes = tileProvider.GetTile(tileInfo);
@@ -334,7 +334,7 @@ namespace SharpMap.Layers
             }
             catch (WebException ex)
             {
-                if (Logger.IsDebugEnabled)
+                //if (Logger.IsDebugEnabled)
                     Logger.DebugFormat("Exception downloading tile {0},{1},{2} {3}", tileInfo.Index.Level, tileInfo.Index.Col, tileInfo.Index.Row, ex.Message);
                 
                 if (retry)
@@ -365,7 +365,7 @@ namespace SharpMap.Layers
             }
             catch (OperationCanceledException tex)
             {
-                if (Logger.IsInfoEnabled)
+                //if (Logger.IsInfoEnabled)
                 {
                     Logger.InfoFormat("TileAsyncLayer - Thread aborting: {0}", Thread.CurrentThread.Name);
                     Logger.InfoFormat(tex.Message);

@@ -128,7 +128,7 @@ namespace SharpMap.Forms.ToolBar
 
         private void OnTouchTimer(object sender, System.Timers.ElapsedEventArgs e)
         {
-            if (_logger.IsDebugEnabled)
+            //if (_logger.IsDebugEnabled)
                 _logger.DebugFormat("Touching timer at {0}", e.SignalTime);
 
             MapControl.Map.VariableLayers.TouchTimer();

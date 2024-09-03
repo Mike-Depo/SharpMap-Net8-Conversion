@@ -459,7 +459,7 @@ namespace SharpMap.Data.Providers
                         command.Parameters["@" + col.ColumnName].Value = feature[col];
                     if (feature.Geometry != null)
                     {
-                        if (logger.IsDebugEnabled)
+                        //if (logger.IsDebugEnabled)
                             logger.Debug(feature.Geometry.AsBinary().Length.ToString(NumberFormatInfo.InvariantInfo));
 
                         command.Parameters.AddWithValue("@geom", feature.Geometry.AsText()); //.AsBinary());

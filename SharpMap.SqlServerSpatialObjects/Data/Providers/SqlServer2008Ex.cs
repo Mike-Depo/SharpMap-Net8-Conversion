@@ -155,7 +155,8 @@ namespace SharpMap.Data.Providers
 
                 sb.Append($"{GetBoxFilterStr(bbox)} {GetExtraOptions()}");
 
-                if (_logger.IsDebugEnabled) _logger.DebugFormat("GetGeometriesInView {0}", sb.ToString());
+                //if (_logger.IsDebugEnabled)
+                    _logger.DebugFormat("GetGeometriesInView {0}", sb.ToString());
 
                 using (var command = new SqlCommand(sb.ToString(), conn))
                 {
@@ -190,7 +191,8 @@ namespace SharpMap.Data.Providers
                 string strSql = $"SELECT {GeometryColumn}{GetMakeValidString()} AS {GeometryColumn} " +
                                 $"FROM {QualifiedTable} WHERE {ObjectIdColumn} = {oid}";
 
-                if (_logger.IsDebugEnabled) _logger.DebugFormat("GetGeometryByID {0}", strSql);
+                //if (_logger.IsDebugEnabled)
+                    _logger.DebugFormat("GetGeometryByID {0}", strSql);
 
                 using (var command = new SqlCommand(strSql, conn))
                 {
@@ -242,7 +244,8 @@ namespace SharpMap.Data.Providers
 
             sb.Append($"{GeometryColumn}{makeValid}.STIntersects({_spatialTypeString}::STGeomFromText('{geom.AsText()}', {SRID}){_reorientObject})=1 {GetExtraOptions()}");
 
-            if (_logger.IsDebugEnabled) _logger.DebugFormat("OnExecuteIntersectionQuery {0}", sb.ToString());
+            //if (_logger.IsDebugEnabled)
+                _logger.DebugFormat("OnExecuteIntersectionQuery {0}", sb.ToString());
 
             ExecuteIntersectionQuery(sb.ToString(), fds);
         }
@@ -261,7 +264,8 @@ namespace SharpMap.Data.Providers
                 var strSql = $"SELECT {GetAttributeColumnNames()}, {GeometryColumn}{GetMakeValidString()} AS {GeometryColumn} " +
                              $"FROM {QualifiedTable} WHERE {ObjectIdColumn}={rowId}";
 
-                if (_logger.IsDebugEnabled) _logger.DebugFormat("GetFeature {0}", strSql);
+                //if (_logger.IsDebugEnabled)
+                    _logger.DebugFormat("GetFeature {0}", strSql);
 
                 using (var adapter = new SqlDataAdapter(strSql, conn))
                 {
@@ -312,7 +316,8 @@ namespace SharpMap.Data.Providers
 
             sb.Append($"{GetBoxFilterStr(bbox)} {GetExtraOptions()}");
 
-            if (_logger.IsDebugEnabled) _logger.DebugFormat("ExecuteIntersectionQuery {0}", sb.ToString());
+            //if (_logger.IsDebugEnabled)
+                _logger.DebugFormat("ExecuteIntersectionQuery {0}", sb.ToString());
 
             ExecuteIntersectionQuery(sb.ToString(), fds);
         }
