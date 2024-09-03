@@ -27,25 +27,6 @@ namespace SharpMap.Rendering.Symbolizer
     public abstract class PointSymbolizer : BaseSymbolizer, IPointSymbolizer
     {
         /// <summary>
-        /// Function to render the symbol
-        /// </summary>
-        /// <param name="map">The map</param>
-        /// <param name="point">The point to symbolize</param>
-        /// <param name="g">The graphics object</param>
-        protected void RenderPoint(MapViewport map, NetTopologySuite.Geometries.Point point, Graphics g)
-        {
-            if (point != null)
-                OnRenderInternal(map, point, g);
-        }
-
-        /// <summary>
-        /// Function that does the actual rendering
-        /// </summary>
-        /// <param name="pt">The point</param>
-        /// <param name="g">The graphics object</param>
-        protected abstract void OnRenderInternal(MapViewport map, NetTopologySuite.Geometries.Point point, Graphics g);
-
-        /// <summary>
         /// Function to render the geometry
         /// </summary>
         /// <param name="map">The map object, mainly needed for transformation purposes.</param>
@@ -56,11 +37,18 @@ namespace SharpMap.Rendering.Symbolizer
             if ( geometry is NetTopologySuite.Geometries.MultiPoint mp )
             {
                 foreach ( var geom in mp.Geometries )
-                    RenderPoint( map, ( NetTopologySuite.Geometries.Point ) geom, graphics );
+                    OnRenderInternal( map, ( NetTopologySuite.Geometries.Point ) geom, graphics );
             }
 
             else
-                RenderPoint( map, ( NetTopologySuite.Geometries.Point ) geometry, graphics );
+                OnRenderInternal( map, ( NetTopologySuite.Geometries.Point ) geometry, graphics );
         }
+
+        /// <summary>
+        /// Function that does the actual rendering
+        /// </summary>
+        /// <param name="pt">The point</param>
+        /// <param name="g">The graphics object</param>
+        protected abstract void OnRenderInternal(MapViewport map, NetTopologySuite.Geometries.Point point, Graphics g);
     }
 }
