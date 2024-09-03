@@ -15,7 +15,6 @@
 // along with SharpMap; if not, write to the Free Software
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA 
 
-using NetTopologySuite.Geometries;
 using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
@@ -215,11 +214,10 @@ namespace SharpMap.Rendering.Symbolizer
         /// </summary>
         /// <param name="pt">The point</param>
         /// <param name="g">The graphics object</param>
-        protected override void OnRenderInternal(MapViewport map, Coordinate point, Graphics g)
+        protected override void OnRenderInternal(MapViewport map, NetTopologySuite.Geometries.Point point, Graphics g)
         {
-            PointF pt = map.WorldToImage(point);
+            PointF pt = map.WorldToImage(point.Coordinate);
             var f = new SizeF(pt);
-            var combinedArea = RectangleF.Empty;
             foreach (var pathDefinition in _paths)
             {
                 var ppts = pathDefinition.Path.PathPoints;
@@ -234,12 +232,8 @@ namespace SharpMap.Rendering.Symbolizer
                         g.FillPath(pathDefinition.Fill, ptmp);
                     if (pathDefinition.Line != null)
                         g.DrawPath(pathDefinition.Line, ptmp);
-
-                    combinedArea = ptmp.GetBounds().ExpandToInclude(combinedArea);
                 }
             }
-
-            CanvasArea = combinedArea;
         }
     }
 }

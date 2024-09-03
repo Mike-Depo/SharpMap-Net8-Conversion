@@ -1,7 +1,5 @@
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using NetTopologySuite.Geometries;
-using Point = System.Drawing.Point;
 
 namespace SharpMap.Rendering.Symbolizer
 {
@@ -61,19 +59,16 @@ namespace SharpMap.Rendering.Symbolizer
         /// <param name="map">The map object, mainly needed for transformation purposes.</param>
         /// <param name="geometry">The geometry to symbolize.</param>
         /// <param name="graphics">The graphics object to use.</param>
-        public void Render(MapViewport map, IPolygonal geometry, Graphics graphics)
+        public void Render(MapViewport map, NetTopologySuite.Geometries.IPolygonal geometry, Graphics graphics)
         {
-            var mp = geometry as MultiPolygon;
-            if (mp != null)
+            if ( geometry is NetTopologySuite.Geometries.MultiPolygon m )
             {
-                for (var i = 0; i < mp.NumGeometries;i++)
-                {
-                    var poly = (Polygon) mp[i];
-                    OnRenderInternal(map, poly, graphics);
-                }
-                return;
+                foreach ( var geom in m.Geometries )
+                    OnRenderInternal( map, ( NetTopologySuite.Geometries.Polygon ) geom, graphics );
             }
-            OnRenderInternal(map, (Polygon)geometry, graphics);
+
+            else
+                OnRenderInternal( map, ( NetTopologySuite.Geometries.Polygon ) geometry, graphics );
         }
 
         /// <summary>
@@ -82,7 +77,7 @@ namespace SharpMap.Rendering.Symbolizer
         /// <param name="map">The map</param>
         /// <param name="polygon">The polygon to render</param>
         /// <param name="g">The graphics object to use</param>
-        protected abstract void OnRenderInternal(MapViewport map, Polygon polygon, Graphics g);
+        protected abstract void OnRenderInternal(MapViewport map, NetTopologySuite.Geometries.Polygon polygon, Graphics g);
 
         private Point _renderOrigin;
 
@@ -116,9 +111,9 @@ namespace SharpMap.Rendering.Symbolizer
         /// <param name="map">The map</param>
         /// <param name="polygon">The polygon</param>
         /// <returns>A graphics path</returns>
-        protected static GraphicsPath PolygonToGraphicsPath(Map map, Polygon polygon)
+        protected static GraphicsPath PolygonToGraphicsPath(Map map, NetTopologySuite.Geometries.Polygon polygon)
         {
-            return polygon.TransformToImage(map);
+            return NetTopologySuite.Geometries.GeoAPIEx.TransformToImage(polygon, map);
         }
     }
 }

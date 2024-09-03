@@ -15,10 +15,8 @@
 // along with SharpMap; if not, write to the Free Software
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA 
 
-using NetTopologySuite.Geometries;
 using System;
 using System.Drawing;
-using System.Drawing.Drawing2D;
 
 namespace SharpMap.Rendering.Symbolizer
 {
@@ -157,7 +155,7 @@ namespace SharpMap.Rendering.Symbolizer
         /// </summary>
         /// <param name="pt">The point</param>
         /// <param name="g">The graphics object</param>
-        protected override void OnRenderInternal(MapViewport map, Coordinate point, Graphics g)
+        protected override void OnRenderInternal(MapViewport map, NetTopologySuite.Geometries.Point point, Graphics g)
         {
             throw new NotImplementedException();
 
@@ -172,7 +170,6 @@ namespace SharpMap.Rendering.Symbolizer
             //        path.AddString(_text, Font.FontFamily, (int) Font.Style, Font.Size, pt, StringFormat);
             //        g.DrawPath(haloPen, path);
             //        g.FillPath(Foreground, path);
-            //        CanvasArea = path.GetBounds();
             //    }
             //}
             //else
@@ -182,7 +179,6 @@ namespace SharpMap.Rendering.Symbolizer
             //    {
             //        path.AddString(_text, Font.FontFamily, (int) Font.Style, Font.Size, pt, StringFormat);
             //        g.FillPath(Foreground, path);
-            //        CanvasArea = path.GetBounds();
             //    }
             //}
         }

@@ -17,8 +17,6 @@
 
 using System;
 using System.Drawing;
-using System.Drawing.Drawing2D;
-using NetTopologySuite.Geometries;
 
 namespace SharpMap.Rendering.Symbolizer
 {
@@ -26,20 +24,15 @@ namespace SharpMap.Rendering.Symbolizer
     /// Base class for all possible Point symbolizers
     /// </summary>
     [Serializable]
-    public abstract class PointSymbolizer : BaseSymbolizer, IPointSymbolizerEx
+    public abstract class PointSymbolizer : BaseSymbolizer, IPointSymbolizer
     {
-        /// <summary>
-        /// The calculated rectangle enclosing the extent of this symbol
-        /// </summary>
-        public RectangleF CanvasArea { get; protected set; } = RectangleF.Empty;
-
         /// <summary>
         /// Function to render the symbol
         /// </summary>
         /// <param name="map">The map</param>
         /// <param name="point">The point to symbolize</param>
         /// <param name="g">The graphics object</param>
-        protected void RenderPoint(MapViewport map, Coordinate point, Graphics g)
+        protected void RenderPoint(MapViewport map, NetTopologySuite.Geometries.Point point, Graphics g)
         {
             if (point != null)
                 OnRenderInternal(map, point, g);
@@ -50,7 +43,7 @@ namespace SharpMap.Rendering.Symbolizer
         /// </summary>
         /// <param name="pt">The point</param>
         /// <param name="g">The graphics object</param>
-        protected abstract void OnRenderInternal(MapViewport map, Coordinate point, Graphics g);
+        protected abstract void OnRenderInternal(MapViewport map, NetTopologySuite.Geometries.Point point, Graphics g);
 
         /// <summary>
         /// Function to render the geometry
@@ -58,21 +51,16 @@ namespace SharpMap.Rendering.Symbolizer
         /// <param name="map">The map object, mainly needed for transformation purposes.</param>
         /// <param name="geometry">The geometry to symbolize.</param>
         /// <param name="graphics">The graphics object to use.</param>
-        public void Render(MapViewport map, IPuntal geometry, Graphics graphics)
+        public void Render(MapViewport map, NetTopologySuite.Geometries.IPuntal geometry, Graphics graphics)
         {
-            var mp = geometry as MultiPoint;
-            if (mp != null)
+            if ( geometry is NetTopologySuite.Geometries.MultiPoint mp )
             {
-                var combinedArea = RectangleF.Empty;
-                foreach (var point in mp.Coordinates)
-                {
-                    RenderPoint(map, point, graphics);
-                    combinedArea = CanvasArea.ExpandToInclude(combinedArea);
-                }
-                CanvasArea = combinedArea;
-                return;
+                foreach ( var geom in mp.Geometries )
+                    RenderPoint( map, ( NetTopologySuite.Geometries.Point ) geom, graphics );
             }
-            RenderPoint(map, ((NetTopologySuite.Geometries.Point)geometry).Coordinate, graphics);
+
+            else
+                RenderPoint( map, ( NetTopologySuite.Geometries.Point ) geometry, graphics );
         }
     }
 }

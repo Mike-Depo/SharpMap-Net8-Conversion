@@ -732,10 +732,10 @@ namespace SharpMap.Rendering
         public static RectangleF DrawPointEx(IPointSymbolizer symbolizer, Graphics g, NetTopologySuite.Geometries.Point point, MapViewport map)
         {
             if (point == null)
-                return RectangleF.Empty; 
+                return RectangleF.Empty;
 
             symbolizer.Render(map, point, g);
-             return ((IPointSymbolizerEx)symbolizer).CanvasArea; 
+            return RectangleF.Empty;
         }
 
         /// <summary>
@@ -882,7 +882,7 @@ namespace SharpMap.Rendering
         public static RectangleF DrawMultiPointEx(IPointSymbolizer symbolizer, Graphics g, MultiPoint points, MapViewport map)
         {
             symbolizer.Render(map, points, g);
-            return ((IPointSymbolizerEx)symbolizer).CanvasArea;
+            return RectangleF.Empty;
         }
 
         /// <summary>
