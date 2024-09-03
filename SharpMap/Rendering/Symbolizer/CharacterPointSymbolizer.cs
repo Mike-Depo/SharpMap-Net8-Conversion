@@ -153,43 +153,6 @@ namespace SharpMap.Rendering.Symbolizer
         public StringFormat StringFormat { get; set; }
 
         /// <summary>
-        /// Gets or sets the size of the generated symbol<br/>Always return <see cref="System.Drawing.Size.Empty"/> as the size is determined by the <see cref="System.Drawing.Font.Size"/>
-        /// </summary>
-        public override Size Size
-        {
-            get
-            {
-                return Size.Empty;
-                /*
-                var bmp = new Bitmap(1,1);
-                using (var g = Graphics.FromImage(bmp))
-                {
-                    var sizef = Rendering.VectorRenderer.SizeOfString(g, _text, Font);
-                    //g.MeasureString(_text, Font, 1024, StringFormat);
-                    return sizef.ToSize();
-                }
-                 */
-
-            }
-            set
-            {
-                //throw new NotImplementedException();
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the scale factor for this symbol<br/>Always returns <c>1f</c>
-        /// </summary>
-        public override float  Scale
-        {
-            get
-            {
-                return 1;
-            }
-            set { }
-        }
-
-        /// <summary>
         /// Method that performs the symbolization of th feature
         /// </summary>
         /// <param name="pt">The point</param>

@@ -25,25 +25,5 @@ namespace SharpMap.Rendering.Symbolizer
     /// </summary>
     public interface IPointSymbolizer : ISymbolizer<IPuntal>
     {
-        /// <summary>
-        /// Gets or sets the Size of the symbol
-        /// <para>
-        /// Implementations may ignore the setter, the getter must return a <see cref="Size"/> with positive width and height values.
-        /// </para>
-        /// </summary>
-        Size Size { get; set; }
-
-        /// <summary>
-        /// Gets or sets the scale 
-        /// </summary>
-        float Scale { get; set; }
-
-        //ToDo: this would be neat.
-        ///// <summary>
-        ///// Function to generate an image of the symbol as defined.
-        ///// </summary>
-        ///// <returns>An image</returns>
-        //Image ToSymbol();
-
     }
 }

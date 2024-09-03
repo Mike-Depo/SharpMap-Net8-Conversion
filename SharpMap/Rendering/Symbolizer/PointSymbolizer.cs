@@ -34,19 +34,6 @@ namespace SharpMap.Rendering.Symbolizer
         public RectangleF CanvasArea { get; protected set; } = RectangleF.Empty;
 
         /// <summary>
-        /// Gets or sets the Size of the symbol
-        /// <para>
-        /// Implementations may ignore the setter, the getter must return a <see cref="Size"/> with positive width and height values.
-        /// </para>
-        /// </summary>
-        public abstract Size Size { get; set; }
-
-        /// <summary>
-        /// Gets or sets the scale 
-        /// </summary>
-        public virtual float Scale { get; set; }
-
-        /// <summary>
         /// Function to render the symbol
         /// </summary>
         /// <param name="map">The map</param>

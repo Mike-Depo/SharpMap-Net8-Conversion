@@ -72,7 +72,7 @@ namespace WinFormSamples.Samples
                                 {
                                     //Set the datasource to a shapefile in the App_data folder
                                     DataSource = new ShapeFile("GeoData/World/cities.shp", true),
-                                    Symbolizer = new RasterPointSymbolizer() { Scale = 0.8f },
+                                    Symbolizer = new RasterPointSymbolizer() { /* Scale = 0.8f */ },
                                     MaxVisible = 40
                                 } ;
 

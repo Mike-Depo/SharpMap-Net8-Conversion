@@ -211,30 +211,6 @@ namespace SharpMap.Rendering.Symbolizer
         }
 
         /// <summary>
-        /// Gets or sets the Size of the symbol
-        /// <para>
-        /// Implementations may ignore the setter, the getter must return a <see cref="PointSymbolizer.Size"/> with positive width and height values.
-        /// </para>
-        /// </summary>
-        public override Size Size
-        {
-            get
-            {
-                var size = new Size();
-                foreach (PathDefinition pathDefinition in _paths)
-                {
-                    var bounds = pathDefinition.Path.GetBounds();
-                    size = new Size(Math.Max(size.Width, (int)bounds.Width),
-                                    Math.Max(size.Height, (int)bounds.Height));
-                }
-                return size;
-            }
-            set
-            {
-            }
-        }
-
-        /// <summary>
         /// Function that does the actual rendering
         /// </summary>
         /// <param name="pt">The point</param>

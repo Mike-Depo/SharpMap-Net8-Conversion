@@ -26,14 +26,14 @@ namespace UnitTests.Rendering.Symbolizer
             map.ZoomToExtents();
             map.GetMap().Save(System.IO.Path.Combine(UnitTestsFixture.GetImageDirectory(this), "CharacterPointSymbolizer1.bmp"));
 
-            cps.Rotation = -30;
-            cps.Offset = new System.Drawing.PointF(4, 4);
+            //cps.Rotation = -30;
+            //cps.Offset = new System.Drawing.PointF(4, 4);
             map.GetMap().Save(System.IO.Path.Combine(UnitTestsFixture.GetImageDirectory(this), "CharacterPointSymbolizer2.bmp"));
 
             cps.Font = new System.Drawing.Font("Arial", 12);
             cps.Text = "ABC";
-            cps.Offset = System.Drawing.PointF.Empty;
-            cps.Rotation = -90;
+            //cps.Offset = System.Drawing.PointF.Empty;
+            //cps.Rotation = -90;
             map.GetMap().Save(System.IO.Path.Combine(UnitTestsFixture.GetImageDirectory(this), "CharacterPointSymbolizer3.bmp"));
         }
 
@@ -55,11 +55,11 @@ namespace UnitTests.Rendering.Symbolizer
             map.ZoomToExtents();
             map.GetMap().Save(System.IO.Path.Combine(UnitTestsFixture.GetImageDirectory(this), "PathPointSymbolizer1.bmp"));
 
-            pps.Rotation = -30;
+            //pps.Rotation = -30;
             map.GetMap().Save(System.IO.Path.Combine(UnitTestsFixture.GetImageDirectory(this), "PathPointSymbolizer2.bmp"));
 
-            pps.Rotation = 0f;
-            pps.Offset = new System.Drawing.PointF(4, 4);
+            //pps.Rotation = 0f;
+            //pps.Offset = new System.Drawing.PointF(4, 4);
             map.GetMap().Save(System.IO.Path.Combine(UnitTestsFixture.GetImageDirectory(this), "PathPointSymbolizer3.bmp"));
 
             var gpTriangle1 = new System.Drawing.Drawing2D.GraphicsPath();
@@ -90,11 +90,11 @@ namespace UnitTests.Rendering.Symbolizer
                                                                         System.Drawing.Color.Red)
                                                                 }
 
-                                                        }){ Rotation = 45 };
+                                                        }){ /* Rotation = 45 */ };
 
             layer.Style.PointSymbolizer = pps;
             map.GetMap().Save(System.IO.Path.Combine(UnitTestsFixture.GetImageDirectory(this), "PathPointSymbolizer4.bmp"));
-            pps.Rotation = 180;
+            //pps.Rotation = 180;
             map.GetMap().Save(System.IO.Path.Combine(UnitTestsFixture.GetImageDirectory(this), "PathPointSymbolizer5.bmp"));
 
         }
@@ -120,9 +120,9 @@ namespace UnitTests.Rendering.Symbolizer
             map.ZoomToExtents();
             map.GetMap().Save(System.IO.Path.Combine(UnitTestsFixture.GetImageDirectory(this), "RasterPointSymbolizer1.bmp"));
 
-            rps.Rotation = 45;
+            //rps.Rotation = 45;
             map.GetMap().Save(System.IO.Path.Combine(UnitTestsFixture.GetImageDirectory(this), "RasterPointSymbolizer2.bmp"));
-            rps.Rotation = 0;
+            //rps.Rotation = 0;
 
             var cps = new SharpMap.Rendering.Symbolizer.CharacterPointSymbolizer
                           {
@@ -131,7 +131,7 @@ namespace UnitTests.Rendering.Symbolizer
                               Foreground = new System.Drawing.SolidBrush(System.Drawing.Color.Black),
                               Font = new System.Drawing.Font("Arial", 12),
                               Text = "Anne",
-                              Offset = new System.Drawing.PointF(0, rps.Size.Height*0.5f)
+                              //Offset = new System.Drawing.PointF(0, rps.Size.Height*0.5f)
                 
             };
 

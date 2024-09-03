@@ -725,9 +725,9 @@ namespace SharpMap.Forms.ImageGenerator
                     return;
                 case VectorLayer vLyr:
                 {
-                    if (vLyr.Style.PointSymbolizer != null)
-                        vLyr.Style.PointSymbolizer.Rotation += correction;
-                    else
+                    //if (vLyr.Style.PointSymbolizer != null)
+                    //    vLyr.Style.PointSymbolizer.Rotation += correction;
+                    //else
                         vLyr.Style.SymbolRotation += correction;
                     return;
                 }

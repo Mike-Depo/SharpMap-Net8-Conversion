@@ -82,8 +82,8 @@ namespace UnitTests.Rendering.Symbolizer
             vl.TargetSRID = 3857;
 
             var rps = new SharpMap.Rendering.Symbolizer.RasterPointSymbolizer();
-            rps.Scale = scale;
-            rps.Rotation = rot;
+            //rps.Scale = scale;
+            //rps.Rotation = rot;
             //rps.Symbol = GetRasterSymbol();
             rps.Symbol = GetRasterSymbol();
             vl.Style.PointSymbolizer = rps;

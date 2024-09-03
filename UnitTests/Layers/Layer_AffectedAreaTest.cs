@@ -554,7 +554,7 @@ namespace UnitTests.Layers
             var vLyr = new VectorLayer("RasterPoint", new GeometryFeatureProvider(pts.AsEnumerable()));
             var rps = new SharpMap.Rendering.Symbolizer.RasterPointSymbolizer();
             rps.Symbol = GetRasterSymbol(); 
-            rps.Rotation = 30f;
+            //rps.Rotation = 30f;
             vLyr.Style.PointSymbolizer = rps;
             map.Layers.Add(vLyr);
 
@@ -583,7 +583,7 @@ namespace UnitTests.Layers
             {
                 Halo = 1,
                 HaloBrush = new System.Drawing.SolidBrush(System.Drawing.Color.Wheat),
-                Rotation = 30f,
+                //Rotation = 30f,
                 Text = "xYz",
             };
             vLyr.Style.PointSymbolizer = cps;

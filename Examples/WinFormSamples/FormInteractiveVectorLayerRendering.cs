@@ -566,9 +566,9 @@ namespace WinFormSamples
                 rps = new RasterPointSymbolizer()
                 {
                     Symbol = (Image) _boat.Clone(),
-                    Rotation = (float) row[2],
+                    //Rotation = (float) row[2],
                     RemapColor = Color.White,
-                    Scale = (float) row[3],
+                    //Scale = (float) row[3],
                     SymbolColor = Color.FromArgb((int) row[4])
                 };
             }
@@ -710,7 +710,7 @@ namespace WinFormSamples
             var cps = new CharacterPointSymbolizer();
             cps.CharacterIndex = (int)row[1];
             cps.Font = new System.Drawing.Font("Wingdings", (float)row[2]);
-            cps.Offset = new System.Drawing.PointF((float)row[3], (float)row[4]);
+            //cps.Offset = new System.Drawing.PointF((float)row[3], (float)row[4]);
             return new VectorStyle() {PointSymbolizer = cps};
          }
 

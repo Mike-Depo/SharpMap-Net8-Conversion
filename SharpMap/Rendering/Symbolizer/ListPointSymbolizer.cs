@@ -85,60 +85,6 @@ namespace SharpMap.Rendering.Symbolizer
         }
 
         /// <summary>
-        /// Offset of the point from the point
-        /// </summary>
-        public PointF Offset
-        {
-            get { return PointF.Empty; }
-            set { }
-        }
-
-        /// <summary>
-        /// Rotation of the symbol
-        /// </summary>
-        public float Rotation
-        {
-            get => 0f;
-            set { }
-        }
-
-        /// <summary>
-        /// Gets or sets the Size of the symbol
-        /// <para>
-        /// Implementations may ignore the setter, the getter must return a <see cref="IPointSymbolizer.Size"/> with positive width and height values.
-        /// </para>
-        /// </summary>
-        public Size Size
-        {
-            get
-            {
-                if (!_size.IsEmpty)
-                    foreach (PointSymbolizer pointSymbolizer in Items)
-                    {
-                        var scale = pointSymbolizer.Scale;
-                        var size = pointSymbolizer.Size;
-                        var width = (int)Math.Max(_size.Width, scale * size.Width);
-                        var height = (int)Math.Max(_size.Height, scale * size.Height);
-                        _size = new Size(width, height);
-                    }
-                return _size;
-            }
-            set
-            {
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the scale 
-        /// </summary>
-        public float  Scale
-        {
-            get => 1;
-            set { }
-        }
-
-
-        /// <summary>
         /// Gets or sets a value indicating which <see cref="ISymbolizer.SmoothingMode"/> is to be used for rendering
         /// </summary>
         public SmoothingMode SmoothingMode { get; set; }

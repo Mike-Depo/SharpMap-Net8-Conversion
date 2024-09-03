@@ -510,7 +510,7 @@ namespace SharpMap.Data.Providers
                         var argb = kmlStyle.Icon.Color?.Argb ?? ((SolidBrush)vectorStyle.PointColor).Color.ToArgb();
                         rps.SymbolColor = Color.FromArgb(argb);
                         rps.RemapColor = Color.White;
-                        rps.Scale = (float)kmlStyle.Icon.Scale.GetValueOrDefault(1);
+                        //rps.Scale = (float)kmlStyle.Icon.Scale.GetValueOrDefault(1);
                     }
                 }
             }
@@ -909,7 +909,7 @@ namespace SharpMap.Data.Providers
             try
             {
                 var defaultIcon = GetImageFromUrl(Pushpins.RedPushpin); 
-                vectorStyle.PointSymbolizer = new RasterPointSymbolizer {Symbol = defaultIcon, Scale = 1f};
+                vectorStyle.PointSymbolizer = new RasterPointSymbolizer {Symbol = defaultIcon/*, Scale = 1f*/};
             }
             catch (Exception ex)
             {
