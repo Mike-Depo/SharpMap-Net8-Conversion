@@ -26,16 +26,6 @@ namespace SharpMap.Rendering.Symbolizer
     public interface IPointSymbolizer : ISymbolizer<IPuntal>
     {
         /// <summary>
-        /// Offset of the point from the point
-        /// </summary>
-        PointF Offset { get; set; }
-
-        /// <summary>
-        /// Rotation of the symbol
-        /// </summary>
-        float Rotation { get; set; }
-
-        /// <summary>
         /// Gets or sets the Size of the symbol
         /// <para>
         /// Implementations may ignore the setter, the getter must return a <see cref="Size"/> with positive width and height values.

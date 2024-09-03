@@ -15,6 +15,7 @@
 // along with SharpMap; if not, write to the Free Software
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA 
 
+using NetTopologySuite.Geometries;
 using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
@@ -233,22 +234,14 @@ namespace SharpMap.Rendering.Symbolizer
             }
         }
 
-        protected override SizeF GetOffset()
-        {
-            // Warning: The base class version of this method offsets the point by half its size in order to centre it,
-            // but we don't need to do this here, as this is already done inside the Create methods that create
-            // the GraphicsPaths!
-
-            return new SizeF(Offset.X, Offset.Y);
-        }
-
         /// <summary>
         /// Function that does the actual rendering
         /// </summary>
         /// <param name="pt">The point</param>
         /// <param name="g">The graphics object</param>
-        protected override void OnRenderInternal(PointF pt, Graphics g)
+        protected override void OnRenderInternal(MapViewport map, Coordinate point, Graphics g)
         {
+            PointF pt = map.WorldToImage(point);
             var f = new SizeF(pt);
             var combinedArea = RectangleF.Empty;
             foreach (var pathDefinition in _paths)

@@ -28,22 +28,10 @@ namespace SharpMap.Rendering.Symbolizer
     [Serializable]
     public abstract class PointSymbolizer : BaseSymbolizer, IPointSymbolizerEx
     {
-        private float _scale = 1f;
-
         /// <summary>
         /// The calculated rectangle enclosing the extent of this symbol
         /// </summary>
         public RectangleF CanvasArea { get; protected set; } = RectangleF.Empty;
-
-        /// <summary>
-        /// Offset of the point from the point
-        /// </summary>
-        public PointF Offset { get; set; }
-
-        /// <summary>
-        /// Rotation of the symbol
-        /// </summary>
-        public float Rotation { get; set; }
 
         /// <summary>
         /// Gets or sets the Size of the symbol
@@ -51,35 +39,12 @@ namespace SharpMap.Rendering.Symbolizer
         /// Implementations may ignore the setter, the getter must return a <see cref="Size"/> with positive width and height values.
         /// </para>
         /// </summary>
-        public abstract Size Size
-        {
-            get; set;
-        }
-
+        public abstract Size Size { get; set; }
 
         /// <summary>
         /// Gets or sets the scale 
         /// </summary>
-        public virtual float Scale
-        {
-            get
-            {
-                return _scale;
-            }
-            set
-            {
-                if (value <= 0)
-                    return;
-                _scale = value;
-            }
-        }
-
-        protected virtual SizeF GetOffset()
-        {
-            var size = Size;
-            var result = new SizeF(Offset.X - Scale * (size.Width * 0.5f), Offset.Y - Scale * (size.Height * 0.5f));
-            return result;
-        }
+        public virtual float Scale { get; set; }
 
         /// <summary>
         /// Function to render the symbol
@@ -89,42 +54,8 @@ namespace SharpMap.Rendering.Symbolizer
         /// <param name="g">The graphics object</param>
         protected void RenderPoint(MapViewport map, Coordinate point, Graphics g)
         {
-            if (point == null)
-                return;
-
-            PointF pp = map.WorldToImage(point);
-
-            if (Rotation != 0f && !Single.IsNaN(Rotation))
-            {
-                SizeF offset = GetOffset();
-                PointF rotationCenter = pp;
-
-                using (var origTrans = g.Transform.Clone())
-                using (var t = g.Transform)
-                {
-                    t.RotateAt(Rotation, rotationCenter);
-                    t.Translate(offset.Width, offset.Height);
-                    g.Transform = t;
-
-                    OnRenderInternal(pp, g);
-
-                    g.Transform = origTrans;
-                }
-                
-                using (var symTrans = new Matrix())
-                {
-                    symTrans.RotateAt(Rotation, rotationCenter);
-                    symTrans.Translate(offset.Width, offset.Height);
-                    var pts = CanvasArea.ToPointArray();
-                    symTrans.TransformPoints(pts);
-                    CanvasArea = pts.ToRectangleF();
-                }
-            }
-            else
-            {
-                pp = PointF.Add(pp, GetOffset());
-                OnRenderInternal(pp, g);
-            }
+            if (point != null)
+                OnRenderInternal(map, point, g);
         }
 
         /// <summary>
@@ -132,30 +63,7 @@ namespace SharpMap.Rendering.Symbolizer
         /// </summary>
         /// <param name="pt">The point</param>
         /// <param name="g">The graphics object</param>
-        protected abstract void OnRenderInternal(PointF pt, Graphics g);
-
-        /// <summary>
-        /// Utility function to transform any <see cref="IPointSymbolizer"/> into an unscaled <see cref="RasterPointSymbolizer"/>. This may bring performance benefits.
-        /// </summary>
-        /// <returns></returns>
-        public virtual IPointSymbolizer ToRasterPointSymbolizer()
-        {
-            var bitmap = new Bitmap(Size.Width, Size.Height);
-            using (var g = Graphics.FromImage(bitmap))
-            {
-                g.Clear(Color.Transparent);
-                OnRenderInternal(new PointF(Size.Width * 0.5f, Size.Height * 0.5f), g);
-            }
-
-            return new RasterPointSymbolizer
-            {
-                Offset = Offset,
-                Rotation = Rotation,
-                Scale = Scale,
-                //ImageAttributes = new ImageAttributes(),
-                Symbol = bitmap
-            };
-        }
+        protected abstract void OnRenderInternal(MapViewport map, Coordinate point, Graphics g);
 
         /// <summary>
         /// Function to render the geometry

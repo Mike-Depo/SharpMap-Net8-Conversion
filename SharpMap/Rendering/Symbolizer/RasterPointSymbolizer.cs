@@ -15,6 +15,7 @@
 // along with SharpMap; if not, write to the Free Software
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA 
 
+using NetTopologySuite.Geometries;
 using System;
 using System.Drawing;
 using System.Drawing.Imaging;
@@ -193,45 +194,48 @@ namespace SharpMap.Rendering.Symbolizer
         /// </summary>
         /// <param name="pt">The point</param>
         /// <param name="g">The graphics object</param>
-        protected override void OnRenderInternal(PointF pt, Graphics g)
+        protected override void OnRenderInternal(MapViewport map, Coordinate point, Graphics g)
         {
-            Image symbol = Symbol ?? DefaultSymbol;
-            float width = symbol.Width * Scale;
-            float height = symbol.Height * Scale;
+            throw new NotImplementedException();
 
-            if (ImageAttributes == null)
-            {
-                if (Scale == 1f)
-                {
-                    lock (symbol)
-                    {
-                        g.DrawImageUnscaled(symbol, (int) (pt.X), (int) (pt.Y));
-                    }
-                }
-                else
-                {
-                    lock (symbol)
-                    {
-                        g.DrawImage(symbol, (int) pt.X, (int) pt.Y, width, height);
-                    }
-                }
-            }
-            else
-            {
-                int x = (int) (pt.X);
-                int y = (int) (pt.Y);
-                g.DrawImage(
-                    symbol,
-                    new Rectangle(x, y, (int) width, (int) height),
-                    0,
-                    0,
-                    symbol.Width,
-                    symbol.Height,
-                    GraphicsUnit.Pixel,
-                    ImageAttributes);
-            }
+            //PointF pt = map.WorldToImage( point );
+            //Image symbol = Symbol ?? DefaultSymbol;
+            //float width = symbol.Width * Scale;
+            //float height = symbol.Height * Scale;
 
-            CanvasArea = new RectangleF(pt.X, pt.Y, width, height);
+            //if (ImageAttributes == null)
+            //{
+            //    if (Scale == 1f)
+            //    {
+            //        lock (symbol)
+            //        {
+            //            g.DrawImageUnscaled(symbol, (int) pt.X, (int) pt.Y);
+            //        }
+            //    }
+            //    else
+            //    {
+            //        lock (symbol)
+            //        {
+            //            g.DrawImage(symbol, (int) pt.X, (int) pt.Y, width, height);
+            //        }
+            //    }
+            //}
+            //else
+            //{
+            //    int x = (int) pt.X;
+            //    int y = (int) pt.Y;
+            //    g.DrawImage(
+            //        symbol,
+            //        new Rectangle(x, y, (int) width, (int) height),
+            //        0,
+            //        0,
+            //        symbol.Width,
+            //        symbol.Height,
+            //        GraphicsUnit.Pixel,
+            //        ImageAttributes);
+            //}
+
+            //CanvasArea = new RectangleF(pt.X, pt.Y, width, height);
         }
     }
 }

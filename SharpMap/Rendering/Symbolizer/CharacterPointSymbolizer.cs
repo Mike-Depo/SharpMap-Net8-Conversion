@@ -15,6 +15,7 @@
 // along with SharpMap; if not, write to the Free Software
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA 
 
+using NetTopologySuite.Geometries;
 using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
@@ -193,30 +194,34 @@ namespace SharpMap.Rendering.Symbolizer
         /// </summary>
         /// <param name="pt">The point</param>
         /// <param name="g">The graphics object</param>
-        protected override void OnRenderInternal(PointF pt, Graphics g)
+        protected override void OnRenderInternal(MapViewport map, Coordinate point, Graphics g)
         {
-            if (Halo > 0)
-            {
-                //need to look it up
-                using (var path = new GraphicsPath(FillMode.Winding))
-                using (var haloPen = new Pen(HaloBrush, 2 * Halo) {MiterLimit = 1.0f})
-                {
-                    path.AddString(_text, Font.FontFamily, (int) Font.Style, Font.Size, pt, StringFormat);
-                    g.DrawPath(haloPen, path);
-                    g.FillPath(Foreground, path);
-                    CanvasArea = path.GetBounds();
-                }
-            }
-            else
-            {
-                // g.DrawString(_text, Font, Foreground, pt, StringFormat);    
-                using (var path = new GraphicsPath(FillMode.Winding))
-                {
-                    path.AddString(_text, Font.FontFamily, (int) Font.Style, Font.Size, pt, StringFormat);
-                    g.FillPath(Foreground, path);
-                    CanvasArea = path.GetBounds();
-                }
-            }
+            throw new NotImplementedException();
+
+            //PointF pt = map.WorldToImage(point);
+
+            //if (Halo > 0)
+            //{
+            //    //need to look it up
+            //    using (var path = new GraphicsPath(FillMode.Winding))
+            //    using (var haloPen = new Pen(HaloBrush, 2 * Halo) {MiterLimit = 1.0f})
+            //    {
+            //        path.AddString(_text, Font.FontFamily, (int) Font.Style, Font.Size, pt, StringFormat);
+            //        g.DrawPath(haloPen, path);
+            //        g.FillPath(Foreground, path);
+            //        CanvasArea = path.GetBounds();
+            //    }
+            //}
+            //else
+            //{
+            //    // g.DrawString(_text, Font, Foreground, pt, StringFormat);    
+            //    using (var path = new GraphicsPath(FillMode.Winding))
+            //    {
+            //        path.AddString(_text, Font.FontFamily, (int) Font.Style, Font.Size, pt, StringFormat);
+            //        g.FillPath(Foreground, path);
+            //        CanvasArea = path.GetBounds();
+            //    }
+            //}
         }
     }
 }
