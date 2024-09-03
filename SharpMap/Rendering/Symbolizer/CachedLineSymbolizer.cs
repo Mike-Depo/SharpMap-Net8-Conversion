@@ -200,7 +200,8 @@ namespace SharpMap.Rendering.Symbolizer
         /// <param name="map"></param>
         /// <param name="lineString"></param>
         /// <param name="graphics"></param>
-        protected override void OnRenderInternal(MapViewport map, LineString lineString, Graphics graphics)
+        protected override void OnRenderInternal(MapViewport map, Geometry feature, 
+            LineString lineString, Graphics graphics)
         {
             var gp = new GraphicsPath();
             gp.AddLines(VectorRenderer.LimitValues(lineString.TransformToImage(map), VectorRenderer.ExtremeValueLimit));

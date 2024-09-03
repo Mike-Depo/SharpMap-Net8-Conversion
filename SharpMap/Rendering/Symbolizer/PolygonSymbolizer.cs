@@ -1,5 +1,6 @@
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using NTS = NetTopologySuite.Geometries;
 
 namespace SharpMap.Rendering.Symbolizer
 {
@@ -10,7 +11,7 @@ namespace SharpMap.Rendering.Symbolizer
     {
 #if !NETSTANDARD2_0
         /// <summary>
-        /// Creates an instance of his class. <see cref="Fill"/> is set to a <see cref="SolidBrush"/> with a random <see cref="System.Drawing.KnownColor"/>.
+        /// Creates an instance of his class. <see cref="Fill"/> is set to a <see cref="SolidBrush"/> with a random <see cref="KnownColor"/>.
         /// </summary>
 #else
         /// <summary>
@@ -59,25 +60,28 @@ namespace SharpMap.Rendering.Symbolizer
         /// <param name="map">The map object, mainly needed for transformation purposes.</param>
         /// <param name="geometry">The geometry to symbolize.</param>
         /// <param name="graphics">The graphics object to use.</param>
-        public void Render(MapViewport map, NetTopologySuite.Geometries.IPolygonal geometry, Graphics graphics)
+        public void Render(MapViewport map, NTS.IPolygonal geometry, Graphics graphics)
         {
-            if ( geometry is NetTopologySuite.Geometries.MultiPolygon m )
+            if ( geometry is NTS.MultiPolygon m )
             {
                 foreach ( var geom in m.Geometries )
-                    OnRenderInternal( map, ( NetTopologySuite.Geometries.Polygon ) geom, graphics );
+                    OnRenderInternal( map, ( NTS.Geometry ) geometry, ( NTS.Polygon ) geom, graphics );
             }
 
             else
-                OnRenderInternal( map, ( NetTopologySuite.Geometries.Polygon ) geometry, graphics );
+                OnRenderInternal( map, ( NTS.Geometry ) geometry, ( NTS.Polygon ) geometry, graphics );
         }
 
         /// <summary>
-        /// Method to perform actual rendering 
+        /// Method to perform actual rendering
         /// </summary>
         /// <param name="map">The map</param>
+        /// <param name="feature">The feature that the polygon belongs to</param>
         /// <param name="polygon">The polygon to render</param>
         /// <param name="g">The graphics object to use</param>
-        protected abstract void OnRenderInternal(MapViewport map, NetTopologySuite.Geometries.Polygon polygon, Graphics g);
+        protected abstract void OnRenderInternal(MapViewport map, NTS.Geometry feature, 
+            NTS.Polygon polygon, 
+            Graphics g);
 
         private Point _renderOrigin;
 
@@ -111,7 +115,7 @@ namespace SharpMap.Rendering.Symbolizer
         /// <param name="map">The map</param>
         /// <param name="polygon">The polygon</param>
         /// <returns>A graphics path</returns>
-        protected static GraphicsPath PolygonToGraphicsPath(Map map, NetTopologySuite.Geometries.Polygon polygon)
+        protected static GraphicsPath PolygonToGraphicsPath(Map map, NTS.Polygon polygon)
         {
             return NetTopologySuite.Geometries.GeoAPIEx.TransformToImage(polygon, map);
         }

@@ -1,5 +1,6 @@
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using NTS = NetTopologySuite.Geometries;
 
 //using KnownColor = System.Drawing.KnownColor
 namespace SharpMap.Rendering.Symbolizer
@@ -12,7 +13,7 @@ namespace SharpMap.Rendering.Symbolizer
 #if !NETSTANDARD2_0
         /// <summary>
         /// Creates an instance of this class. <see cref="Line"/> is set to a random
-        /// <see cref="System.Drawing.KnownColor"/>.
+        /// <see cref="KnownColor"/>.
         /// </summary>
 #else
         /// <summary>
@@ -42,27 +43,30 @@ namespace SharpMap.Rendering.Symbolizer
         /// Method to render a LineString to the <see cref="Graphics"/> object.
         /// </summary>
         /// <param name="map">The map object</param>
-        /// <param name="lineal">Linestring to symbolize</param>
-        /// <param name="g">The graphics object to use.</param>
-        public void Render(MapViewport map, NetTopologySuite.Geometries.ILineal lineal, Graphics g)
+        /// <param name="geometry">Linestring to symbolize</param>
+        /// <param name="graphics">The graphics object to use.</param>
+        public void Render(MapViewport map, NTS.ILineal geometry, Graphics graphics)
         {
-            if ( lineal is NetTopologySuite.Geometries.MultiLineString m )
+            if ( geometry is NTS.MultiLineString m )
             {
                 foreach ( var geom in m.Geometries )
-                    OnRenderInternal( map, ( NetTopologySuite.Geometries.LineString ) geom, g );
+                    OnRenderInternal( map, ( NTS.Geometry ) geometry, ( NTS.LineString ) geom, graphics );
             }
 
             else
-                OnRenderInternal( map, ( NetTopologySuite.Geometries.LineString ) lineal, g );
+                OnRenderInternal( map, ( NTS.Geometry ) geometry, ( NTS.LineString ) geometry, graphics );
         }
 
         /// <summary>
-        /// Function that actually renders the linestring
+        /// Method to perform actual rendering
         /// </summary>
         /// <param name="map">The map</param>
-        /// <param name="lineString">The line string to symbolize.</param>
-        /// <param name="graphics">The graphics</param>
-        protected abstract void OnRenderInternal(MapViewport map, NetTopologySuite.Geometries.LineString lineString, Graphics graphics);
+        /// <param name="feature">The feature that the line string belongs to</param>
+        /// <param name="lineString">The line string to render</param>
+        /// <param name="g">The graphics object to use</param>
+        protected abstract void OnRenderInternal(MapViewport map, NTS.Geometry feature, 
+            NTS.LineString lineString, 
+            Graphics g);
 
         /// <summary>
         /// Function to transform a linestring to a graphics path for further processing
@@ -71,7 +75,7 @@ namespace SharpMap.Rendering.Symbolizer
         /// <param name="map">The map</param>
         /// <!--<param name="useClipping">A value indicating whether clipping should be applied or not</param>-->
         /// <returns>A GraphicsPath</returns>
-        public static GraphicsPath LineStringToPath(NetTopologySuite.Geometries.LineString lineString, MapViewport map)
+        public static GraphicsPath LineStringToPath( NTS.LineString lineString, MapViewport map)
         {
             var gp = new GraphicsPath(FillMode.Alternate);
             gp.AddLines(NetTopologySuite.Geometries.GeoAPIEx.TransformToImage(lineString, map));

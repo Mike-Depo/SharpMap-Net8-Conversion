@@ -26,7 +26,8 @@ namespace SharpMap.Rendering.Symbolizer
         /// <param name="map">The map</param>
         /// <param name="lineString">The linestring</param>
         /// <param name="graphics">The graphics object</param>
-        protected override void OnRenderInternal(MapViewport map, LineString lineString, Graphics graphics)
+        protected override void OnRenderInternal(MapViewport map, Geometry feature, 
+            LineString lineString, Graphics graphics)
         {
             graphics.DrawLines(Line, VectorRenderer.LimitValues(lineString.TransformToImage(map), VectorRenderer.ExtremeValueLimit));
         }
@@ -60,7 +61,8 @@ namespace SharpMap.Rendering.Symbolizer
         /// <param name="map">The map</param>
         /// <param name="lineString">The linestring</param>
         /// <param name="graphics">The graphics object</param>
-        protected override void OnRenderInternal(MapViewport map, LineString lineString, Graphics graphics)
+        protected override void OnRenderInternal(MapViewport map, Geometry feature, 
+            LineString lineString, Graphics graphics)
         {
             var pts = VectorRenderer.LimitValues(VectorRenderer.OffsetRight(lineString.TransformToImage(map), Offset), VectorRenderer.ExtremeValueLimit);
             graphics.DrawLines(Line, pts);

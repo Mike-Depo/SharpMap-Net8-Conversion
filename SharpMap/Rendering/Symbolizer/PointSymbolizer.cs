@@ -17,6 +17,7 @@
 
 using System;
 using System.Drawing;
+using NTS = NetTopologySuite.Geometries;
 
 namespace SharpMap.Rendering.Symbolizer
 {
@@ -32,23 +33,27 @@ namespace SharpMap.Rendering.Symbolizer
         /// <param name="map">The map object, mainly needed for transformation purposes.</param>
         /// <param name="geometry">The geometry to symbolize.</param>
         /// <param name="graphics">The graphics object to use.</param>
-        public void Render(MapViewport map, NetTopologySuite.Geometries.IPuntal geometry, Graphics graphics)
+        public void Render(MapViewport map, NTS.IPuntal geometry, Graphics graphics)
         {
-            if ( geometry is NetTopologySuite.Geometries.MultiPoint mp )
+            if ( geometry is NTS.MultiPoint mp )
             {
                 foreach ( var geom in mp.Geometries )
-                    OnRenderInternal( map, ( NetTopologySuite.Geometries.Point ) geom, graphics );
+                    OnRenderInternal( map, ( NTS.Geometry ) geometry, ( NTS.Point ) geom, graphics );
             }
 
             else
-                OnRenderInternal( map, ( NetTopologySuite.Geometries.Point ) geometry, graphics );
+                OnRenderInternal( map, ( NTS.Geometry ) geometry, ( NTS.Point ) geometry, graphics );
         }
 
         /// <summary>
-        /// Function that does the actual rendering
+        /// Method to perform actual rendering
         /// </summary>
-        /// <param name="pt">The point</param>
-        /// <param name="g">The graphics object</param>
-        protected abstract void OnRenderInternal(MapViewport map, NetTopologySuite.Geometries.Point point, Graphics g);
+        /// <param name="map">The map</param>
+        /// <param name="feature">The feature that the point belongs to</param>
+        /// <param name="point">The point to render</param>
+        /// <param name="g">The graphics object to use</param>
+        protected abstract void OnRenderInternal(MapViewport map, NTS.Geometry feature, 
+            NTS.Point point, 
+            Graphics g);
     }
 }
