@@ -78,7 +78,7 @@ namespace SharpMap.Rendering.Symbolizer
         public static GraphicsPath LineStringToPath( NTS.LineString lineString, MapViewport map)
         {
             var gp = new GraphicsPath(FillMode.Alternate);
-            gp.AddLines(NetTopologySuite.Geometries.GeoAPIEx.TransformToImage(lineString, map));
+            gp.AddLines(NTS.GeoAPIEx.TransformToImage(lineString, map));
             return gp;
         }
 

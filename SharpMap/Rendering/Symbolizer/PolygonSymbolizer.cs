@@ -117,7 +117,7 @@ namespace SharpMap.Rendering.Symbolizer
         /// <returns>A graphics path</returns>
         protected static GraphicsPath PolygonToGraphicsPath(Map map, NTS.Polygon polygon)
         {
-            return NetTopologySuite.Geometries.GeoAPIEx.TransformToImage(polygon, map);
+            return NTS.GeoAPIEx.TransformToImage(polygon, map);
         }
     }
 }
