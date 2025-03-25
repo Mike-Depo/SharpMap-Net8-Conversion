@@ -87,7 +87,7 @@ namespace UnitTests.Serialization
             foreach (var msp in ManagedSpatiaLite.GetSpatialTables(cn))
             {
                 var l = new VectorLayer(msp.Table, msp);
-                switch (msp.Table.Substring(0, 2).ToLower())
+                switch (msp.Table.Substring(0, 2).ToLowerInvariant())
                 {
                     case "pt":
                         l.Style = VectorStyle.CreateRandomPuntalStyle();

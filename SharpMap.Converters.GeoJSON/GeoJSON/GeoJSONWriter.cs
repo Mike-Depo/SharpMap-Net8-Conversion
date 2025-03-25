@@ -28,9 +28,9 @@ namespace SharpMap.Converters.GeoJSON
             string masterKey = null;
             foreach (string name in attributes.Keys)
             {
-                if ((!String.Equals(name, "layer", StringComparison.InvariantCultureIgnoreCase) &&
-                     !String.Equals(name, "layerName", StringComparison.InvariantCultureIgnoreCase)) &&
-                     !String.Equals(name, "layer_name", StringComparison.InvariantCultureIgnoreCase))
+                if ((!String.Equals(name, "layer", StringComparison.OrdinalIgnoreCase) &&
+                     !String.Equals(name, "layerName", StringComparison.OrdinalIgnoreCase)) &&
+                     !String.Equals(name, "layer_name", StringComparison.OrdinalIgnoreCase))
                     continue;
                 masterKey = name;
                 break;
@@ -39,9 +39,9 @@ namespace SharpMap.Converters.GeoJSON
             string idKey = null;
             foreach (string name in attributes.Keys)
             {
-                if ((!String.Equals(name, "id", StringComparison.InvariantCultureIgnoreCase) &&
-                     !String.Equals(name, "fid", StringComparison.InvariantCultureIgnoreCase)) &&
-                     !String.Equals(name, "oid", StringComparison.InvariantCultureIgnoreCase))
+                if ((!String.Equals(name, "id", StringComparison.OrdinalIgnoreCase) &&
+                     !String.Equals(name, "fid", StringComparison.OrdinalIgnoreCase)) &&
+                     !String.Equals(name, "oid", StringComparison.OrdinalIgnoreCase))
                     continue;
                 idKey = name;
                 break;

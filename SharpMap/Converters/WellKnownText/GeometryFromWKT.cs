@@ -217,7 +217,7 @@ namespace SharpMap.Converters.WellKnownText
             if (type == TokenType.Number)
                 throw new Exception("Expected a number but got " + token);
             if (type == TokenType.Word)
-                return token.ToUpper();
+                return token.ToUpperInvariant();
             if (token == "(")
                 return "(";
             if (token == ")")
@@ -242,7 +242,7 @@ namespace SharpMap.Converters.WellKnownText
         private static Geometry ReadGeometryTaggedText(WktStreamTokenizer tokenizer)
         {
             tokenizer.NextToken();
-            var type = tokenizer.GetStringValue().ToUpper();
+            var type = tokenizer.GetStringValue().ToUpperInvariant();
             Geometry geometry;
             GeometryFactory factory = new GeometryFactory();
 

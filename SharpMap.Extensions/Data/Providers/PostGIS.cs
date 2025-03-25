@@ -616,7 +616,7 @@ namespace SharpMap.Data.Providers
                     var strBox = (string) result;
                     if (strBox.StartsWith("BOX("))
                     {
-                        var vals = strBox.Substring(4, strBox.IndexOf(")", StringComparison.InvariantCultureIgnoreCase) - 4).Split(new [] {',', ' '});
+                        var vals = strBox.Substring(4, strBox.IndexOf(")", StringComparison.OrdinalIgnoreCase) - 4).Split(new [] {',', ' '});
                         return new Envelope(
                             double.Parse(vals[0], NumberFormatInfo.InvariantInfo),
                             double.Parse(vals[2], NumberFormatInfo.InvariantInfo),
@@ -703,7 +703,7 @@ namespace SharpMap.Data.Providers
 
         private void QualifyTable()
         {
-            var dotPos = _table.IndexOf(".", StringComparison.InvariantCultureIgnoreCase);
+            var dotPos = _table.IndexOf(".", StringComparison.OrdinalIgnoreCase);
             if (dotPos == -1)
             {
                 _schema = "public";

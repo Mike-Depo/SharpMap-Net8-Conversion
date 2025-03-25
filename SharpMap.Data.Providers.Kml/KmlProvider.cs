@@ -373,9 +373,9 @@ namespace SharpMap.Data.Providers
                     // not as efficient as reading the styles directly, but simplifies dealing with KML or KMZ.
                     // Also, external style files typically contain styles only (ie no  geometries). 
                     KmlProvider prov = null;
-                    if (url.ToString().ToLower().EndsWith(".kml"))
+                    if (url.ToString().ToLowerInvariant().EndsWith(".kml"))
                         prov = FromKml(response.GetResponseStream(), true);
-                    else if (url.ToString().ToLower().EndsWith(".kmz"))
+                    else if (url.ToString().ToLowerInvariant().EndsWith(".kmz"))
                         prov = FromKmz(response.GetResponseStream(), null, true);
 
                     foreach (var key in prov._kmlStyles.Keys)

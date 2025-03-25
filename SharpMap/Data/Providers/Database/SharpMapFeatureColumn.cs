@@ -89,8 +89,8 @@ namespace SharpMap.Data.Providers
             {
                 if (!string.IsNullOrEmpty(value))
                 {
-                    if (!(value.Equals("ASC", StringComparison.InvariantCultureIgnoreCase)) || 
-                        value.Equals("DESC", StringComparison.InvariantCultureIgnoreCase))
+                    if (!(value.Equals("ASC", StringComparison.OrdinalIgnoreCase)) || 
+                        value.Equals("DESC", StringComparison.OrdinalIgnoreCase))
                         return;
                 }
                 _orderBy = value;

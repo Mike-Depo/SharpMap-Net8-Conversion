@@ -427,7 +427,7 @@ namespace SharpMap.Data.Providers
                     if (result == DBNull.Value)
                         return null;
                     var strBox = (string) result;
-                    if (strBox.StartsWith("POLYGON", StringComparison.InvariantCultureIgnoreCase))
+                    if (strBox.StartsWith("POLYGON", StringComparison.OrdinalIgnoreCase))
                     {
                         strBox = strBox.Replace("POLYGON", "");
                         strBox = strBox.Trim();

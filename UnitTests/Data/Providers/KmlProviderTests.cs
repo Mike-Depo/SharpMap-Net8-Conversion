@@ -98,7 +98,7 @@ namespace UnitTests.Data.Providers
             m.BackColor = Color.AliceBlue;
 
             KmlProvider p;
-            if (testDataFile.ToLower().EndsWith(".kml"))
+            if (testDataFile.ToLowerInvariant().EndsWith(".kml"))
                 p = KmlProvider.FromKml(TestUtility.GetPathToTestFile(testDataFile));
             else
                 p = KmlProvider.FromKmz(TestUtility.GetPathToTestFile(testDataFile));

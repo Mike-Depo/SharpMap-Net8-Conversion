@@ -456,11 +456,11 @@ namespace SharpMap.Layers
         {
             //We prefer get. Seek for supported 'get' method
             for (int i = 0; i < _WmsClient.GetMapRequests.Length; i++)
-                if (_WmsClient.GetMapRequests[i].Type.ToLower() == "get")
+                if (_WmsClient.GetMapRequests[i].Type.ToLowerInvariant() == "get")
                     return _WmsClient.GetMapRequests[i];
             //Next we prefer the 'post' method
             for (int i = 0; i < _WmsClient.GetMapRequests.Length; i++)
-                if (_WmsClient.GetMapRequests[i].Type.ToLower() == "post")
+                if (_WmsClient.GetMapRequests[i].Type.ToLowerInvariant() == "post")
                     return _WmsClient.GetMapRequests[i];
             return _WmsClient.GetMapRequests[0];
         }

@@ -61,7 +61,7 @@ namespace SharpMap.Serialization
                         string[] parts = ParseLine(line);
                         if (parts != null && parts.Length > 0)
                         {
-                            if (string.Compare(parts[0], "MAP", StringComparison.InvariantCultureIgnoreCase) == 0)
+                            if (string.Compare(parts[0], "MAP", StringComparison.OrdinalIgnoreCase) == 0)
                             {
                                 ParseMap(sr, m, basePath);
                             }
@@ -98,15 +98,15 @@ namespace SharpMap.Serialization
                 string shapePath = basePath;
                 if (parts != null && parts.Length > 0)
                 {
-                    if (string.Compare(parts[0], "ANGLE", StringComparison.InvariantCultureIgnoreCase) == 0)
+                    if (string.Compare(parts[0], "ANGLE", StringComparison.OrdinalIgnoreCase) == 0)
                     {
                         //TODO
                     }
-                    else if (string.Compare(parts[0], "SHAPEPATH", StringComparison.InvariantCultureIgnoreCase) == 0)
+                    else if (string.Compare(parts[0], "SHAPEPATH", StringComparison.OrdinalIgnoreCase) == 0)
                     {
                         shapePath = parts[1];
                     }
-                    else if (string.Compare(parts[0], "EXTENT", StringComparison.InvariantCultureIgnoreCase) == 0)
+                    else if (string.Compare(parts[0], "EXTENT", StringComparison.OrdinalIgnoreCase) == 0)
                     {
                         var env = new Envelope(Convert.ToDouble(parts[1], CultureInfo.InvariantCulture),
                             Convert.ToDouble(parts[3], CultureInfo.InvariantCulture),
@@ -114,15 +114,15 @@ namespace SharpMap.Serialization
                             Convert.ToDouble(parts[4], CultureInfo.InvariantCulture));
                         m.ZoomToBox(env);
                     }
-                    else if (string.Compare(parts[0], "IMAGECOLOR", StringComparison.InvariantCultureIgnoreCase) == 0)
+                    else if (string.Compare(parts[0], "IMAGECOLOR", StringComparison.OrdinalIgnoreCase) == 0)
                     {
                         m.BackColor = Color.FromArgb(Convert.ToInt32(parts[1]), Convert.ToInt32(parts[2]), Convert.ToInt32(parts[3]));
                     }
-                    else if (string.Compare(parts[0], "LAYER", StringComparison.InvariantCultureIgnoreCase) == 0)
+                    else if (string.Compare(parts[0], "LAYER", StringComparison.OrdinalIgnoreCase) == 0)
                     {
                         ParseLayer(sr, m, shapePath);
                     }
-                    else if (string.Compare(parts[0], "WEB", StringComparison.InvariantCultureIgnoreCase) == 0)
+                    else if (string.Compare(parts[0], "WEB", StringComparison.OrdinalIgnoreCase) == 0)
                     {
                         //Just parse it to the END element
                         while ((line = sr.ReadLine()) != null)
@@ -131,14 +131,14 @@ namespace SharpMap.Serialization
                             parts = ParseLine(line);
                             if (parts != null && parts.Length > 0)
                             {
-                                if (string.Compare(parts[0], "END", StringComparison.InvariantCultureIgnoreCase) == 0)
+                                if (string.Compare(parts[0], "END", StringComparison.OrdinalIgnoreCase) == 0)
                                 {
                                     break;
                                 }
                             }
                         }
                     }
-                    else if (string.Compare(parts[0], "END", StringComparison.InvariantCultureIgnoreCase) == 0)
+                    else if (string.Compare(parts[0], "END", StringComparison.OrdinalIgnoreCase) == 0)
                     {
                         return;
                     }
@@ -171,15 +171,15 @@ namespace SharpMap.Serialization
                 if (parts != null && parts.Length > 0)
                 {
 
-                    if (string.Compare(parts[0], "CLASS", StringComparison.InvariantCultureIgnoreCase) == 0)
+                    if (string.Compare(parts[0], "CLASS", StringComparison.OrdinalIgnoreCase) == 0)
                     {
                         classes.Add(ParseClass(sr));
                     }
-                    else if (string.Compare(parts[0], "CLASSITEM", StringComparison.InvariantCultureIgnoreCase) == 0)
+                    else if (string.Compare(parts[0], "CLASSITEM", StringComparison.OrdinalIgnoreCase) == 0)
                     {
                         classItem = parts[1];
                     }
-                    else if (string.Compare(parts[0], "END", StringComparison.InvariantCultureIgnoreCase) == 0)
+                    else if (string.Compare(parts[0], "END", StringComparison.OrdinalIgnoreCase) == 0)
                     {
                         var lay = new VectorLayer(name);
                         lay.MaxVisible = maxScale;
@@ -198,27 +198,27 @@ namespace SharpMap.Serialization
                         m.Layers.Add(lay);
                         return;
                     }
-                    else if (string.Compare(parts[0], "MAXSCALEDENOM", StringComparison.InvariantCultureIgnoreCase) == 0)
+                    else if (string.Compare(parts[0], "MAXSCALEDENOM", StringComparison.OrdinalIgnoreCase) == 0)
                     {
                         maxScale = Convert.ToDouble(parts[1], CultureInfo.InvariantCulture);
                     }
-                    else if (string.Compare(parts[0], "TYPE", StringComparison.InvariantCultureIgnoreCase) == 0)
+                    else if (string.Compare(parts[0], "TYPE", StringComparison.OrdinalIgnoreCase) == 0)
                     {
                         type = parts[1];
                     }
-                    else if (string.Compare(parts[0], "MINSCALEDENOM", StringComparison.InvariantCultureIgnoreCase) == 0)
+                    else if (string.Compare(parts[0], "MINSCALEDENOM", StringComparison.OrdinalIgnoreCase) == 0)
                     {
                         minScale = Convert.ToDouble(parts[1], CultureInfo.InvariantCulture);
                     }
-                    else if (string.Compare(parts[0], "NAME", StringComparison.InvariantCultureIgnoreCase) == 0)
+                    else if (string.Compare(parts[0], "NAME", StringComparison.OrdinalIgnoreCase) == 0)
                     {
                         name = parts[1];
                     }
-                    else if (string.Compare(parts[0], "OPACITY", StringComparison.InvariantCultureIgnoreCase) == 0)
+                    else if (string.Compare(parts[0], "OPACITY", StringComparison.OrdinalIgnoreCase) == 0)
                     {
                         minScale = Convert.ToDouble(parts[1], CultureInfo.InvariantCulture);
                     }
-                    else if (string.Compare(parts[0], "DATA", StringComparison.InvariantCultureIgnoreCase) == 0)
+                    else if (string.Compare(parts[0], "DATA", StringComparison.OrdinalIgnoreCase) == 0)
                     {
                         data = parts[1];
                         if (!Path.IsPathRooted(data))
@@ -266,7 +266,7 @@ namespace SharpMap.Serialization
                 vs.Symbol = null;
                 vs.Fill = null;
                 vs.Line = null;
-                if (string.Compare(type, "point", StringComparison.InvariantCultureIgnoreCase) == 0)
+                if (string.Compare(type, "point", StringComparison.OrdinalIgnoreCase) == 0)
                 {
                     Brush b = new SolidBrush(styles[0].Color);
                     vs.PointColor = b;
@@ -276,7 +276,7 @@ namespace SharpMap.Serialization
                         vs.SymbolOffset = new PointF(styles[0].Offset.X, styles[0].Offset.Y);
                     }
                 }
-                else if (string.Compare(type, "line", StringComparison.InvariantCultureIgnoreCase) == 0)
+                else if (string.Compare(type, "line", StringComparison.OrdinalIgnoreCase) == 0)
                 {
                     vs.Line = new Pen(styles[0].Color, (float)styles[0].Width);
                     if (styles[0].Offset != Point.Empty)
@@ -284,7 +284,7 @@ namespace SharpMap.Serialization
                         vs.LineOffset = styles[0].Offset.Y;
                     }
                 }
-                else if (string.Compare(type, "polygon", StringComparison.InvariantCultureIgnoreCase) == 0)
+                else if (string.Compare(type, "polygon", StringComparison.OrdinalIgnoreCase) == 0)
                 {
                     Brush b = new SolidBrush(styles[0].Color);
                     vs.Fill = b;
@@ -323,27 +323,27 @@ namespace SharpMap.Serialization
                 string[] parts = ParseLine(line);
                 if (parts != null && parts.Length > 0)
                 {
-                    if (string.Compare(parts[0],"END", StringComparison.InvariantCultureIgnoreCase) == 0)
+                    if (string.Compare(parts[0],"END", StringComparison.OrdinalIgnoreCase) == 0)
                     {
                         return classEl;
                     }
-                    else if (string.Compare(parts[0], "STYLE", StringComparison.InvariantCultureIgnoreCase) == 0)
+                    else if (string.Compare(parts[0], "STYLE", StringComparison.OrdinalIgnoreCase) == 0)
                     {
                         classEl.Styles.Add(ParseStyle(sr));
                     }
-                    else if (string.Compare(parts[0], "MAXSCALEDENOM", StringComparison.InvariantCultureIgnoreCase) == 0)
+                    else if (string.Compare(parts[0], "MAXSCALEDENOM", StringComparison.OrdinalIgnoreCase) == 0)
                     {
                         classEl.MaxScale = Convert.ToDouble(parts[1], CultureInfo.InvariantCulture);
                     }
-                    else if (string.Compare(parts[0], "MINSCALEDENOM", StringComparison.InvariantCultureIgnoreCase) == 0)
+                    else if (string.Compare(parts[0], "MINSCALEDENOM", StringComparison.OrdinalIgnoreCase) == 0)
                     {
                         classEl.MinScale = Convert.ToDouble(parts[1], CultureInfo.InvariantCulture);
                     }
-                    else if (string.Compare(parts[0], "EXPRESSION", StringComparison.InvariantCultureIgnoreCase) == 0)
+                    else if (string.Compare(parts[0], "EXPRESSION", StringComparison.OrdinalIgnoreCase) == 0)
                     {
                         classEl.Expression = parts[1];
                     }
-                    else if (string.Compare(parts[0], "NAME", StringComparison.InvariantCultureIgnoreCase) == 0)
+                    else if (string.Compare(parts[0], "NAME", StringComparison.OrdinalIgnoreCase) == 0)
                     {
                         classEl.Name= parts[1];
                     }
@@ -373,41 +373,41 @@ namespace SharpMap.Serialization
                 string[] parts = ParseLine(line);
                 if (parts != null && parts.Length > 0)
                 {
-                    if (string.Compare(parts[0], "END", StringComparison.InvariantCultureIgnoreCase) == 0)
+                    if (string.Compare(parts[0], "END", StringComparison.OrdinalIgnoreCase) == 0)
                     {
                         return styleEl;
                     }
-                    else if (string.Compare(parts[0], "BACKGROUNDCOLOR", StringComparison.InvariantCultureIgnoreCase) == 0)
+                    else if (string.Compare(parts[0], "BACKGROUNDCOLOR", StringComparison.OrdinalIgnoreCase) == 0)
                     {
                         styleEl.BackGroundColor = Color.FromArgb(int.Parse(parts[1]), int.Parse(parts[2]), int.Parse(parts[3]));
                     }
-                    else if (string.Compare(parts[0], "COLOR", StringComparison.InvariantCultureIgnoreCase) == 0)
+                    else if (string.Compare(parts[0], "COLOR", StringComparison.OrdinalIgnoreCase) == 0)
                     {
                         styleEl.Color = Color.FromArgb(int.Parse(parts[1]), int.Parse(parts[2]), int.Parse(parts[3]));
                     }
-                    else if (string.Compare(parts[0], "EXPRESSION", StringComparison.InvariantCultureIgnoreCase) == 0)
+                    else if (string.Compare(parts[0], "EXPRESSION", StringComparison.OrdinalIgnoreCase) == 0)
                     {
                         styleEl.Offset = new Point(int.Parse(parts[1]), int.Parse(parts[2]));
                     }
-                    else if (string.Compare(parts[0], "SIZE", StringComparison.InvariantCultureIgnoreCase) == 0)
+                    else if (string.Compare(parts[0], "SIZE", StringComparison.OrdinalIgnoreCase) == 0)
                     {
                         styleEl.Size = Convert.ToDouble(parts[1], CultureInfo.InvariantCulture);
                     }
-                    else if (string.Compare(parts[0], "WIDTH", StringComparison.InvariantCultureIgnoreCase) == 0)
+                    else if (string.Compare(parts[0], "WIDTH", StringComparison.OrdinalIgnoreCase) == 0)
                     {
                         styleEl.Width = Convert.ToDouble(parts[1], CultureInfo.InvariantCulture);
                     }
-                    else if (string.Compare(parts[0], "WIDTH", StringComparison.InvariantCultureIgnoreCase) == 0)
+                    else if (string.Compare(parts[0], "WIDTH", StringComparison.OrdinalIgnoreCase) == 0)
                     {
                         styleEl.Symbol = parts[1];
                     }
-                    else if (string.Compare(parts[0], "OUTLINECOLOR", StringComparison.InvariantCultureIgnoreCase) == 0)
+                    else if (string.Compare(parts[0], "OUTLINECOLOR", StringComparison.OrdinalIgnoreCase) == 0)
                     {
                         styleEl.OutlineColor = Color.FromArgb(int.Parse(parts[1]), int.Parse(parts[2]), int.Parse(parts[3]));
                     }
-                    else if (string.Compare(parts[0], "LINECAP", StringComparison.InvariantCultureIgnoreCase) == 0)
+                    else if (string.Compare(parts[0], "LINECAP", StringComparison.OrdinalIgnoreCase) == 0)
                     {
-                        switch(parts[1].ToLower())
+                        switch(parts[1].ToLowerInvariant())
                         {
                             case "square":
                                 styleEl.LineCap = System.Drawing.Drawing2D.LineCap.Square;
@@ -420,9 +420,9 @@ namespace SharpMap.Serialization
                                 break;
                         }
                     }
-                    else if (string.Compare(parts[0], "LINEJOIN", StringComparison.InvariantCultureIgnoreCase) == 0)
+                    else if (string.Compare(parts[0], "LINEJOIN", StringComparison.OrdinalIgnoreCase) == 0)
                     {
-                        switch (parts[1].ToLower())
+                        switch (parts[1].ToLowerInvariant())
                         {
                             case "miter":
                                 styleEl.LineJoin = System.Drawing.Drawing2D.LineJoin.Miter;

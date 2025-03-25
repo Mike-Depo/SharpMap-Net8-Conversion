@@ -162,7 +162,7 @@ namespace SharpMap.Data.Providers
             get { return _table; }
             set
             {
-                if (!String.Equals(value, _table, StringComparison.InvariantCultureIgnoreCase))
+                if (!String.Equals(value, _table, StringComparison.OrdinalIgnoreCase))
                 {
                     var esriTable = EsriGdbInstance.OpenTable(value);
                     if (esriTable != null)

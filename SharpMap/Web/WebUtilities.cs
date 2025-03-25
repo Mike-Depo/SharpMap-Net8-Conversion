@@ -178,7 +178,7 @@ namespace SharpMap.Web
             string epsgString = node.Value;
             if (String.IsNullOrEmpty(epsgString)) return false;
             const string prefix = "EPSG:";
-            int index = epsgString.IndexOf(prefix, StringComparison.InvariantCulture);
+            int index = epsgString.IndexOf(prefix, StringComparison.Ordinal);
             if (index < 0) return false;
             return (Int32.TryParse(epsgString.Substring(index + prefix.Length), NumberStyles.Any, Map.NumberFormatEnUs, out epsg));
         }

@@ -170,7 +170,7 @@ namespace SharpMap.Utilities.Wfs
             {
                 if (string.IsNullOrEmpty(value))
                     value = "4326";
-                if (string.Compare(_SRID, value, StringComparison.InvariantCultureIgnoreCase) != 0)
+                if (string.Compare(_SRID, value, StringComparison.OrdinalIgnoreCase) != 0)
                 {
                     Factory = NtsGeometryServices.Instance.CreateGeometryFactory(int.Parse(value));
                     _SRID = value;

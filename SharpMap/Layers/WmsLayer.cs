@@ -181,7 +181,7 @@ namespace SharpMap.Layers
             {
                 bool formatSupported = false;
                 foreach (ImageCodecInfo encoder in ImageCodecInfo.GetImageEncoders())
-                    if (OutputFormats.Contains(encoder.MimeType.ToLower()))
+                    if (OutputFormats.Contains(encoder.MimeType.ToLowerInvariant()))
                     {
                         formatSupported = true;
                         _mimeType = encoder.MimeType;
@@ -552,7 +552,7 @@ namespace SharpMap.Layers
             //Check whether SharpMap supports the specified mimetype
             bool formatSupported = false;
             foreach (ImageCodecInfo encoder in ImageCodecInfo.GetImageEncoders())
-                if (encoder.MimeType.ToLower() == mimeType.ToLower())
+                if (encoder.MimeType.ToLowerInvariant() == mimeType.ToLowerInvariant())
                 {
                     formatSupported = true;
                     break;
@@ -791,11 +791,11 @@ namespace SharpMap.Layers
         {
             //We prefer get. Seek for supported 'get' method
             for (int i = 0; i < _wmsClient.GetMapRequests.Length; i++)
-                if (_wmsClient.GetMapRequests[i].Type.ToLower() == "get")
+                if (_wmsClient.GetMapRequests[i].Type.ToLowerInvariant() == "get")
                     return _wmsClient.GetMapRequests[i];
             //Next we prefer the 'post' method
             for (int i = 0; i < _wmsClient.GetMapRequests.Length; i++)
-                if (_wmsClient.GetMapRequests[i].Type.ToLower() == "post")
+                if (_wmsClient.GetMapRequests[i].Type.ToLowerInvariant() == "post")
                     return _wmsClient.GetMapRequests[i];
             return _wmsClient.GetMapRequests[0];
         }

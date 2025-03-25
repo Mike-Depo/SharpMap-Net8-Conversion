@@ -320,7 +320,7 @@ namespace SharpMap.Styles
 
                 if (!String.IsNullOrEmpty(strokeLinejoin))
                 {
-                    switch (strokeLinejoin.ToLower())
+                    switch (strokeLinejoin.ToLowerInvariant())
                     {
                         case "mitre":
                             pen.LineJoin = LineJoin.Miter;
@@ -340,7 +340,7 @@ namespace SharpMap.Styles
 
                 if (!String.IsNullOrEmpty(strokeLineCap))
                 {
-                    switch (strokeLineCap.ToLower())
+                    switch (strokeLineCap.ToLowerInvariant())
                     {
                         case "butt":
                             pen.StartCap = LineCap.Flat;

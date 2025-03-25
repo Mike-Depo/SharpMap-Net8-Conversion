@@ -142,7 +142,7 @@ namespace WinFormSamples.Samples
 
             var ext = System.IO.Path.GetExtension(layer.Filename);
             map.Layers.Add(layer);
-            _gdalSampleDataset = string.Format("'{0}'", ext != null ? ext.ToUpper() : string.Empty);
+            _gdalSampleDataset = string.Format("'{0}'", ext != null ? ext.ToUpperInvariant() : string.Empty);
             map.ZoomToExtents();
 
             System.Drawing.Drawing2D.Matrix mat = new System.Drawing.Drawing2D.Matrix();

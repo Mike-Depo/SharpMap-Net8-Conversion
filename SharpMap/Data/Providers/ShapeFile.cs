@@ -472,7 +472,7 @@ namespace SharpMap.Data.Providers
             if (!File.Exists(_filename))
                 throw new FileNotFoundException(String.Format("Could not find file \"{0}\"", _filename));
             
-            if (!_filename.ToLower().EndsWith(".shp"))
+            if (!_filename.ToLowerInvariant().EndsWith(".shp"))
                 throw (new Exception("Invalid shapefile filename: " + _filename));
 
             //Load SpatialIndexIfNotLoaded

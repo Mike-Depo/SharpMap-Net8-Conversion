@@ -252,7 +252,7 @@ namespace SharpMap.Layers
         {
             var layers = GetSnapshot();
 
-            return layers.FirstOrDefault(t => String.Equals(t.LayerName, name, StringComparison.InvariantCultureIgnoreCase));
+            return layers.FirstOrDefault(t => String.Equals(t.LayerName, name, StringComparison.OrdinalIgnoreCase));
         }
 
         /// <summary>

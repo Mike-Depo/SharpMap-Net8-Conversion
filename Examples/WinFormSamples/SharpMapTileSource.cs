@@ -117,17 +117,17 @@ namespace WinFormSamples
         private static ImageFormat GetFormat(ITileSchema schema)
         {
             string format = schema.Format;
-            if (String.Equals("JPEG", format, StringComparison.InvariantCultureIgnoreCase))
+            if (String.Equals("JPEG", format, StringComparison.OrdinalIgnoreCase))
                 return ImageFormat.Jpeg;
-            if (String.Equals("JPG", format, StringComparison.InvariantCultureIgnoreCase))
+            if (String.Equals("JPG", format, StringComparison.OrdinalIgnoreCase))
                 return ImageFormat.Jpeg;
-            if (String.Equals("GIF", format, StringComparison.InvariantCultureIgnoreCase))
+            if (String.Equals("GIF", format, StringComparison.OrdinalIgnoreCase))
                 return ImageFormat.Gif;
-            if (String.Equals("BMP", format, StringComparison.InvariantCultureIgnoreCase))
+            if (String.Equals("BMP", format, StringComparison.OrdinalIgnoreCase))
                 return ImageFormat.Bmp;
-            if (String.Equals("TIFF", format, StringComparison.InvariantCultureIgnoreCase))
+            if (String.Equals("TIFF", format, StringComparison.OrdinalIgnoreCase))
                 return ImageFormat.Tiff;
-            if (String.Equals("TIF", format, StringComparison.InvariantCultureIgnoreCase))
+            if (String.Equals("TIF", format, StringComparison.OrdinalIgnoreCase))
                 return ImageFormat.Tiff;
             return ImageFormat.Png;
         }

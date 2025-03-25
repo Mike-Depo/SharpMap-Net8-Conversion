@@ -335,7 +335,7 @@ namespace SharpMap.Data.Providers
             get { return _schema; }
             set
             {
-                if (!string.Equals(value, _schema, StringComparison.InvariantCultureIgnoreCase))
+                if (!string.Equals(value, _schema, StringComparison.OrdinalIgnoreCase))
                 {
                     _schema = value;
                     OnSchemaChanged(EventArgs.Empty);
@@ -351,7 +351,7 @@ namespace SharpMap.Data.Providers
             get { return _table; }
             set
             {
-                if (!string.Equals(value, _table, StringComparison.InvariantCultureIgnoreCase))
+                if (!string.Equals(value, _table, StringComparison.OrdinalIgnoreCase))
                 {
                     _table = value;
                     OnTableChanged(EventArgs.Empty);
@@ -367,7 +367,7 @@ namespace SharpMap.Data.Providers
             get { return _oidColumn.Column; }
             set
             {
-                if (!string.Equals(value, ObjectIdColumn, StringComparison.InvariantCultureIgnoreCase))
+                if (!string.Equals(value, ObjectIdColumn, StringComparison.OrdinalIgnoreCase))
                 {
                     _oidColumn.Column = value;
                     OnOidColumnChanged(EventArgs.Empty);
@@ -383,7 +383,7 @@ namespace SharpMap.Data.Providers
             get { return _geometryColumn.Column; }
             set
             {
-                if (!string.Equals(value, GeometryColumn, StringComparison.InvariantCultureIgnoreCase))
+                if (!string.Equals(value, GeometryColumn, StringComparison.OrdinalIgnoreCase))
                 {
                     _geometryColumn.Column = value;
                     OnGeometryColumnChanged(EventArgs.Empty);
@@ -408,7 +408,7 @@ namespace SharpMap.Data.Providers
             get { return _definitionQuery; }
             set
             {
-                if (!string.Equals(value, _definitionQuery, StringComparison.InvariantCultureIgnoreCase))
+                if (!string.Equals(value, _definitionQuery, StringComparison.OrdinalIgnoreCase))
                 {
                     _definitionQuery = value;
                     OnDefinitionQueryChanged(EventArgs.Empty);

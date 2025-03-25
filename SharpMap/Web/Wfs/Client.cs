@@ -293,9 +293,9 @@ namespace SharpMap.Web.Wfs
                 strReq.Append("?");
             if (!strReq.ToString().EndsWith("&") && !strReq.ToString().EndsWith("?"))
                 strReq.Append("&");
-            if (!url.ToLower().Contains("service=wfs"))
+            if (!url.ToLowerInvariant().Contains("service=wfs"))
                 strReq.AppendFormat("SERVICE=WFS&");
-            if (!url.ToLower().Contains("request=getcapabilities"))
+            if (!url.ToLowerInvariant().Contains("request=getcapabilities"))
                 strReq.AppendFormat("REQUEST=GetCapabilities&");
 
             if (_version != "")

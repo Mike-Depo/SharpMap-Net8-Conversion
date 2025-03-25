@@ -345,7 +345,7 @@ namespace SharpMap.Web.Wms
                     return;
                 }
 
-                if (String.Compare(context.Request.Params["SERVICE"], "WMS", StringComparison.InvariantCulture/*IgnoreCase*/) != 0)
+                if (String.Compare(context.Request.Params["SERVICE"], "WMS", StringComparison.Ordinal/*IgnoreCase*/) != 0)
                     WmsException.ThrowWmsException(
                         "Invalid service for GetCapabilities Request. Service parameter must be 'WMS'", context);
 
@@ -694,7 +694,7 @@ namespace SharpMap.Web.Wms
                                     for (int i = 0; i < layerz.Length; i++)
                                     {
                                         if (String.Equals(layer.LayerName, layerz[i],
-                                                          StringComparison.InvariantCultureIgnoreCase))
+                                                          StringComparison.OrdinalIgnoreCase))
                                         {
                                             //take default style if style is empty
                                             if (styles[i] == "")
@@ -774,7 +774,7 @@ namespace SharpMap.Web.Wms
                         ILayer lay = null;
                         for (int i = 0; i < map.Layers.Count; i++)
                             if (String.Equals(map.Layers[i].LayerName, layer,
-                                              StringComparison.InvariantCultureIgnoreCase))
+                                              StringComparison.OrdinalIgnoreCase))
                                 lay = map.Layers[i];
 
 
@@ -816,7 +816,7 @@ namespace SharpMap.Web.Wms
 
         private static bool ConsideredEqual(string requestedCrs, string mapCrs)
         {
-            if (string.Equals(requestedCrs, mapCrs, StringComparison.InvariantCultureIgnoreCase))
+            if (string.Equals(requestedCrs, mapCrs, StringComparison.OrdinalIgnoreCase))
                 return true;
 
             if (requestedCrs == "EPSG:900913" && mapCrs == "EPSG:3857")
@@ -920,7 +920,7 @@ namespace SharpMap.Web.Wms
                 foreach (var mapLayer in map.Layers)
                 {
                     if (String.Equals(mapLayer.LayerName, requestLayer,
-                                      StringComparison.InvariantCultureIgnoreCase))
+                                      StringComparison.OrdinalIgnoreCase))
                     {
                         found = true;
                         var queryLayer = mapLayer as ICanQueryLayer;
@@ -1031,7 +1031,7 @@ namespace SharpMap.Web.Wms
                 foreach (var mapLayer in map.Layers)
                 {
                     if (String.Equals(mapLayer.LayerName, requestLayer,
-                                      StringComparison.InvariantCultureIgnoreCase))
+                                      StringComparison.OrdinalIgnoreCase))
                     {
                         found = true;
                         var queryLayer = mapLayer as ICanQueryLayer;

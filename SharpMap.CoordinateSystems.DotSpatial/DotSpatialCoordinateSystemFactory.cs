@@ -87,14 +87,14 @@ namespace SharpMap.CoordinateSystems
         public new ICoordinateSystem CreateFromWkt(string wkt)
         {
             //Hack: DotSpatial.Projections does not handle Authority and AuthorityCode
-            var pos1 = wkt.LastIndexOf("AUTHORITY[", StringComparison.InvariantCulture);
+            var pos1 = wkt.LastIndexOf("AUTHORITY[", StringComparison.Ordinal);
             string auth = "EPSG";
             int code = 0;
             // If there is an Authority entry in the WKT, try to parse the values
             if (pos1 >= 0)
             {
                 pos1 += 10;
-                var pos2 = wkt.IndexOf("]", pos1, StringComparison.InvariantCulture) - 1;
+                var pos2 = wkt.IndexOf("]", pos1, StringComparison.Ordinal) - 1;
                 var parts = wkt.Substring(pos1, pos2 - pos1 + 1).Split(',');
 
                 auth = parts[0].Replace("\"", "").Trim();

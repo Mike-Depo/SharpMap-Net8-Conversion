@@ -288,9 +288,9 @@ namespace SharpMap.Web.Wcs
                 strReq.Append("?");
             if (!strReq.ToString().EndsWith("&") && !strReq.ToString().EndsWith("?"))
                 strReq.Append("&");
-            if (!url.ToLower().Contains("service=wcs"))
+            if (!url.ToLowerInvariant().Contains("service=wcs"))
                 strReq.AppendFormat("SERVICE=WCS&");
-            if (!url.ToLower().Contains("request=getcapabilities"))
+            if (!url.ToLowerInvariant().Contains("request=getcapabilities"))
                 strReq.AppendFormat("REQUEST=GetCapabilities&");
 
             if (_version != "")

@@ -35,7 +35,7 @@ namespace UnitTests.WMS
             System.Diagnostics.Trace.WriteLine($"escapeDataString: {escapeDataString}");
             System.Diagnostics.Trace.WriteLine("");
 
-            Assert.IsTrue(string.Compare(urlEncode, escapeDataString, StringComparison.InvariantCultureIgnoreCase) == 0);
+            Assert.IsTrue(string.Compare(urlEncode, escapeDataString, StringComparison.OrdinalIgnoreCase) == 0);
         }
 
         

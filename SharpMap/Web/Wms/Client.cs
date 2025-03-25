@@ -1019,9 +1019,9 @@ namespace SharpMap.Web.Wms
                 strReq.Append("?");
             if (!strReq.ToString().EndsWith("&") && !strReq.ToString().EndsWith("?"))
                 strReq.Append("&");
-            if (!url.ToLower().Contains("service=wms"))
+            if (!url.ToLowerInvariant().Contains("service=wms"))
                 strReq.AppendFormat("SERVICE=WMS&");
-            if (!url.ToLower().Contains("request=getcapabilities"))
+            if (!url.ToLowerInvariant().Contains("request=getcapabilities"))
                 strReq.AppendFormat("REQUEST=GetCapabilities&");
 
 			//If version is NOT set at this point then add to query string

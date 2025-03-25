@@ -350,7 +350,7 @@ namespace SharpMap.Converters.SqlServer2008SpatialObjects
         /*
         private static OpenGisGeometryType ParseGeometryType(string stGeometryType)
         {
-            switch (stGeometryType.ToUpper())
+            switch (stGeometryType.ToUpperInvariant())
             {
                 case "POINT":
                     return OpenGisGeometryType.Point;

@@ -17,7 +17,7 @@ namespace UnitTests.Serialization
         internal static IProvider CreateProvider(string name=null)
         {
             name = name ?? "geometryprovider";
-            switch (name.ToLower())
+            switch (name.ToLowerInvariant())
             {
                 default:
                 //case "geometryprovider":

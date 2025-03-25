@@ -199,7 +199,7 @@ namespace SharpMap.Utilities.Indexing
         /// <returns>Enumerator</returns>
         public IEnumerable<ItemValue> StartsWith(string str)
         {
-            return ScanString(str.ToUpper(), _root.RightNode);
+            return ScanString(str.ToUpperInvariant(), _root.RightNode);
         }
 
         /// <summary>
@@ -244,11 +244,11 @@ namespace SharpMap.Utilities.Indexing
 
         private IEnumerable<ItemValue> ScanString(string val, Node<T, U> root)
         {
-            if (root.Item.Value.ToString().Substring(0, val.Length).ToUpper().CompareTo(val) > 0)
+            if (root.Item.Value.ToString().Substring(0, val.Length).ToUpperInvariant().CompareTo(val) > 0)
             {
                 if (root.LeftNode != null)
                 {
-                    if (root.LeftNode.Item.Value.ToString().ToUpper().StartsWith(val))
+                    if (root.LeftNode.Item.Value.ToString().ToUpperInvariant().StartsWith(val))
                         foreach (ItemValue item in ScanString(val, root.LeftNode))
                         {
                             yield return item;
@@ -256,14 +256,14 @@ namespace SharpMap.Utilities.Indexing
                 }
             }
 
-            if (root.Item.Value.ToString().ToUpper().StartsWith(val))
+            if (root.Item.Value.ToString().ToUpperInvariant().StartsWith(val))
                 yield return root.Item;
 
             if (root.Item.Value.ToString().CompareTo(val) < 0)
             {
                 if (root.RightNode != null)
                 {
-                    if (root.RightNode.Item.Value.ToString().Substring(0, val.Length).ToUpper().CompareTo(val) > 0)
+                    if (root.RightNode.Item.Value.ToString().Substring(0, val.Length).ToUpperInvariant().CompareTo(val) > 0)
                         foreach (ItemValue item in ScanString(val, root.RightNode))
                         {
                             yield return item;
