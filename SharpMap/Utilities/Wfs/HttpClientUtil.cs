@@ -101,12 +101,12 @@ namespace SharpMap.Utilities.Wfs
             {
                 Trace.TraceError("An exception occured due to security reasons while initializing a request to " + _url +
                                  ": " + ex.Message);
-                throw ex;
+                throw;
             }
             catch (NotSupportedException ex)
             {
                 Trace.TraceError("An exception occured while initializing a request to " + _url + ": " + ex.Message);
-                throw ex;
+                throw;
             }
 
             _webRequest.Timeout = 90000;
@@ -144,7 +144,7 @@ namespace SharpMap.Utilities.Wfs
             catch (Exception ex)
             {
                 Trace.TraceError("An exception occured during a HTTP request to " + _url + ": " + ex.Message);
-                throw ex;
+                throw;
             }
         }
 

@@ -340,32 +340,6 @@ namespace SharpMap.Data
         }
 
         /// <summary>
-        /// Creates an instance of this class from serialization
-        /// </summary>
-        /// <param name="info">The serialization info</param>
-        /// <param name="context">The streaming context</param>
-        public FeatureDataTable(SerializationInfo info, StreamingContext context)
-            : base(info, context)
-        {
-            using (var ms = new MemoryStream((byte[]) info.GetValue("geometries", typeof(byte[]))))
-            {
-                using (var reader = new BinaryReader(ms))
-                {
-                    var wkbReader = new WKBReader();
-                    while (reader.BaseStream.Position < reader.BaseStream.Length)
-                    {
-                        var rowIndex = reader.ReadInt32();
-                        var row = (FeatureDataRow) Rows[rowIndex];
-                        var srid = reader.ReadInt32();
-                        var wkbSize = reader.ReadInt32();
-                        var wkb = reader.ReadBytes(wkbSize);
-                        row.Geometry = wkbReader.Read(wkb);
-                        row.Geometry.SRID = srid;
-                    }
-                }
-            }
-        }
-        /// <summary>
         /// Initializes a new instance of the FeatureDataTable class with the specified table name.
         /// </summary>
         /// <param name="table"></param>
@@ -582,45 +556,7 @@ namespace SharpMap.Data
         {
             Rows.Remove(row);
         }
-
-        /// <summary>
-        /// Populates a serialization information object with the data needed to serialize the <see cref="T:System.Data.DataTable"/>.
-        /// </summary>
-        /// <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo"/> object that holds the serialized data associated with the <see cref="T:System.Data.DataTable"/>.</param><param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext"/> object that contains the source and destination of the serialized stream associated with the <see cref="T:System.Data.DataTable"/>.</param><exception cref="T:System.ArgumentNullException">The <paramref name="info"/> parameter is a null reference (Nothing in Visual Basic).</exception>
-        public override void GetObjectData(SerializationInfo info, StreamingContext context)
-        {
-            base.GetObjectData(info, context);
-
-            var rowIndex = 0;
-            using (var ms = new MemoryStream())
-            {
-                using (var writer = new BinaryWriter(ms))
-                {
-                    foreach (FeatureDataRow row in Rows)
-                    {
-                        if (row.IsFeatureGeometryNull()) continue;
-                        writer.Write(rowIndex++);
-                        writer.Write(row.Geometry.SRID);
-                        var wkb = row.Geometry.AsBinary();
-                        writer.Write(wkb.Length);
-                        writer.Write(wkb);
-                    }
-                    ms.Seek(0, SeekOrigin.Begin);
-                    info.AddValue("geometries", ms.ToArray(), typeof(byte[]));
-                }
-            }
-        }
     }
-
-    /*
-    /// <summary>
-    /// Represents the collection of tables for the FeatureDataSet.
-    /// </summary>
-    [Serializable()]
-    public class FeatureTableCollection : List<FeatureDataTable>
-    {
-    }
-     */
 
     /// <summary>
     /// Represents the collection of tables for the FeatureDataSet.

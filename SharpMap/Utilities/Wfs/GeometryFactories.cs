@@ -73,8 +73,8 @@ namespace SharpMap.Utilities.Wfs
             }
             catch (Exception ex)
             {
-                Trace.TraceError("An exception occured while initializing the label path node!");
-                throw ex;
+                Trace.TraceError("An exception occured while initializing the label path node: " + ex.Message);
+                throw;
             }
 
             initializePathNodes();
@@ -166,7 +166,7 @@ namespace SharpMap.Utilities.Wfs
                     {
                         Trace.TraceError("An exception occured while parsing a " + geometryType + " geometry: " +
                                          ex.Message);
-                        throw ex;
+                        throw;
                     }
                     continue;
                 }
@@ -331,8 +331,8 @@ namespace SharpMap.Utilities.Wfs
             }
             catch (Exception ex)
             {
-                Trace.TraceError("An exception occured while adding a label to the collection!");
-                throw ex;
+                Trace.TraceError("An exception occured while adding a label to the collection: " + ex.Message);
+                throw;
             }
         }
 
@@ -476,7 +476,7 @@ namespace SharpMap.Utilities.Wfs
             catch (Exception ex)
             {
                 Trace.TraceError("An exception occured while parsing a point geometry string: " + ex.Message);
-                throw ex;
+                throw;
             }
 
             return _Geoms;
@@ -549,7 +549,7 @@ namespace SharpMap.Utilities.Wfs
             catch (Exception ex)
             {
                 Trace.TraceError("An exception occured while parsing a line geometry string: " + ex.Message);
-                throw ex;
+                throw;
             }
 
             return _Geoms;
@@ -646,7 +646,7 @@ namespace SharpMap.Utilities.Wfs
             catch (Exception ex)
             {
                 Trace.TraceError("An exception occured while parsing a polygon geometry: " + ex.Message);
-                throw ex;
+                throw;
             }
 
             return _Geoms;
@@ -726,7 +726,7 @@ namespace SharpMap.Utilities.Wfs
             catch (Exception ex)
             {
                 Trace.TraceError("An exception occured while parsing a multi-point geometry: " + ex.Message);
-                throw ex;
+                throw;
             }
 
             return _Geoms;
@@ -812,7 +812,7 @@ namespace SharpMap.Utilities.Wfs
             catch (Exception ex)
             {
                 Trace.TraceError("An exception occured while parsing a multi-lineString geometry: " + ex.Message);
-                throw ex;
+                throw;
             }
 
             return _Geoms;
@@ -911,7 +911,7 @@ namespace SharpMap.Utilities.Wfs
             catch (Exception ex)
             {
                 Trace.TraceError("An exception occured while parsing a multi-polygon geometry: " + ex.Message);
-                throw ex;
+                throw;
             }
 
             return _Geoms;

@@ -340,8 +340,8 @@ namespace SharpMap.Utilities.Wfs
             }
             catch (Exception ex)
             {
-                Trace.TraceError("An exception occured while reading the xml file: " + fileName);
-                throw ex;
+                Trace.TraceError("An exception occured while reading the xml file: " + fileName + ": " + ex.Message);
+                throw;
             }
         }
 
@@ -375,14 +375,14 @@ namespace SharpMap.Utilities.Wfs
                 Trace.TraceError("An XML specific exception occured " +
                                  "while initializing XPathDocument and XPathNavigator in XPathQueryManager: " +
                                  ex.Message);
-                throw ex;
+                throw;
             }
             catch (Exception ex)
             {
                 Trace.TraceError("An exception occured " +
                                  "while initializing XPathDocument and XPathNavigator in XPathQueryManager: " +
                                  ex.Message);
-                throw ex;
+                throw;
             }
             finally
             {

@@ -30,35 +30,29 @@ namespace SharpMap.Rendering.Symbolizer
     [Serializable]
     public class ListPointSymbolizer : Collection<PointSymbolizer>, IPointSymbolizer, IDisposableEx
     {
-        private Size _size;
-
         #region Collection<T> overrides
         /// <inheritdoc/>
         protected override void ClearItems()
         {
             base.ClearItems();
-            _size = new Size();
         }
 
         /// <inheritdoc/>
         protected override void RemoveItem(int index)
         {
             base.RemoveItem(index);
-            _size = new Size();
         }
 
         /// <inheritdoc/>
         protected override void InsertItem(int index, PointSymbolizer item)
         {
             base.InsertItem(index, item);
-            _size = new Size();
         }
 
         /// <inheritdoc/>
         protected override void SetItem(int index, PointSymbolizer item)
         {
             base.SetItem(index, item);
-            _size = new Size();
         }
         #endregion
 

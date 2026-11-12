@@ -59,34 +59,11 @@ namespace SharpMap.Layers
         }
 
         /// <summary>
-        /// Creates a new instance of DuplicateLayerException from serialized data,
-        /// <paramref name="info"/>.
-        /// </summary>
-        /// <param name="info">The serialization data.</param>
-        /// <param name="context">Serialization context.</param>
-        protected DuplicateLayerException(SerializationInfo info, StreamingContext context)
-            : base(info, context)
-        {
-            _duplicateLayerName = info.GetString("_duplicateLayerName");
-        }
-
-        /// <summary>
         /// Gets the existing layer name which was duplicated.
         /// </summary>
         public string DuplicateLayerName
         {
             get { return _duplicateLayerName; }
-        }
-
-        /// <summary>
-        /// Serialization function
-        /// </summary>
-        /// <param name="info">The serialization info</param>
-        /// <param name="context">The streaming context</param>
-        public override void GetObjectData(SerializationInfo info, StreamingContext context)
-        {
-            base.GetObjectData(info, context);
-            info.AddValue("_duplicateLayerName", _duplicateLayerName);
         }
     }
 }
